@@ -16,7 +16,9 @@
 # Sans les secrets SFTP, le workflow s'arrête proprement sans rien envoyer.
 # Sans les secrets de base, le site est publié mais les données ne sont pas régénérées.
 # Rien n'est jamais supprimé sur le serveur, et data/site.json n'est envoyé que s'il n'existe pas
-# encore : la version en ligne, produite par le serveur, n'est jamais écrasée.
+# encore : la version en ligne, produite par le serveur, n'est pas écrasée. Exception : lancé à la
+# main avec « forcer_donnees », le workflow remplace data/site.json par la version du dépôt (utile
+# tant que la publication depuis MySQL n'est pas opérationnelle) et ne régénère pas les données.
 
 name: Publier Repères 2027 sur OVHcloud
 
@@ -28,6 +30,11 @@ on:
       - "app/**"
       - ".github/workflows/deploy-ovh.yml"
   workflow_dispatch:
+    inputs:
+      forcer_donnees:
+        description: "Remplacer data/site.json en ligne par la version du dépôt, sans passer par MySQL"
+        type: boolean
+        default: false
 
 concurrency:
   group: deploy-ovh-presidentielle
@@ -52,6 +59,7 @@ jobs:
       TARGET_DIR: ${{ vars.OVH_TARGET_DIR || 'www/presidentielle' }}
       APP_DIR: ${{ vars.OVH_APP_DIR || 'presidentielle-app' }}
       SITE_URL: ${{ vars.SITE_URL || 'https://nogues.app/presidentielle' }}
+      FORCER_DONNEES: ${{ inputs.forcer_donnees && 'true' || 'false' }}
     steps:
       - name: Vérifier la configuration
         id: check
@@ -133,7 +141,7 @@ jobs:
             set net:timeout 20; set net:max-retries 3; set net:reconnect-interval-base 5;
             mkdir -p -f '$TARGET_DIR/data'; mkdir -p -f '$APP_DIR';
             mirror --reverse --parallel=4 build/public/ '$TARGET_DIR';
-            mirror --reverse --only-missing build/seed-data/ '$TARGET_DIR/data';
+            mirror --reverse $([ "$FORCER_DONNEES" = "true" ] || echo --only-missing) build/seed-data/ '$TARGET_DIR/data';
             mirror --reverse --parallel=4 build/app/ '$APP_DIR';
             $proteger
             bye"
@@ -141,10 +149,11 @@ jobs:
             echo "### Publication terminée"
             echo "- Site : $(find build/public -type f | wc -l) fichiers dans \`$TARGET_DIR\`"
             echo "- Application privée : $(find build/app -type f | wc -l) fichiers dans \`$APP_DIR\`"
+            if [ "$FORCER_DONNEES" = "true" ]; then echo "- Données : data/site.json remplacé par la version du dépôt"; fi
           } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Régénérer les données
-        if: steps.check.outputs.ready == 'true' && steps.check.outputs.db == 'true'
+        if: steps.check.outputs.ready == 'true' && steps.check.outputs.db == 'true' && env.FORCER_DONNEES != 'true'
         run: |
           if [ "${#PUBLIER_JETON}" -lt 32 ]; then exit 0; fi
           code=$(curl -sS -o rapport.json -w '%{http_code}' -X POST \
