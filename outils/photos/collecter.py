@@ -6,13 +6,14 @@ Pour chaque candidat de outils/photos/candidats.json :
   1. lit l'article de Wikipédia en français : image de l'infobox, élément Wikidata, introduction ;
   2. lit Wikidata : nature (être humain), date et lieu de naissance, image de repli ;
   3. lit la description du fichier sur Wikimedia Commons : auteur, licence, page source ;
-  4. télécharge une vignette, la recadre au format 4:5 et l'enregistre en WebP 240 × 300
+  4. télécharge une vignette, la recadre au format 4:5 (options « haut », « zoom »,
+     « centre_x », « haut_zoom » du manifeste) et l'enregistre en WebP 240 × 300
      dans public/photos/<identifiant>.webp ;
   5. écrit public/photos/credits.json, lu par le site pour afficher les crédits.
 
 Les fiches de travail (naissance, introduction de l'article, date de révision) sont écrites
-dans le journal d'exécution et dans $RUNNER_TEMP/fiches.json : elles servent à rédiger et
-vérifier les biographies, qui sont ensuite saisies dans la base.
+dans $RUNNER_TEMP/fiches.json puis publiées sur la branche « fiches-wikipedia » : elles servent
+à rédiger et vérifier les biographies, qui sont ensuite saisies dans la base.
 """
 
 import html
@@ -121,6 +122,10 @@ def commons(fichier):
         "action": "query", "format": "json", "formatversion": 2, "titles": "File:" + fichier,
         "prop": "imageinfo", "iiprop": "url|extmetadata|size|mime", "iiurlwidth": 480,
     })
+    hd = appel(COMMONS, {
+        "action": "query", "format": "json", "formatversion": 2, "titles": "File:" + fichier,
+        "prop": "imageinfo", "iiprop": "url", "iiurlwidth": 1200,
+    })
     page = d["query"]["pages"][0]
     if page.get("missing") or not page.get("imageinfo"):
         return None
@@ -129,6 +134,7 @@ def commons(fichier):
     g = lambda k: (m.get(k) or {}).get("value")
     return {
         "vignette": ii.get("thumburl") or ii.get("url"),
+        "vignette_hd": ((hd["query"]["pages"][0].get("imageinfo") or [{}])[0]).get("thumburl"),
         "source": ii.get("descriptionurl"),
         "auteur": texte(g("Artist")) or texte(g("Credit")) or "Auteur non indiqué",
         "licence": texte(g("LicenseShortName")) or "Licence non indiquée",
@@ -138,7 +144,9 @@ def commons(fichier):
     }
 
 
-def recadrer(donnees, haut):
+def recadrer(donnees, haut, zoom=1.0, centre_x=0.5, haut_zoom=0.0):
+    """Recadre au format 4:5. « zoom » > 1 resserre ensuite le cadre sur une zone
+    centrée horizontalement en « centre_x », placée verticalement selon « haut_zoom »."""
     im = Image.open(io.BytesIO(donnees))
     im = im.convert("RGB")
     w, h = im.size
@@ -151,6 +159,12 @@ def recadrer(donnees, haut):
         nh = round(w / cible)
         y0 = round((h - nh) * haut)
         im = im.crop((0, y0, w, y0 + nh))
+    if zoom > 1:
+        w, h = im.size
+        zw, zh = round(w / zoom), round(h / zoom)
+        x0 = min(max(round(centre_x * w - zw / 2), 0), w - zw)
+        y0 = round((h - zh) * haut_zoom)
+        im = im.crop((x0, y0, x0 + zw, y0 + zh))
     im = im.resize((LARGEUR, HAUTEUR), Image.LANCZOS)
     sortie = io.BytesIO()
     im.save(sortie, "WEBP", quality=80, method=6)
@@ -197,7 +211,12 @@ def main():
                 ligne["remarque"] = "image absente de Wikimedia Commons"
                 bilan.append(ligne)
                 continue
-            webp = recadrer(appel(c["vignette"], binaire=True), float(conf.get("haut", 0.15)))
+            zoom = float(conf.get("zoom", 1))
+            vignette = c["vignette"]
+            if zoom > 1 and c.get("vignette_hd"):
+                vignette = c["vignette_hd"]
+            webp = recadrer(appel(vignette, binaire=True), float(conf.get("haut", 0.15)), zoom,
+                            float(conf.get("centre_x", 0.5)), float(conf.get("haut_zoom", 0)))
             open(os.path.join(DOSSIER, slug + ".webp"), "wb").write(webp)
             photos[slug] = {"fichier": "photos/" + slug + ".webp", "auteur": c["auteur"],
                             "licence": c["licence"], "licence_url": c["licence_url"],
@@ -226,7 +245,8 @@ def main():
     json.dump(sortie, open(CREDITS, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
 
     temp = os.environ.get("RUNNER_TEMP", "/tmp")
-    json.dump(fiches, open(os.path.join(temp, "fiches.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    json.dump({"bilan": bilan, "fiches": fiches}, open(os.path.join(temp, "fiches.json"), "w", encoding="utf-8"),
+              ensure_ascii=False, indent=1)
     for slug, f in fiches.items():
         print("FICHE\t" + json.dumps(dict(id=slug, **f), ensure_ascii=False))
 

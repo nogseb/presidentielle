@@ -56,6 +56,18 @@ jobs:
           git push origin HEAD:main
           echo "changed=true" >> "$GITHUB_OUTPUT"
 
+      - name: Publier les fiches de travail sur la branche fiches-wikipedia
+        run: |
+          cp "$RUNNER_TEMP/fiches.json" "$RUNNER_TEMP/fiches-copie.json"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch --orphan fiches-wikipedia
+          cp "$RUNNER_TEMP/fiches-copie.json" fiches.json
+          printf '%s\n' "Fiches de travail pour les biographies, tirées de Wikipédia (CC BY-SA 4.0) et Wikidata (CC0)." "Source de chaque fiche : champ url. Non publiées sur le site." > LISEZMOI.txt
+          git add fiches.json LISEZMOI.txt
+          git commit --quiet -m "Fiches de travail Wikipédia du $(date -u +%F)"
+          git push --force --quiet origin fiches-wikipedia
+
       - name: Redéployer le site
         if: steps.save.outputs.changed == 'true'
         env:

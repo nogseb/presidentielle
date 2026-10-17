@@ -2,7 +2,7 @@
   "_lisez-moi": [
     "Article de Wikipédia en français de chaque candidat, clé = identifiant du candidat dans la base.",
     "Règle : la photo retenue est celle de l'infobox de l'article (à défaut, l'image Wikidata), uniquement si elle est hébergée sur Wikimedia Commons.",
-    "Options par candidat : « photo » impose un autre fichier de Commons (ex. « Fichier.jpg ») ; « haut » règle le recadrage vertical, de 0 (haut de l'image) à 1 (bas), 0,15 par défaut ; « sans_photo » à true désactive la photo.",
+    "Options par candidat : « photo » impose un autre fichier de Commons (ex. « Fichier.jpg ») ; « haut » règle le recadrage vertical, de 0 (haut de l'image) à 1 (bas), 0,15 par défaut ; « zoom » (ex. 2) resserre le cadre, centré en « centre_x » (0,5 par défaut) et placé selon « haut_zoom » (0 = en haut) ; « sans_photo » à true désactive la photo.",
     "Toute modification de ce fichier relance le workflow « Photos des candidats »."
   ],
   "candidats": {
@@ -19,7 +19,10 @@
       "article": "Delphine Batho"
     },
     "becht": {
-      "article": "Olivier Becht"
+      "article": "Olivier Becht",
+      "zoom": 2.2,
+      "centre_x": 0.5,
+      "haut_zoom": 0.0
     },
     "bertrand": {
       "article": "Xavier Bertrand"
@@ -43,7 +46,10 @@
       "article": "Raphaël Glucksmann"
     },
     "kazib": {
-      "article": "Anasse Kazib"
+      "article": "Anasse Kazib",
+      "zoom": 2.4,
+      "centre_x": 0.49,
+      "haut_zoom": 0.03
     },
     "labib": {
       "article": "Selma Labib"
