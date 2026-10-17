@@ -1,0 +1,502 @@
+{
+ "bilan": [
+  {
+   "id": "arthaud",
+   "photo": "oui",
+   "licence": "CC BY-SA 4.0",
+   "auteur": "Kokluts",
+   "remarque": ""
+  },
+  {
+   "id": "asselineau",
+   "photo": "oui",
+   "licence": "CC BY-SA 4.0",
+   "auteur": "Union Populaire Républicaine",
+   "remarque": ""
+  },
+  {
+   "id": "attal",
+   "photo": "oui",
+   "licence": "CC BY 4.0",
+   "auteur": "Ismail Aissoub",
+   "remarque": ""
+  },
+  {
+   "id": "batho",
+   "photo": "oui",
+   "licence": "CC BY-SA 4.0",
+   "auteur": "DeuxSevres79",
+   "remarque": ""
+  },
+  {
+   "id": "becht",
+   "photo": "oui",
+   "licence": "CC BY 4.0",
+   "auteur": "Dominique Giannelli",
+   "remarque": ""
+  },
+  {
+   "id": "bertrand",
+   "photo": "oui",
+   "licence": "CC BY 4.0",
+   "auteur": "Claudio Centonze / European Union, 2025 / EC - Audiovisual S",
+   "remarque": ""
+  },
+  {
+   "id": "bouamrane",
+   "photo": "oui",
+   "licence": "CC BY 4.0",
+   "auteur": "Oumma",
+   "remarque": ""
+  },
+  {
+   "id": "branco",
+   "photo": "oui",
+   "licence": "CC BY 2.0",
+   "auteur": "Web Summit",
+   "remarque": ""
+  },
+  {
+   "id": "cazeneuve",
+   "photo": "oui",
+   "licence": "CC BY-SA 2.0",
+   "auteur": "Jérémy Barande",
+   "remarque": ""
+  },
+  {
+   "id": "dupont-aignan",
+   "photo": "oui",
+   "licence": "CC BY-SA 4.0",
+   "auteur": "Debout la France",
+   "remarque": ""
+  },
+  {
+   "id": "egger",
+   "photo": "oui",
+   "licence": "CC BY-SA 4.0",
+   "auteur": "Thomas Binet",
+   "remarque": ""
+  },
+  {
+   "id": "glucksmann",
+   "photo": "oui",
+   "licence": "European Parliament",
+   "auteur": "European Union 2024 - Source : EP",
+   "remarque": ""
+  },
+  {
+   "id": "kazib",
+   "photo": "oui",
+   "licence": "CC BY-SA 4.0",
+   "auteur": "PabloMorao27",
+   "remarque": ""
+  },
+  {
+   "id": "labib",
+   "photo": "non",
+   "licence": "",
+   "auteur": "",
+   "remarque": "article introuvable"
+  },
+  {
+   "id": "lalanne",
+   "photo": "oui",
+   "licence": "CC BY 4.0",
+   "auteur": "Thomas Bresson",
+   "remarque": ""
+  },
+  {
+   "id": "le-pen",
+   "photo": "oui",
+   "licence": "CC0",
+   "auteur": "Vox España",
+   "remarque": ""
+  },
+  {
+   "id": "lisnard",
+   "photo": "oui",
+   "licence": "CC BY-SA 4.0",
+   "auteur": "Grégor Sauvagère",
+   "remarque": ""
+  },
+  {
+   "id": "markovic",
+   "photo": "non",
+   "licence": "",
+   "auteur": "",
+   "remarque": "article introuvable"
+  },
+  {
+   "id": "massard",
+   "photo": "oui",
+   "licence": "Attribution",
+   "auteur": "© European Union, 1998 – 2026",
+   "remarque": ""
+  },
+  {
+   "id": "mathieu",
+   "photo": "non",
+   "licence": "",
+   "auteur": "",
+   "remarque": "article introuvable"
+  },
+  {
+   "id": "melenchon",
+   "photo": "oui",
+   "licence": "CC BY 4.0",
+   "auteur": "jlm2017.fr",
+   "remarque": ""
+  },
+  {
+   "id": "mikolajczak",
+   "photo": "non",
+   "licence": "",
+   "auteur": "",
+   "remarque": "article introuvable"
+  },
+  {
+   "id": "philippe",
+   "photo": "oui",
+   "licence": "CC0",
+   "auteur": "Wasasaq8",
+   "remarque": ""
+  },
+  {
+   "id": "philippot",
+   "photo": "oui",
+   "licence": "CC BY 4.0",
+   "auteur": "Thomas Bresson",
+   "remarque": ""
+  },
+  {
+   "id": "polony",
+   "photo": "oui",
+   "licence": "CC BY-SA 3.0",
+   "auteur": "Georges Biard",
+   "remarque": ""
+  },
+  {
+   "id": "retailleau",
+   "photo": "oui",
+   "licence": "CC BY 4.0",
+   "auteur": "Anthonymontardyfr",
+   "remarque": ""
+  },
+  {
+   "id": "roussel",
+   "photo": "oui",
+   "licence": "CC BY-SA 4.0",
+   "auteur": "Zouhair NAKARA",
+   "remarque": ""
+  },
+  {
+   "id": "ruffin",
+   "photo": "oui",
+   "licence": "CC BY-SA 4.0",
+   "auteur": "Thinkerview",
+   "remarque": ""
+  },
+  {
+   "id": "tondelier",
+   "photo": "oui",
+   "licence": "CC BY 4.0",
+   "auteur": "Selbymay",
+   "remarque": ""
+  },
+  {
+   "id": "zemmour",
+   "photo": "oui",
+   "licence": "CC0",
+   "auteur": "Anh De France",
+   "remarque": ""
+  }
+ ],
+ "fiches": {
+  "arthaud": {
+   "article": "Nathalie Arthaud",
+   "url": "https://fr.wikipedia.org/wiki/Nathalie_Arthaud",
+   "qid": "Q439490",
+   "description": "femme politique française",
+   "naissance": "1970-02-23",
+   "naissance_precision": 11,
+   "lieu_naissance": "Peyrins",
+   "revision": "2026-10-10T10:59:23Z",
+   "intro": "Nathalie Arthaud , née le 23 février 1970 à Peyrins (Drôme), est une femme politique française, membre de l'organisation trotskiste Lutte ouvrière (LO).\nEnseignante, elle est élue conseillère municipale de Vaulx-en-Velin, dans le Rhône, en 2008. Elle s'implante ensuite en Seine-Saint-Denis.\nPorte-parole de LO depuis 2008, elle est trois fois candidate à l'élection présidentielle française pour ce parti : en 2012 (0,56 % des suffrages exprimés), en 2017 (0,64 %) et en 2022 (0,56 %). Elle est candidate déclarée pour l'élection présidentielle de 2027."
+  },
+  "asselineau": {
+   "article": "François Asselineau",
+   "url": "https://fr.wikipedia.org/wiki/Fran%C3%A7ois_Asselineau",
+   "qid": "Q12972",
+   "description": "haut fonctionnaire et homme politique français",
+   "naissance": "1957-09-14",
+   "naissance_precision": 11,
+   "lieu_naissance": "Paris",
+   "revision": "2026-10-12T07:06:00Z",
+   "intro": "François Asselineau ([fʁɑ̃ˈswa asəliˈno]), né le 14 septembre 1957 à Paris, est un haut fonctionnaire et homme politique français.\nÉnarque, il entre à l'Inspection des finances en 1985 puis mène une carrière de haut fonctionnaire qui le conduit à exercer dans différents cabinets ministériels sous les gouvernements de droite des années 1990 et, entre 2004 et 2006, le poste de délégué général à l'intelligence économique au ministère de l'Économie et des Finances. En parallèle, il est cadre du Rassemblement pour la France et l'indépendance de l'Europe (RPF) puis du Rassemblement pour l'indépendance et la souveraineté de la France (RIF) et siège au Conseil de Paris de 2001 à 2008, élu sur la liste de Jean Tiberi.\nEn 2007, il fonde l'Union populaire républicaine (UPR), qui milite pour la sortie de l'Union européenne, de la zone euro et de l'Organisation du traité de l'Atlantique nord (OTAN). Ce parti est décrit par de très nombreux observateurs comme souverainiste, antiaméricain et conspirationniste. La nuance politique attribuée par le ministère de l'Intérieur aux listes et candidats de l'UPR aux élections depuis 2014 est « divers », tandis que le parti se présente comme étant en dehors du clivage droite-gauche. François Asselineau est quant à lui couramment situé à droite, voire à l'extrême droite. Parfois rattaché au gaullisme, il assume cette étiquette et se présente également comme un opposant au Rassemblement national.\nCherchant à se faire connaître sur Internet par le cybermilitantisme, François Asselineau et ses militants mènent également une insistante démarche de lobbying auprès des grands médias et de Wikipédia — accusés par François Asselineau de le censurer — au point que cette action a pu être décrite comme un « harcèlement ».\nAprès avoir échoué à se présenter à l'élection présidentielle de 2012, il est candidat à celle de 2017 et recueille 0,92 % des voix. Il échoue à nouveau à se présenter à l'élection présidentielle de 2022, faute de parrainages suffisants."
+  },
+  "attal": {
+   "article": "Gabriel Attal",
+   "url": "https://fr.wikipedia.org/wiki/Gabriel_Attal",
+   "qid": "Q30339350",
+   "description": "homme d'État français",
+   "naissance": "1989-03-16",
+   "naissance_precision": 11,
+   "lieu_naissance": "Clamart",
+   "revision": "2026-10-15T19:41:32Z",
+   "intro": "Gabriel Attal , né le 16 mars 1989 à Clamart (Hauts-de-Seine), est un homme d'État français, Premier ministre du 9 janvier au 5 septembre 2024. Redevenu député, il est depuis juillet 2024 président du groupe Ensemble pour la République à l'Assemblée nationale et est élu en décembre 2024 secrétaire général du parti Renaissance.\nMilitant au Parti socialiste de 2006 à 2016, il est membre du cabinet de la ministre de la Santé Marisol Touraine de 2012 à 2017, ainsi que conseiller municipal de Vanves, dans les Hauts-de-Seine, depuis 2014.\nEn 2016, il rejoint En marche, le parti fondé par Emmanuel Macron, puis en devient le porte-parole en 2018 et un membre du bureau exécutif en 2021. Il est élu député en 2017 dans la dixième circonscription des Hauts-de-Seine et constamment réélu depuis. À l'Assemblée, il est membre de la commission des Affaires culturelles et de l'Éducation et rapporteur du projet de loi relative à l'orientation et à la réussite des étudiants.\nEn 2018, à vingt-neuf ans, il est nommé secrétaire d'État auprès du ministre de l'Éducation nationale et de la Jeunesse dans le second gouvernement Philippe, devenant le plus jeune membre d'un gouvernement sous la Ve République, puis, en 2020, porte-parole du gouvernement Castex.\nAprès la réélection d'Emmanuel Macron en 2022, il devient ministre délégué chargé des Comptes publics dans le gouvernement Borne puis, en juillet 2023, ministre de l'Éducation nationale et de la Jeunesse.\nLe 9 janvier 2024, il devient le plus jeune Premier ministre français de l'histoire, succédant à la Première ministre Élisabeth Borne, et la première personne ouvertement homosexuelle à occuper cette fonction.\nDémissionnaire en juillet après les élections législatives anticipées de 2024, il n'est remplacé que deux mois plus tard. Avec moins de huit mois à Matignon, il est alors, après le Premier ministre Bernard Cazeneuve, le deuxième Premier ministre le plus éphémère de la Ve République avant d'être dépassé par son successeur le Premier ministre Michel Barnier à peine quatre mois plus tard."
+  },
+  "batho": {
+   "article": "Delphine Batho",
+   "url": "https://fr.wikipedia.org/wiki/Delphine_Batho",
+   "qid": "Q291385",
+   "description": "femme politique française",
+   "naissance": "1973-03-23",
+   "naissance_precision": 11,
+   "lieu_naissance": "12e arrondissement de Paris",
+   "revision": "2026-07-29T06:18:43Z",
+   "intro": "Delphine Batho , née le 23 mars 1973 dans le 12e arrondissement de Paris, est une femme politique française.\nMilitante dès le collège puis leader syndicale lycéenne membre de la FIDL et vice-présidente de SOS Racisme, elle devient ensuite cadre du Parti socialiste (PS), où elle est spécialiste de la sécurité. En 2007, elle succède à Ségolène Royal comme députée de la 2e circonscription des Deux-Sèvres.\nPorte-parole de François Hollande lors de la campagne pour l'élection présidentielle de 2012, elle est tout d'abord nommée ministre déléguée à la Justice dans le premier gouvernement Ayrault, avant de devenir ministre de l'Écologie, du Développement durable et de l'Énergie en juin 2012, dans le deuxième gouvernement Ayrault. Le 2 juillet 2013, à la suite d'un désaccord sur la politique budgétaire du gouvernement, elle est relevée de ses fonctions de ministre par le président de la République sur proposition du Premier ministre.\nÀ nouveau députée depuis 2013, elle est réélue en 2017 et devient vice-présidente du groupe Nouvelle gauche à l'Assemblée nationale, groupe qu'elle quitte en 2018, en même temps que le PS. Elle prend alors la présidence de Génération écologie. En mai 2020, elle rejoint le groupe Écologie démocratie solidarité, dont elle est vice-présidente. Celui-ci étant dissous en octobre 2020, elle rejoint les non-inscrits.\nCandidate à la primaire écologiste de 2021, elle arrive en troisième position, avec 22,32 % des voix, prônant la décroissance. Elle est réélue députée lors des élections législatives de 2022. Elle est à nouveau réélue lors des élections législatives de 2024.\nLe 25 novembre 2025, elle annonce se porter candidate à l'élection présidentielle de 2027."
+  },
+  "becht": {
+   "article": "Olivier Becht",
+   "url": "https://fr.wikipedia.org/wiki/Olivier_Becht",
+   "qid": "Q30348845",
+   "description": "homme politique français",
+   "naissance": "1976-04-28",
+   "naissance_precision": 11,
+   "lieu_naissance": "Strasbourg",
+   "revision": "2026-10-10T11:03:36Z",
+   "intro": "Olivier Becht, né le 28 avril 1976 à Strasbourg (Bas-Rhin), est un homme politique français.\nMaire de Rixheim, président délégué de Mulhouse Alsace Agglomération et vice-président du conseil départemental du Haut-Rhin, il élu est député de la cinquième circonscription du Haut-Rhin en 2017. Il préside le groupe Agir ensemble à l'Assemblée nationale du 26 mai 2020 au 21 juin 2022\nIl est nommé ministre délégué chargé du Commerce extérieur, de l’Attractivité et des Français de l’étranger dans le gouvernement Borne le 4 juillet 2022. Il n'est pas reconduit dans le gouvernement Attal et retrouve l'Assemblée nationale, où il est réélu le 7 juillet 2024.\n\n"
+  },
+  "bertrand": {
+   "article": "Xavier Bertrand",
+   "url": "https://fr.wikipedia.org/wiki/Xavier_Bertrand",
+   "qid": "Q203793",
+   "description": "homme politique français",
+   "naissance": "1965-03-21",
+   "naissance_precision": 11,
+   "lieu_naissance": "Châlons-en-Champagne",
+   "revision": "2026-10-11T13:41:04Z",
+   "intro": "Xavier Bertrand , né le 21 mars 1965 à Châlons-sur-Marne (aujourd’hui Châlons-en-Champagne), est un homme politique français.\nEntre 2005 et 2012, il est ministre de la Santé du gouvernement Villepin et ministre du Travail dans les trois gouvernements François Fillon. De 2008 à 2010, il est secrétaire général de l'UMP.\nDéputé entre 2002 et 2016, maire de Saint-Quentin de 2010 à 2016 et président de la communauté d'agglomération du Saint-Quentinois de 2014 à 2020, il est président du conseil régional des Hauts-de-France depuis 2016. Il quitte Les Républicains en 2017, à la suite de l'élection de Laurent Wauquiez à la tête du parti.\nEn 2021, il revient sur sa décision de ne se porter candidat à aucun processus de désignation interne pour l'élection présidentielle de 2022 et annonce sa participation au congrès des Républicains. Après avoir repris sa carte à LR, il arrive en quatrième position du congrès avec 22,4 % des suffrages exprimés, et appelle à voter pour Valérie Pécresse au second tour.\n\n"
+  },
+  "bouamrane": {
+   "article": "Karim Bouamrane",
+   "url": "https://fr.wikipedia.org/wiki/Karim_Bouamrane",
+   "qid": "Q98251165",
+   "description": "homme politique français",
+   "naissance": "1973-02-21",
+   "naissance_precision": 11,
+   "lieu_naissance": null,
+   "revision": "2026-10-11T19:52:03Z",
+   "intro": "Karim Bouamrane, né le 21 février 1973 à Clichy, est un chef d'entreprise et homme politique français.\nMembre du Parti communiste français de 1995 à 2014, il est conseiller municipal de Saint-Ouen-sur-Seine au cours de la même période sous les mandats de Paulette Fost puis de Jacqueline Rouillon-Dambreville. Il rejoint le Parti socialiste à partir de 2014 et mène la liste socialiste lors des élections municipales de 2014, sans succès. Il est élu maire de Saint-Ouen-sur-Seine aux élections municipales de 2020 et 2026. Il est en parallèle conseiller départemental de la Seine-Saint-Denis depuis 2021.\nIl se déclare candidat à l'élection présidentielle de 2027."
+  },
+  "branco": {
+   "article": "Juan Branco",
+   "url": "https://fr.wikipedia.org/wiki/Juan_Branco",
+   "qid": "Q21890311",
+   "description": "avocat et militant politique franco-espagnol",
+   "naissance": "1989-08-26",
+   "naissance_precision": 11,
+   "lieu_naissance": "Estepona",
+   "revision": "2026-10-16T18:46:59Z",
+   "intro": "Juan Branco, né le 26 août 1989 à Estepona (Andalousie), est un avocat, essayiste, militant politique d'extrême gauche et réalisateur franco-espagnol.\nÉtudiant, il s'oppose à la loi Hadopi et s'engage en politique, d'abord auprès de Dominique de Villepin puis au sein du parti politique Les Verts.\nDocteur en droit en 2014, il est le conseiller juridique, en France, de WikiLeaks et de Julian Assange. Il devient avocat en prêtant serment en avril 2017. Il défend Jean-Luc Mélenchon dans l'« affaire OAS », puis se présente aux élections législatives en Seine-Saint-Denis avec le soutien de La France insoumise.\nIl participe au mouvement des Gilets jaunes et défend des figures du mouvement, dont Maxime Nicolle. En 2019, il publie Crépuscule, un pamphlet critiquant l'accession au pouvoir d'Emmanuel Macron.\nEn octobre 2024, Juan Branco est suspendu neuf mois par le conseil de discipline du barreau de Paris pour avoir violé le secret de l'instruction d'une enquête pour viols et agressions sexuelles dont il fait l'objet ; cette décision est confirmée en appel en octobre 2025."
+  },
+  "cazeneuve": {
+   "article": "Bernard Cazeneuve",
+   "url": "https://fr.wikipedia.org/wiki/Bernard_Cazeneuve",
+   "qid": "Q560890",
+   "description": "homme d'État français",
+   "naissance": "1963-06-02",
+   "naissance_precision": 11,
+   "lieu_naissance": "Senlis",
+   "revision": "2026-10-15T12:33:53Z",
+   "intro": "Bernard Cazeneuve, né le 2 juin 1963 à Senlis (Oise), est un homme d’État français. Longtemps membre du Parti socialiste (PS), il est Premier ministre du 6 décembre 2016 au 15 mai 2017, sous la présidence de François Hollande.\nIl est député de la Manche entre 1997 et 2017, maire d'Octeville de 1995 à 2000 puis de Cherbourg-Octeville de 2001 à 2012, et président de la communauté urbaine de Cherbourg de 2008 à 2012.\nEn 2012, il est nommé ministre délégué aux Affaires européennes dans le gouvernement Ayrault. L'année suivante, il devient ministre délégué au Budget, à la suite de la démission de Jérôme Cahuzac. Ministre de l'Intérieur dans les gouvernements Valls I et II (2014-2016), il est confronté à une vague inédite de terrorisme islamiste, avec notamment les attentats de janvier 2015 en France, dont celui contre Charlie Hebdo, et les attentats du 13 novembre 2015 en France, la pire attaque terroriste sous la Ve République.\nÀ la fin de l'année 2016, Manuel Valls ayant démissionné pour se présenter à la primaire socialiste de 2017, Bernard Cazeneuve lui succède comme Premier ministre. Il gouverne en pleine campagne présidentielle et doit notamment faire face à un mouvement social en Guyane. Il démissionne après la victoire d'Emmanuel Macron, puis rejoint comme associé le cabinet d'avocat August Debouzy.\nEn 2022, en désaccord avec l'alliance conclue entre le PS et La France insoumise pour les élections législatives, il quitte le Parti socialiste et lance l'année suivante un nouveau mouvement, La Convention, qui est rallié par plusieurs partis politiques dont le Parti radical de gauche."
+  },
+  "dupont-aignan": {
+   "article": "Nicolas Dupont-Aignan",
+   "url": "https://fr.wikipedia.org/wiki/Nicolas_Dupont-Aignan",
+   "qid": "Q12961",
+   "description": "homme politique français",
+   "naissance": "1961-03-07",
+   "naissance_precision": 11,
+   "lieu_naissance": "15e arrondissement de Paris",
+   "revision": "2026-10-10T11:08:56Z",
+   "intro": "Nicolas Dupont-Aignan , né le 7 mars 1961 à Paris est un homme politique français.\nÉnarque, il est successivement membre du Rassemblement pour la République (RPR), du Rassemblement pour la France (RPF) et de l'Union pour un mouvement populaire (UMP), avant de fonder en parallèle et de prendre la présidence de Debout la France (DLF) — anciennement Debout la République (DLR) —, courant politique qu’il transforme en un parti se réclamant du gaullisme et du souverainisme.\nIl est maire d'Yerres de 1995 à 2017 et à nouveau depuis 2026 et député de l'Essonne de 1997 à 2024.\nCandidat aux élections présidentielles de 2012 et de 2017, il recueille respectivement 1,79 et 4,70 % des suffrages exprimés. Dans l’entre-deux-tours de l'élection de 2017, il conclut une alliance de gouvernement avec Marine Le Pen, qui tombe après l'élection d'Emmanuel Macron. Tête de liste DLF, il se présente sans succès aux élections européennes de 2019. Candidat une troisième fois à l'élection présidentielle en 2022, il reçoit 2,06 % des suffrages exprimés. Il échoue ensuite à se faire réélire aux élections législatives anticipées de 2024."
+  },
+  "egger": {
+   "article": "Clara Egger",
+   "url": "https://fr.wikipedia.org/wiki/Clara_Egger",
+   "qid": "Q108584624",
+   "description": "politologue française",
+   "naissance": "1988-01-02",
+   "naissance_precision": 11,
+   "lieu_naissance": null,
+   "revision": "2026-09-03T16:12:28Z",
+   "intro": "Clara Egger, née le 2 janvier 1988, est une politologue française, enseignante-chercheuse en relations internationales.\nElle est candidate à l'élection présidentielle française de 2022 pour « Espoir RIC », un collectif visant à instaurer le référendum d'initiative citoyenne en France, à l'origine en 2024 de la fondation du parti « Solution Démocratique »."
+  },
+  "glucksmann": {
+   "article": "Raphaël Glucksmann",
+   "url": "https://fr.wikipedia.org/wiki/Rapha%C3%ABl_Glucksmann",
+   "qid": "Q556149",
+   "description": "essayiste et homme politique français",
+   "naissance": "1979-10-15",
+   "naissance_precision": 11,
+   "lieu_naissance": "Boulogne-Billancourt",
+   "revision": "2026-10-16T08:44:55Z",
+   "intro": "Raphaël Glucksmann, né le 15 octobre 1979 à Boulogne-Billancourt (Hauts-de-Seine), est un homme politique français, anciennement documentariste et journaliste.\nAprès un passage du côté de la droite, à Alternative libérale en 2007, dont il ne partageait pas toutes les orientations [réf. souhaitée], il s'oriente vers le centre gauche de tendance libérale et la social-démocratie europhile, puis lance en 2018 le mouvement politique Place publique, destiné à rassembler la gauche proeuropéenne.\nFils du philosophe et essayiste André Glucksmann, il est réalisateur de documentaires dans les années 2000 puis obtient une première expérience politique en devenant conseiller spécial de 2009 à 2012 de Mikheil Saakachvili, président de la Géorgie. Il est ensuite essayiste, chroniqueur à France Inter et directeur du Nouveau Magazine littéraire en 2018.\nÀ la tête d'une liste réunissant Place publique, le Parti socialiste et Nouvelle Donne, il est élu député européen à partir de 2019. Siégeant au sein de la commission des affaires étrangères et de la commission du commerce international et occupant la vice-présidence de la sous-commission des droits de l'homme, il s'affiche en faveur du fédéralisme européen, s'engage contre le génocide culturel des Ouïghours, défend le Pacte vert pour l'Europe et soutient l'intégration de l'Ukraine à l'Union européenne ou encore une réforme du règlement Dublin III.\nLe 23 août 2026, il se déclare candidat à l'élection présidentielle de 2027 via la primaire socialiste qu'il remporte le 11 octobre 2026."
+  },
+  "kazib": {
+   "article": "Anasse Kazib",
+   "url": "https://fr.wikipedia.org/wiki/Anasse_Kazib",
+   "qid": "Q106405647",
+   "description": "homme politique français",
+   "naissance": "1986-00-00",
+   "naissance_precision": 8,
+   "lieu_naissance": "Sarcelles",
+   "revision": "2026-10-17T16:59:52Z",
+   "intro": "Anasse Kazib, né le 2 janvier 1987 à Sarcelles, est un syndicaliste cheminot et militant trotskiste d'extrême gauche français.\nDélégué syndical de SUD Rail à la gare du Bourget, il devient une figure du mouvement cheminot en 2018, année où il intègre Les Grandes Gueules de RMC. Depuis 2017, il est membre de Révolution permanente, courant du Nouveau Parti anticapitaliste qui prend son indépendance en 2021. Il tente de se présenter à l'élection présidentielle de 2022, mais échoue à recueillir les parrainages nécessaires."
+  },
+  "lalanne": {
+   "article": "Francis Lalanne",
+   "url": "https://fr.wikipedia.org/wiki/Francis_Lalanne",
+   "qid": "Q3081533",
+   "description": "auteur-compositeur-interprète français",
+   "naissance": "1958-08-08",
+   "naissance_precision": 11,
+   "lieu_naissance": "Bayonne",
+   "revision": "2026-10-17T15:42:53Z",
+   "intro": "Francis Lalanne, né le 8 août 1958 à Bayonne, est un auteur-compositeur-interprète français, également acteur, écrivain et poète.\nIl devient célèbre en 1986 pour son titre On se retrouvera, bande originale du film de son frère René Manzor, Le Passage. Il prête en 1996 sa voix au personnage de Quasimodo dans la version française du Bossu de Notre-Dame des studios Disney.\nSe démarquant des années 1980 à 2010 par un engagement humaniste, écologiste, social et antiraciste, il prend à partir de 2021 de nombreuses positions controversées. À l'occasion de la pandémie de Covid-19, il tient des propos complotistes et appelle ouvertement à la désobéissance civile et à un coup d’État, ce qui lui vaut finalement le bannissement de son compte Twitter. Lors de l'invasion de l'Ukraine par la Russie, il diffuse des informations pro-Kremlin et participe à des clips de campagne pro-russes avec des artistes du pays et opère peu à peu un virage politique vers le micro-parti d'extrême droite Spartacus.\nIl relaye également des infox sur de nombreux autres sujets et rejoint, aux élections européennes de 2024, la liste « France libre » menée par l'humoriste Dieudonné, avant d'être déclaré inéligible pour 18 mois en avril 2025 pour ne pas avoir déposé ses comptes de campagne.\nIl fait l'objet de plusieurs procédures pénales ou condamnations pour violences verbales et physiques et d'une condamnation pour harcèlement moral sur ex-conjointe et abandon de famille."
+  },
+  "le-pen": {
+   "article": "Marine Le Pen",
+   "url": "https://fr.wikipedia.org/wiki/Marine_Le_Pen",
+   "qid": "Q12927",
+   "description": "femme politique française",
+   "naissance": "1968-08-05",
+   "naissance_precision": 11,
+   "lieu_naissance": "Neuilly-sur-Seine",
+   "revision": "2026-10-13T00:56:39Z",
+   "intro": "Marine Le Pen ([ma.ʁin lə pɛn] ), née le 5 août 1968 à Neuilly-sur-Seine (Hauts-de-Seine), est une femme politique française. Elle est la figure principale du Front national (FN) renommé Rassemblement national (RN), le principal parti d'extrême droite en France, qu'elle dirige de 2011 à 2021.\nEn 1986, elle s'engage au sein du FN, dirigé par son père Jean-Marie Le Pen. Elle occupe plusieurs mandats locaux à partir de 1998 en Île-de-France, dans le Nord-Pas-de-Calais puis les Hauts-de-France et siège de 2004 à 2017 au Parlement européen, où elle co-préside le groupe Europe des nations et des libertés (ENL) à partir de 2015.\nElle est élue présidente du FN lors de son congrès de 2011. Elle arrive en troisième position au premier tour à l'élection présidentielle de 2012 et elle perd au second tour à l'élection présidentielle de 2017 face à Emmanuel Macron. Lors des élections législatives qui suivent, elle est élue députée dans le Pas-de-Calais.\nEn 2021, elle quitte la tête du RN (ex-FN). Elle lance sa campagne de candidate à l'élection présidentielle de 2022 : elle réalise son score le plus élevé, remportant 23,15% des voix, mais elle perd de nouveau au second tour face à Emmanuel Macron. Elle est réélue députée lors des élections législatives qui suivent. Avec le score historique de son parti à ces élections législatives, elle est élue présidente du groupe Rassemblement national à l'Assemblée nationale. Elle est réélue au premier tour des élections législatives anticipées de 2024.\nEn mars 2025, Marine Le Pen est reconnue coupable de détournement de fonds publics par le tribunal de Paris dans le cadre de l'affaire des assistants parlementaires du Front national au Parlement européen. Elle est condamnée en première instance à quatre ans de prison dont deux ferme, ainsi qu'à cinq ans d'inéligibilité avec exécution provisoire. En juillet 2026, sa condamnation est maintenue en appel, mais sa peine est ramenée à l'issue du procès à un an de prison ferme et trois ans de prison avec sursis ainsi qu'à quarante-cinq mois d'inéligibilité dont trente mois avec sursis. Elle annonce se pourvoir en cassation et officialise sa candidature à l'élection présidentielle de 2027.\n\n"
+  },
+  "lisnard": {
+   "article": "David Lisnard",
+   "url": "https://fr.wikipedia.org/wiki/David_Lisnard",
+   "qid": "Q3018298",
+   "description": "homme politique français",
+   "naissance": "1969-02-02",
+   "naissance_precision": 11,
+   "lieu_naissance": "Limoges",
+   "revision": "2026-10-17T15:47:31Z",
+   "intro": "David Lisnard (/da.vid lis.naʁ/), né le 2 février 1969 à Limoges (Haute-Vienne), est un homme politique français.\nD'abord membre de l'UMP puis de LR, il est président-fondateur du parti libéral de droite Nouvelle Énergie (NE).\nConseiller général puis départemental des Alpes-Maritimes depuis 2008, il est élu maire de Cannes en 2014, vice-président du conseil départemental chargé du tourisme la même année et président de la communauté d'agglomération Cannes Pays de Lérins en 2017. Il préside également l'Association des maires de France.\nEn 2026, il quitte LR, dont il était jusqu'alors vice-président, et se déclare candidat à l'élection présidentielle de l'année suivante avec le soutien de Nouvelle Énergie."
+  },
+  "massard": {
+   "article": "Lydie Massard",
+   "url": "https://fr.wikipedia.org/wiki/Lydie_Massard",
+   "qid": "Q122803246",
+   "description": "femme politique française",
+   "naissance": "1978-08-24",
+   "naissance_precision": 11,
+   "lieu_naissance": "Saint-Brieuc",
+   "revision": "2026-09-19T23:17:26Z",
+   "intro": "Lydie Massard, née le 24 août 1978 à Saint-Brieuc, est une femme politique française, membre de l'Union démocratique bretonne (UDB) et députée européenne de 2023 à 2024."
+  },
+  "melenchon": {
+   "article": "Jean-Luc Mélenchon",
+   "url": "https://fr.wikipedia.org/wiki/Jean-Luc_M%C3%A9lenchon",
+   "qid": "Q5829",
+   "description": "homme politique français",
+   "naissance": "1951-08-19",
+   "naissance_precision": 11,
+   "lieu_naissance": "Tanger",
+   "revision": "2026-10-12T17:39:31Z",
+   "intro": "Jean-Luc Mélenchon ([ ʒɑ̃ lyk melɑ̃ʃɔ̃] ), né le 19 août 1951 à Tanger (alors zone internationale de Tanger) au Maroc, est un homme politique français. Il est le fondateur et la figure principale du parti La France insoumise (LFI), souvent considéré comme relevant de la gauche radicale et classé à gauche, voire à l'extrême gauche.\nMembre de l'Organisation communiste internationaliste (OCI) de 1972 à 1976, il entre ensuite au Parti socialiste (PS) et devient successivement conseiller municipal de Massy en 1983, conseiller général de l'Essonne en 1985 et sénateur en 1986. Il est également ministre délégué à l'Enseignement professionnel de 2000 à 2002, dans le gouvernement Jospin. Il fait partie de l'aile gauche du PS jusqu'au congrès de Reims en 2008, à l'issue duquel il part fonder le Parti de gauche (PG).\nSous les couleurs du Front de gauche, coalition qui réunit notamment le PG et le Parti communiste français (PCF), il est élu député européen en 2009 et réélu en 2014. Il est le candidat de cette coalition à l'élection présidentielle de 2012, à l'issue de laquelle il arrive en quatrième position, avec 11,1 % des voix.\nEn 2016, Mélenchon fonde le « mouvement » La France insoumise (LFI) et se présente sous cette étiquette à l'élection présidentielle de 2017. Il promeut un programme écosocialiste tout en tenant un discours anticapitaliste et antilibéral, ainsi qu'en défendant le non-alignement à l'international. Il termine à nouveau en quatrième position, réunissant 19,6 % des suffrages. Il est ensuite député des Bouches-du-Rhône et préside le groupe LFI à l'Assemblée nationale jusqu'en 2021.\nEn 2022, il se présente pour la troisième fois à l'élection présidentielle : il réalise son score le plus élevé, remportant 22 % des voix et arrivant largement en tête parmi les candidats de gauche, mais échoue une nouvelle fois à accéder au second tour, terminant troisième. Pour les élections législatives deux mois plus tard, lors desquelles il ne brigue pas de second mandat, il est le chef de file de la coalition Nouvelle Union populaire écologique et sociale (NUPES), qui devient la principale force d'opposition de l'Assemblée et prive Emmanuel Macron d'une majorité absolue.\nSans mandat électif à partir de juin 2022, Mélenchon reste actif dans le débat public et devient en 2023 coprésident du laboratoire d'idées affilié à LFI, l'Institut La Boétie. Il annonce en 2026 sa candidature à l'élection présidentielle de 2027.\nÀ partir des années 2010, Mélenchon est une personn"
+  },
+  "philippe": {
+   "article": "Édouard Philippe",
+   "url": "https://fr.wikipedia.org/wiki/%C3%89douard_Philippe",
+   "qid": "Q3579995",
+   "description": "homme d'État français",
+   "naissance": "1970-11-28",
+   "naissance_precision": 11,
+   "lieu_naissance": "Rouen",
+   "revision": "2026-10-17T13:36:02Z",
+   "intro": "Édouard Philippe (/e.dwaʁ fi.lip/ ), né le 28 novembre 1970 à Rouen (Seine-Maritime), est un homme d'État français. Il est Premier ministre du 15 mai 2017 au 3 juillet 2020.\nDiplômé de Sciences Po et de l’ENA, membre du Conseil d'État, il participe en 2002 à la création de l'UMP aux côtés d’Alain Juppé, dont il est brièvement conseiller ministériel en 2007.\nIl est élu conseiller général de la Seine-Maritime en 2008, maire du Havre et président de la communauté de l'agglomération havraise en 2010, puis député en 2012. Porte-parole d'Alain Juppé lors de la primaire de la droite et du centre de 2016, il soutient ensuite François Fillon, mais se met en retrait de sa campagne présidentielle lorsque celui-ci est accusé d'emplois fictifs.\nEn 2017, le président de la République nouvellement élu, Emmanuel Macron, le désigne pour diriger un premier gouvernement, puis un second à la suite des élections législatives. À Matignon, Édouard Philippe est notamment confronté au mouvement des Gilets jaunes, porte un projet contesté et inachevé de réforme des retraites, et gère les débuts de la pandémie de Covid-19.\nAprès les élections municipales de 2020, il quitte la tête du gouvernement et retrouve le mandat de maire du Havre. En 2021, après quatre années sans étiquette, il crée et prend la présidence du parti Horizons, qui représente l'aile droite de la majorité présidentielle. Il annonce trois ans plus tard sa candidature à l'élection présidentielle de 2027."
+  },
+  "philippot": {
+   "article": "Florian Philippot",
+   "url": "https://fr.wikipedia.org/wiki/Florian_Philippot",
+   "qid": "Q3074223",
+   "description": "haut fonctionnaire et homme politique français",
+   "naissance": "1981-10-24",
+   "naissance_precision": 11,
+   "lieu_naissance": "Croix",
+   "revision": "2026-10-10T15:35:48Z",
+   "intro": "Florian Philippot, né le 24 octobre 1981 à Croix (Nord), est un homme politique français.\nInspecteur de l'administration, se réclamant du gaullisme et du souverainisme, il soutient Jean-Pierre Chevènement à l'élection présidentielle de 2002.\nEn 2011, il adhère au Front national (FN) et devient rapidement un influent conseiller de Marine Le Pen, qui le nomme directeur stratégique de sa campagne présidentielle de 2012. Devenu vice-président du FN, il s’impose comme la personnalité frontiste la plus présente dans les médias et concourt à l’exclusion du fondateur du parti, Jean-Marie Le Pen.\nAprès avoir été battu aux élections législatives de 2012 en Moselle et aux élections municipales de 2014 à Forbach, il est élu député européen lors des élections de 2014 dans la circonscription Est, ainsi que conseiller régional aux élections de 2015 en Alsace-Champagne-Ardenne-Lorraine (devenue ensuite région Grand Est).\nAux élections législatives de 2017, une nouvelle fois, il ne parvient pas à faire son entrée à l'Assemblée nationale, alors que l’extrême droite obtient une dizaine de députés. Dans les mois qui suivent, tandis que sa ligne « sociale-souverainiste » et son influence au sein du FN suscitent une opposition croissante en interne, il quitte la formation et fonde son propre parti politique, Les Patriotes (LP).\nDès lors, il accumule les échecs électoraux : il n’est pas réélu au Parlement européen en 2019 (sa liste ayant obtenu 0,6 % des suffrages), échoue au scrutin municipal de 2020 à Forbach, puis perd son dernier mandat électif à l'occasion des élections régionales de 2021 dans le Grand Est. Il annonce son intention d'être candidat à l'élection présidentielle de 2022, avant de se retirer deux mois avant le scrutin, n'ayant reçu qu'un parrainage d'élus sur les 500 nécessaires. Aux élections législatives qui suivent, il échoue à nouveau à devenir député de la Moselle. Il est candidat aux élections européennes de 2024, mais échoue de nouveau.\nParallèlement, son audience augmente transitoirement avec son opposition aux mesures de lutte contre la pandémie de Covid-19, et ce malgré la diffusion de fausses informations sur différents sujets contemporains, notamment concernant la Russie et, en 2026, l'hantavirus."
+  },
+  "polony": {
+   "article": "Natacha Polony",
+   "url": "https://fr.wikipedia.org/wiki/Natacha_Polony",
+   "qid": "Q941949",
+   "description": "journaliste et essayiste française",
+   "naissance": "1975-04-15",
+   "naissance_precision": 11,
+   "lieu_naissance": "14e arrondissement de Paris",
+   "revision": "2026-10-17T12:03:11Z",
+   "intro": "Natacha Polony, née le 15 avril 1975 à Paris, est une journaliste, essayiste, éditorialiste, présentatrice audiovisuelle, chroniqueuse et directrice de la rédaction française.\nAgrégée de lettres modernes et pendant un temps enseignante, elle fait une courte incursion en politique pour le Mouvement des citoyens de Jean-Pierre Chevènement et est candidate aux élections législatives à Paris en 2002 sous les couleurs du Pôle républicain.La même année, elle entre au magazine Marianne et se spécialise dans les questions éducatives et sociétales. En 2009, elle passe au Figaro, où elle reste pendant deux ans.\nElle apparaît à la télévision, notamment comme chroniqueuse dans le talk-show On n'est pas couché de Laurent  Ruquier sur France 2 de 2011 à 2014, dans Le Grand Journal sur Canal+ en 2014 et 2015, dans Les Terriens du dimanche ! présenté par Thierry Ardisson sur C8 entre 2017 et 2019 et intervient dans des émissions politiques sur France 2 et sur LCI. Elle tient la revue de presse dans la matinale d'Europe 1 de 2012 à 2017 et dirige l'émission Polonium sur la chaîne Paris Première de 2015 jusqu'en 2017, année où elle lance en une web TV souverainiste baptisée Polony TV. D'août 2021 à l'été 2022, elle présente Polonews avec Aurélie Casse sur BFM TV. Depuis, elle continue à intervenir sur la chaîne, notamment dans l'émission BFM Story, en débattant une fois par semaine avec le journaliste Alain Duhamel, tout en étant chroniqueuse dans C l'hebdo sur France 5.\nDe 2018 à 2024, elle est directrice de la rédaction de Marianne et dirige depuis 2025 la revue L'Audace qu'elle a cofondée. \nEn 2026, elle lance son mouvement politique et annonce sa candidature à l'élection présidentielle de 2027."
+  },
+  "retailleau": {
+   "article": "Bruno Retailleau",
+   "url": "https://fr.wikipedia.org/wiki/Bruno_Retailleau",
+   "qid": "Q2926942",
+   "description": "homme politique français",
+   "naissance": "1960-11-20",
+   "naissance_precision": 11,
+   "lieu_naissance": "Cholet",
+   "revision": "2026-10-16T12:59:54Z",
+   "intro": "Bruno Retailleau, né le 20 novembre 1960 à Cholet (Maine-et-Loire), est un homme politique français. Il est ministre de l'Intérieur du 21 septembre 2024 au 12 octobre 2025 dans les gouvernements Barnier, Bayrou et Lecornu I.\nÉlu en 1988 au conseil général de la Vendée, qu'il préside de 2010 à 2015, il est député de 1994 à 1997 puis sénateur de la Vendée de 2004 à 2024 et depuis 2025. Il préside également le conseil régional des Pays de la Loire de 2015 à 2017.\nD'abord membre du Mouvement pour la France de Philippe de Villiers, qu'il quitte en 2010, il adhère à l'Union pour un mouvement populaire puis au parti Les Républicains dont il préside le groupe au Sénat de 2014 à 2024 et dont il échoue à devenir président en 2022 face à Éric Ciotti. Il est également président du club de réflexion politique Force républicaine depuis 2017.\nIl devient ministre de l'Intérieur au sein du gouvernement Barnier après les élections législatives de 2024, poste auquel il est reconduit dans le gouvernement Bayrou et le premier gouvernement Lecornu avec le statut de ministre d'État. Durant son année place Beauvau, il se montre ferme sur l'immigration et vis-à-vis de l'Algérie, et se démarque par ses propos sur l'État de droit et la politique d'Emmanuel Macron dont il est pourtant l'un des principaux ministres.\nSa notoriété se renforce en parallèle, en particulier parmi les adhérents et sympathisants des Républicains. Bénéficiant de cette dynamique, il est élu président du parti face à Laurent Wauquiez en 2025. Son hostilité à la présence de Bruno Le Maire au sein du premier gouvernement de Sébastien Lecornu pousse le nouveau Premier ministre à présenter sa démission quelques heures après la composition de son gouvernement. Bruno Retailleau refuse de participer au gouvernement suivant et retrouve son siège de sénateur. Il est désigné candidat des Républicains pour l'élection présidentielle de 2027 lors d'une consultation interne des militants du parti.\nIl est généralement considéré comme faisant partie de l’aile droite des Républicains."
+  },
+  "roussel": {
+   "article": "Fabien Roussel",
+   "url": "https://fr.wikipedia.org/wiki/Fabien_Roussel",
+   "qid": "Q30388733",
+   "description": "homme politique français",
+   "naissance": "1969-04-16",
+   "naissance_precision": 11,
+   "lieu_naissance": "Béthune",
+   "revision": "2026-10-10T11:21:06Z",
+   "intro": "Fabien Roussel , né le 16 avril 1969 à Béthune (Pas-de-Calais), est un homme politique français.\nMembre du Parti communiste français (PCF), il est député de la vingtième circonscription du Nord de 2017 à 2024 et secrétaire national du PCF depuis 2018. Il est désigné candidat par son parti pour l’élection présidentielle de 2022. Il arrive en huitième position avec 2,28 % des suffrages exprimés. Élu au conseil municipal de Saint-Amand-les-Eaux, il est maire de cette commune depuis 2025. En 2026, il est à nouveau désigné par son Parti pour être candidat à l'élection présidentielle de 2027."
+  },
+  "ruffin": {
+   "article": "François Ruffin",
+   "url": "https://fr.wikipedia.org/wiki/Fran%C3%A7ois_Ruffin",
+   "qid": "Q3085763",
+   "description": "journaliste, réalisateur et homme politique français",
+   "naissance": "1975-10-18",
+   "naissance_precision": 11,
+   "lieu_naissance": "Calais",
+   "revision": "2026-09-26T14:09:14Z",
+   "intro": "François Ruffin, né le 18 octobre 1975 à Calais (Pas-de-Calais), est un journaliste, essayiste, documentariste et homme politique français.\nFondateur et rédacteur en chef du journal Fakir, il écrit aussi dans Le Monde diplomatique et pour l'association de critique des médias Acrimed. En tant que reporter, il participe pendant sept ans à l'émission Là-bas si j'y suis diffusée sur France Inter.\nÉgalement réalisateur, il tourne plusieurs films documentaires centrés sur les salariés réalisant des emplois pénibles, qu'il réalise pour certains en collaboration avec Gilles Perret. Il reçoit à ce titre le César du meilleur film documentaire en 2017 pour son premier film, Merci Patron !\nC'est en étant l'une des figures de proue du mouvement Nuit debout en 2016, qu'il fait ses débuts sur la scène politique. En 2017, il fonde le parti Picardie debout ! et devient député de la Somme. Proche mais jamais membre de La France insoumise (LFI) au cours de ses premières années de mandat, il s'en écarte en 2024 à la suite de désaccords stratégiques. Il est l'un des principaux initiateurs de la coalition Nouveau Front populaire (NFP). Il appelle par la suite à une primaire de la gauche destinée à désigner un candidat commun pour l'élection présidentielle de 2027. Il se porte lui-même candidat à cette primaire."
+  },
+  "tondelier": {
+   "article": "Marine Tondelier",
+   "url": "https://fr.wikipedia.org/wiki/Marine_Tondelier",
+   "qid": "Q29917987",
+   "description": "femme politique française",
+   "naissance": "1986-08-23",
+   "naissance_precision": 11,
+   "lieu_naissance": "Bois-Bernard",
+   "revision": "2026-10-12T08:55:07Z",
+   "intro": "Marine Tondelier, née le 23 août 1986 à Bois-Bernard (Pas-de-Calais), est une femme politique française.\nAprès avoir grandi à Hénin-Beaumont, elle se présente trois fois contre Marine Le Pen aux élections législatives dans la onzième circonscription du Pas-de-Calais et siège depuis 2014 dans l'opposition au conseil municipal de la ville, où elle conduit une liste aux élections de 2020 face au maire sortant Steeve Briois (Rassemblement national), dont elle dénonce la gestion dans le livre Nouvelles du Front. Elle est conseillère régionale des Hauts-de-France depuis 2021.\nEngagée chez Europe Écologie Les Verts (EELV), proche de Cécile Duflot, elle devient la secrétaire nationale du parti en 2022. Sur sa proposition, le mouvement est renommé « Les Écologistes » l'année suivante. Elle gagne une forte exposition médiatique lors de la campagne des élections législatives de 2024 en participant à une union de la gauche au sein du Nouveau Front populaire (NFP), qui arrive en tête du second tour.\nLargement réélue à la tête du parti en 2025, elle est désignée candidate des Écologistes à une éventuelle primaire de la gauche en vue de l'élection présidentielle de 2027 ; après l'échec du projet de primaire acté en juillet 2026, il se peut que Marine Tondelier se présente tout de même au scrutin national."
+  },
+  "zemmour": {
+   "article": "Éric Zemmour",
+   "url": "https://fr.wikipedia.org/wiki/%C3%89ric_Zemmour",
+   "qid": "Q288477",
+   "description": "journaliste, écrivain et homme politique français",
+   "naissance": "1958-08-31",
+   "naissance_precision": 11,
+   "lieu_naissance": "Montreuil",
+   "revision": "2026-10-17T15:00:07Z",
+   "intro": "Éric Zemmour , né le 31 août 1958 à Montreuil (Seine), est un journaliste, écrivain, essayiste, éditorialiste, chroniqueur, polémiste et homme politique français d'extrême droite.\nDiplômé de l'Institut d'études politiques de Paris, il commence une carrière dans la presse écrite en travaillant au Quotidien de Paris de 1986 à 1994. Il rejoint en 1996 le service politique du Figaro, où il reste jusqu'en 2009 et revient en 2013, tout en écrivant des chroniques au Figaro Magazine jusqu'en 2021.\nSa notoriété s'accroît grâce à la radio et la télévision : il intervient dans Ça se dispute sur I-Télé de 2003 à 2014, dans On n'est pas couché sur France 2 de 2006 à 2011, sur RTL de 2010 à 2016, Zemmour et Naulleau sur Paris Première de 2011 à 2022 et sur CNews dans Face à l'info de 2019 à 2021. En outre, ses essais rencontrent d'importants succès de librairie et suscitent des polémiques.\nFréquemment poursuivi en justice pour ses déclarations controversées, il est condamné notamment pour des provocations au racisme, à la haine envers les musulmans, incitation à la haine, injure raciste et diffamation.\nEn novembre 2021, il annonce sa candidature à l'élection présidentielle de 2022 et fonde dans la foulée le parti politique Reconquête afin de créer une union des droites autour de thèmes identitaires et nationalistes. Il arrive en quatrième position lors du premier tour de l'élection avec 7,07 % des suffrages exprimés. Il échoue ensuite à se faire élire député dans la quatrième circonscription du Var en étant éliminé dès le premier tour, tout comme l'ensemble des candidats de son parti.\nIl annonce en septembre 2026 être candidat à l'élection présidentielle de 2027."
+  }
+ }
+}
