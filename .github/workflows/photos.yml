@@ -1,0 +1,63 @@
+# Photos des candidats : vignettes tirées de Wikimedia Commons, avec leurs crédits.
+#
+# Se lance quand outils/photos/candidats.json change, ou à la main (Actions → « Photos des
+# candidats » → Run workflow), par exemple après l'arrivée d'un nouveau candidat.
+# Les vignettes et public/photos/credits.json sont enregistrés dans le dépôt, puis le site
+# est redéployé. Le tableau récapitulatif de l'exécution liste les photos trouvées ou manquantes.
+
+name: Photos des candidats
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "outils/photos/**"
+      - ".github/workflows/photos.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: photos-candidats
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  actions: write
+
+jobs:
+  photos:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Installer Pillow
+        run: python -m pip install --quiet pillow
+
+      - name: Collecter les photos et les fiches
+        run: python outils/photos/collecter.py
+
+      - name: Enregistrer dans le dépôt
+        id: save
+        run: |
+          git add public/photos
+          if git diff --cached --quiet; then
+            echo "Aucune photo modifiée."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Photos des candidats : mise à jour depuis Wikimedia Commons"
+          git pull --rebase --quiet origin main
+          git push origin HEAD:main
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Redéployer le site
+        if: steps.save.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run deploy-ovh.yml --ref main

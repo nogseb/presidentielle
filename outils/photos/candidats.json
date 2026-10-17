@@ -1,0 +1,100 @@
+{
+  "_lisez-moi": [
+    "Article de Wikipédia en français de chaque candidat, clé = identifiant du candidat dans la base.",
+    "Règle : la photo retenue est celle de l'infobox de l'article (à défaut, l'image Wikidata), uniquement si elle est hébergée sur Wikimedia Commons.",
+    "Options par candidat : « photo » impose un autre fichier de Commons (ex. « Fichier.jpg ») ; « haut » règle le recadrage vertical, de 0 (haut de l'image) à 1 (bas), 0,15 par défaut ; « sans_photo » à true désactive la photo.",
+    "Toute modification de ce fichier relance le workflow « Photos des candidats »."
+  ],
+  "candidats": {
+    "arthaud": {
+      "article": "Nathalie Arthaud"
+    },
+    "asselineau": {
+      "article": "François Asselineau"
+    },
+    "attal": {
+      "article": "Gabriel Attal"
+    },
+    "batho": {
+      "article": "Delphine Batho"
+    },
+    "becht": {
+      "article": "Olivier Becht"
+    },
+    "bertrand": {
+      "article": "Xavier Bertrand"
+    },
+    "bouamrane": {
+      "article": "Karim Bouamrane"
+    },
+    "branco": {
+      "article": "Juan Branco"
+    },
+    "cazeneuve": {
+      "article": "Bernard Cazeneuve"
+    },
+    "dupont-aignan": {
+      "article": "Nicolas Dupont-Aignan"
+    },
+    "egger": {
+      "article": "Clara Egger"
+    },
+    "glucksmann": {
+      "article": "Raphaël Glucksmann"
+    },
+    "kazib": {
+      "article": "Anasse Kazib"
+    },
+    "labib": {
+      "article": "Selma Labib"
+    },
+    "lalanne": {
+      "article": "Francis Lalanne"
+    },
+    "le-pen": {
+      "article": "Marine Le Pen"
+    },
+    "lisnard": {
+      "article": "David Lisnard"
+    },
+    "markovic": {
+      "article": "Mira Markovic"
+    },
+    "massard": {
+      "article": "Lydie Massard"
+    },
+    "mathieu": {
+      "article": "Benoît Mathieu"
+    },
+    "melenchon": {
+      "article": "Jean-Luc Mélenchon"
+    },
+    "mikolajczak": {
+      "article": "Antoine Mikolajczak"
+    },
+    "philippe": {
+      "article": "Édouard Philippe"
+    },
+    "philippot": {
+      "article": "Florian Philippot"
+    },
+    "polony": {
+      "article": "Natacha Polony"
+    },
+    "retailleau": {
+      "article": "Bruno Retailleau"
+    },
+    "roussel": {
+      "article": "Fabien Roussel"
+    },
+    "ruffin": {
+      "article": "François Ruffin"
+    },
+    "tondelier": {
+      "article": "Marine Tondelier"
+    },
+    "zemmour": {
+      "article": "Éric Zemmour"
+    }
+  }
+}
