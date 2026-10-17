@@ -33,6 +33,7 @@ phpMyAdmin (saisie)  →  MySQL OVHcloud  →  api/publier.php  →  data/site.j
 | Contrôler | chaque push et pull request | syntaxe PHP et JS, import du schéma dans un MySQL 8.0 vierge, export et vérification de `site.json` |
 | Publier Repères 2027 sur OVHcloud | push sur `main` touchant `public/` ou `app/`, ou manuel | envoi SFTP, écriture de la configuration privée, régénération des données |
 | Publier les données | manuel, et toutes les heures de 7 h à 23 h | régénère `site.json` après une saisie, sans redéployer le code |
+| Photos des candidats | modification de `outils/photos/candidats.json`, ou manuel | vignettes et crédits depuis Wikimedia Commons, puis redéploiement |
 
 ## Documentation
 

@@ -153,6 +153,14 @@ final class ExportSite
                 $signales[] = $c['mention'];
             }
 
+            // Biographie : publiée seulement si elle est sourcée (colonnes ajoutées par la migration 002)
+            $bio = $c['bio'] ?? null;
+            $bioSrc = $this->src(isset($c['bio_source_id']) ? (int) $c['bio_source_id'] : null);
+            if ($bio && !$bioSrc) {
+                $this->alerte("Biographie de {$c['prenom']} {$c['nom']} sans source : non publiée.");
+                $bio = null;
+            }
+
             $candidats[] = [
                 'id'    => $c['slug'],
                 'p'     => $c['prenom'],
@@ -169,6 +177,9 @@ final class ExportSite
                 'nb'    => (int) ($nbProps[$c['id']] ?? 0),
                 'cmp'   => $dansComparateur,
                 'src'   => $this->src((int) $c['source_id']),
+                'nai'   => $c['date_naissance'] ?? null,
+                'bio'   => $bio,
+                'bioSrc' => $bio ? $bioSrc : null,
             ];
             if ($dansComparateur) {
                 $comparateur[] = [

@@ -18,7 +18,7 @@ MySQL est la source de vérité. Le site public ne lit jamais la base : il lit `
 
 | Table | Rôle | Points d'attention |
 | --- | --- | --- |
-| `candidat` | une candidature | `statut` : `declare`, `a_confirmer`, `officiel`, `retire`, `non_retenu`, `qualifie_t2` ; `niveau = 'complet'` l'ouvre au comparateur en phase 1 ; `source_id` obligatoire |
+| `candidat` | une candidature | `date_naissance` (affichage de l'âge), `bio` (deux phrases au même gabarit, publiée seulement avec `bio_source_id`), `bio_verifie_le` ; `statut` : `declare`, `a_confirmer`, `officiel`, `retire`, `non_retenu`, `qualifie_t2` ; `niveau = 'complet'` l'ouvre au comparateur en phase 1 ; `source_id` obligatoire |
 | `position_candidat` | position d'un candidat sur une variable pivot | une ligne par couple candidat × variable ; `non_aborde = 1` distingue « Non abordé » de « À documenter » (ligne absente) |
 | `proposition` | une mesure, codée `P-XXX-NNN` | intitulé de 160 caractères au plus ; `mesure_phare` (3 au plus par thème) ; `chantier_id` pour la pastille Shift ; `version_precedente_id` garde l'historique d'une mesure modifiée |
 
@@ -59,12 +59,14 @@ MySQL est la source de vérité. Le site public ne lit jamais la base : il lit `
 | `semaine` | `periode` et `faits[]` : `d` date, `tag`, `t` texte, `src` liste de couples [libellé, URL] |
 | `phases` | les 3 phases : `n` nom, `from`, `to`, `d` description |
 | `calendrier` | `d` date, `l` libellé de date, `t` intitulé, `s` statut, `src` |
-| `candidats` | `id`, `p` prénom, `n` nom, `parti`, `st` statut (`declare`, `a_confirmer`, `officiel`…), `d` date de déclaration, `dp` précision, `dk` type de désignation, `b` badges, `f` points d'attention, `note`, `prog` programme, `nb` nombre de propositions, `cmp` présent au comparateur, `src` |
+| `candidats` | `id`, `p` prénom, `n` nom, `parti`, `st` statut (`declare`, `a_confirmer`, `officiel`…), `d` date de déclaration, `dp` précision, `dk` type de désignation, `b` badges, `f` points d'attention, `note`, `prog` programme, `nb` nombre de propositions, `cmp` présent au comparateur, `src`, `nai` date de naissance, `bio`, `bioSrc` source de la biographie |
 | `comparateur` | `candidats[]` : `id`, `nom`, `court` |
 | `themes` | `id`, `slug`, `n` nom, `c` nom court, `une`, `pivots`, `vars[]` (`slug`, `q` question, `type` num ou cat, `v` valeurs par candidat, `src`, `shift`, et `unit`/`min`/`max`/`ticks` ou `mods`), `r` scores radar et `mesures` lorsqu'il y a des données |
 | `empreinte` | répartition des propositions par thème, publiée à partir de `empreinte_min` propositions |
 | `sondage` | `rows`, `mentions`, `lecture`, `url`, `notice` |
 | `shift` | `nom`, `qui`, `demande`, `finance`, `financeSrc`, `hatvp`, `dispositifs`, `chantiers`, `etats`, `src` |
+
+Les portraits ne passent pas par la base : `public/photos/<id>.webp` et `public/photos/credits.json` (auteur, licence, page Commons) sont produits par le workflow « Photos des candidats » à partir de `outils/photos/candidats.json`.
 
 Toute évolution incompatible du contrat incrémente `meta.version` ; `public/assets/app.js` et `outils/demo.mjs` sont à mettre à jour dans le même commit.
 

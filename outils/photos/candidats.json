@@ -20,9 +20,9 @@
     },
     "becht": {
       "article": "Olivier Becht",
-      "zoom": 2.2,
+      "zoom": 1.6,
       "centre_x": 0.5,
-      "haut_zoom": 0.0
+      "haut_zoom": 0.05
     },
     "bertrand": {
       "article": "Xavier Bertrand"
@@ -47,9 +47,9 @@
     },
     "kazib": {
       "article": "Anasse Kazib",
-      "zoom": 2.4,
-      "centre_x": 0.49,
-      "haut_zoom": 0.03
+      "zoom": 1.9,
+      "centre_x": 0.43,
+      "haut_zoom": 0.22
     },
     "labib": {
       "article": "Selma Labib"

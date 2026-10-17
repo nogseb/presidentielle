@@ -123,6 +123,29 @@
     const dateLabel = c => c.d ? `${MOT_DATE[c.dk] || "Déclaration"} · ${dateTxt(c)}` : "";
     const fullName = c => c.p + " " + c.n;
     const initials = c => (c.p.charAt(0) + c.n.charAt(0)).toUpperCase();
+    const ageOf = iso => {
+      if (!iso) return null;
+      const [y, m, d] = iso.split("-").map(Number), [ty, tm, td] = TODAY.split("-").map(Number);
+      return ty - y - ((tm < m || (tm === m && td < d)) ? 1 : 0);
+    };
+
+    /* Portraits : vignettes de Wikimedia Commons et leurs crédits (photos/credits.json, facultatif) */
+    let PHOTOS = {};
+    fetch("photos/credits.json", { cache: "no-cache" })
+      .then(r => r.ok ? r.json() : null)
+      .then(d => { if (d && d.photos) { PHOTOS = d.photos; renderCands(); } })
+      .catch(() => {});
+    const avatar = c => {
+      const ph = PHOTOS[c.id];
+      return ph ? `<img class="mono ph" src="${esc(ph.fichier)}" alt="" width="240" height="300" loading="lazy" decoding="async">`
+        : `<span class="mono" aria-hidden="true">${esc(initials(c))}</span>`;
+    };
+    const creditPhoto = id => {
+      const ph = PHOTOS[id];
+      if (!ph) return "";
+      const lic = ph.licence_url ? `<a href="${esc(ph.licence_url)}" target="_blank" rel="noopener license">${esc(ph.licence)}</a>` : esc(ph.licence);
+      return `${esc(ph.auteur)}, ${lic}, <a href="${esc(ph.source)}" target="_blank" rel="noopener">Wikimedia Commons</a>`;
+    };
     const investi = c => c.dk === "primaire" || c.dk === "parti";
     const aConfirmer = c => !OFFICIELS && (c.st === "a_confirmer" || c.dk === "annonce" || (!c.st && (c.f || []).indexOf("Candidature à confirmer") >= 0));
     const pl = (n, un, plusieurs) => n > 1 ? plusieurs : un;
@@ -165,13 +188,17 @@
         const n = Object.keys((SH.etats && SH.etats[c.id]) || {}).length;
         rows.push([`${PST}Shift Project`, n ? `${n} chantier${n > 1 ? "s" : ""} sur ${SH.chantiers.length} documenté${n > 1 ? "s" : ""} · <a href="#shift">voir la grille</a>` : "correspondances à établir"]);
       }
-      if (c.src) rows.push(["Source", link(c.src)]);
+      if (c.src) rows.push(["Candidature", link(c.src)]);
+      rows.push(["Biographie", c.bio && c.bioSrc ? link(c.bioSrc) : `<span class="todo">À documenter</span>`]);
+      if (PHOTOS[c.id]) rows.push(["Photo", creditPhoto(c.id)]);
+      const age = ageOf(c.nai);
       return `<details class="cand" id="cand-${esc(c.id)}">
           <summary>
-            <span class="mono" aria-hidden="true">${esc(initials(c))}</span>
-            <span class="who"><span class="nm">${esc(c.p)} <span class="last">${esc(c.n)}</span></span><span class="pt${c.parti ? "" : " sans"}">${esc(c.parti || "Sans parti indiqué")}</span></span>
+            ${avatar(c)}
+            <span class="who"><span class="nm">${esc(c.p)} <span class="last">${esc(c.n)}</span></span><span class="pt"><span class="${c.parti ? "" : "sans"}">${esc(c.parti || "Sans parti indiqué")}</span>${age ? ` · ${age} ans` : ""}</span></span>
             ${c.d ? `<span class="cdate">${esc(dateLabel(c))}</span>` : ""}
             ${badges ? `<span class="badges">${badges}</span>` : ""}
+            ${c.bio ? `<span class="bio">${esc(c.bio)}</span>` : ""}
           </summary>
           <div class="more">
             ${c.note ? `<p>${esc(c.note)}</p>` : ""}

@@ -114,6 +114,26 @@ WHERE digest_id = (SELECT id FROM digest WHERE debut = '2026-10-18');
 UPDATE digest SET publie = 1 WHERE debut = '2026-10-18';
 ```
 
+### Rédiger la biographie et l'âge d'un candidat
+
+Gabarit : deux phrases, la fonction actuelle puis un ou deux jalons du parcours ; ni adjectif ni appréciation ; 250 caractères environ. La biographie n'est publiée qu'avec sa source.
+
+```sql
+INSERT INTO source (cle, url, titre, editeur, libelle_court, date_publication, niveau, consultee_le)
+VALUES ('wikipedia-slug-du-candidat-2026-11-02', 'https://fr.wikipedia.org/wiki/…', 'Prénom Nom — Wikipédia', 'Wikipédia', 'Wikipédia', '2026-11-02', 4, CURDATE());
+
+UPDATE candidat SET
+  bio = 'Fonction actuelle depuis 2020. Ancien …, candidat à l''élection présidentielle de 2022.',
+  date_naissance = '1970-01-31',
+  bio_source_id = (SELECT id FROM source WHERE cle = 'wikipedia-slug-du-candidat-2026-11-02'),
+  bio_verifie_le = CURDATE()
+WHERE slug = 'slug-du-candidat';
+```
+
+### Ajouter ou changer une photo
+
+Les photos ne sont pas dans la base. Dans le dépôt GitHub, modifier `outils/photos/candidats.json` (article Wikipédia du candidat, ou fichier Commons imposé, et réglages de recadrage) : le workflow « Photos des candidats » télécharge la vignette, enregistre le crédit et redéploie le site. Pour un nouveau candidat, ajouter une ligne `"slug-du-candidat": {"article": "Prénom Nom"}`.
+
 ### Passer en phase 2 (liste officielle)
 
 ```sql

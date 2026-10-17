@@ -28,7 +28,8 @@ Depuis l'onglet Bases de données, ouvrir phpMyAdmin pour la nouvelle base, puis
 1. `database/migrations/001_schema.sql` : les tables ;
 2. `database/seed/010_referentiels.sql` : paramètres, 14 thèmes, variables pivots, The Shift Project et ses chantiers ;
 3. `database/seed/020_actualite_2026-10-17.sql` : candidatures, calendrier, digest, sondage, sources ;
-4. facultatif : `database/optionnel/journal_triggers.sql`, le journal automatique des modifications. Si phpMyAdmin refuse ce fichier (droit `TRIGGER` absent), ce n'est pas bloquant.
+4. `database/migrations/002_biographies.sql` puis `database/seed/030_biographies_2026-10-17.sql` : âge et biographie des candidats ;
+5. facultatif : `database/optionnel/journal_triggers.sql`, le journal automatique des modifications. Si phpMyAdmin refuse ce fichier (droit `TRIGGER` absent), ce n'est pas bloquant.
 
 Contrôle rapide dans l'onglet SQL :
 
@@ -72,6 +73,14 @@ Vérifications :
 - https://nogues.app/presidentielle/ affiche la semaine et les 30 candidatures ;
 - https://nogues.app/presidentielle/?demo=1 affiche le comparateur et la grille The Shift Project avec des données fictives ;
 - https://nogues.app/presidentielle/data/site.json renvoie le JSON public.
+
+## Mises à jour du schéma
+
+Chaque évolution de la base arrive sous forme d'une migration numérotée (`database/migrations/00N_*.sql`), à importer une seule fois dans phpMyAdmin, dans l'ordre, suivie le cas échéant du fichier de données qui l'accompagne. La table `schema_version` indique les migrations déjà appliquées :
+
+```sql
+SELECT * FROM schema_version ORDER BY version;
+```
 
 ## Ensuite
 
