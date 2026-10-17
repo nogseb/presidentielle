@@ -1,0 +1,73 @@
+# Contrôle chaque modification : syntaxe PHP et JavaScript, import du schéma et des données
+# dans un MySQL 8.0 vierge (version proposée par OVHcloud), puis export complet de site.json.
+
+name: Contrôler
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  controler:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: controle
+          MYSQL_DATABASE: presidentielle
+        ports: ["3306:3306"]
+        options: >-
+          --health-cmd="mysqladmin ping -h 127.0.0.1 -pcontrole"
+          --health-interval=5s --health-timeout=5s --health-retries=24
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Syntaxe PHP et JavaScript
+        run: |
+          set -e
+          for f in $(git ls-files '*.php'); do php -l "$f"; done
+          node --check public/assets/app.js
+          node --check outils/demo.mjs
+
+      - name: Importer le schéma et les données dans MySQL 8.0
+        run: |
+          set -e
+          M="mysql -h 127.0.0.1 -uroot -pcontrole --default-character-set=utf8mb4 presidentielle"
+          for f in database/migrations/*.sql database/seed/*.sql; do
+            echo "Import de $f"
+            $M < "$f"
+          done
+          if $M < database/optionnel/journal_triggers.sql; then
+            echo "Déclencheurs du journal acceptés."
+          else
+            echo "::notice::Déclencheurs du journal refusés : sans conséquence, ils sont facultatifs."
+          fi
+          $M -e "SELECT VERSION() AS mysql, (SELECT COUNT(*) FROM theme) AS themes, (SELECT COUNT(*) FROM variable) AS variables, (SELECT COUNT(*) FROM candidat) AS candidats, (SELECT COUNT(*) FROM chantier) AS chantiers;"
+
+      - name: Exporter site.json et vérifier sa structure
+        run: |
+          set -e
+          jq -n --arg d "$RUNNER_TEMP/data" \
+            '{db_host:"127.0.0.1", db_name:"presidentielle", db_user:"root", db_password:"controle", publier_jeton:"controle", data_dir:$d}' \
+            > app/config.local.json
+          php app/bin/publier.php | tee "$RUNNER_TEMP/rapport.json"
+          node -e '
+            const fs = require("fs");
+            const d = JSON.parse(fs.readFileSync(process.env.RUNNER_TEMP + "/data/site.json", "utf8"));
+            const ok = (c, m) => { if (!c) { console.error("Échec : " + m); process.exit(1); } };
+            ok(d.meta && d.meta.version === 1, "meta.version");
+            ok(Array.isArray(d.themes) && d.themes.length === 14, "14 thèmes");
+            ok(d.themes.filter(t => t.une).length === 3, "3 thèmes à la une");
+            ok(Array.isArray(d.candidats) && d.candidats.every(c => c.src), "chaque candidature a une source");
+            ok(d.calendrier.length > 0 && d.phases.length === 3, "calendrier et phases");
+            ok(d.shift && d.shift.chantiers.length >= 19, "chantiers du Shift Project");
+            ok(!d.semaine || d.semaine.faits.length <= 5, "cinq faits au plus");
+            console.log("site.json conforme :", d.candidats.length, "candidatures,", d.themes.length, "thèmes");
+          '

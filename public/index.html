@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Repères 2027</title>
+<meta name="description" content="La course à l'Élysée en lecture rapide : l'actualité de la semaine, les candidatures déclarées et les propositions comparées sur 14 thèmes, avec une source datée pour chaque information.">
+<link rel="canonical" href="https://nogues.app/presidentielle/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Repères 2027">
+<meta property="og:description" content="La présidentielle 2027 en lecture rapide : actualité sourcée et propositions comparées thème par thème.">
+<meta property="og:url" content="https://nogues.app/presidentielle/">
+<meta property="og:locale" content="fr_FR">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/archivo-latin-variable.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/app.css">
+<script src="assets/app.js" defer></script>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="top-row">
+      <a class="brand" href="#semaine">Repères 2027</a>
+      <div class="count"><span>avant le 1<sup>er</sup> tour<br>du 18 avril 2027</span><b id="jcount">J-…</b></div>
+    </div>
+    <nav class="tabs" aria-label="Sections">
+      <a href="#semaine">La semaine</a>
+      <a href="#candidats">Candidats</a>
+      <a href="#themes">Thèmes</a>
+      <a href="#sondages">Sondages</a>
+      <a href="#shift">The Shift Project</a>
+      <a href="#calendrier">Calendrier</a>
+      <a href="#methode">Méthode</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <noscript><p>Ce site affiche ses données avec JavaScript. Les données brutes restent consultables dans <a href="data/site.json">data/site.json</a>.</p></noscript>
+  <p class="banner" id="demo-banner" hidden><b>Mode démonstration</b> Le comparateur et la grille The Shift Project affichent des données fictives (candidats A à F). <a href="./">Revenir aux données publiées</a></p>
+  <div class="notice" id="erreur" hidden><b>Les données n'ont pas pu être chargées.</b><span>Réessayez dans quelques instants. Les données brutes sont aussi disponibles dans <a href="data/site.json">data/site.json</a>.</span></div>
+  <p class="loading" id="chargement">Chargement des données…</p>
+
+  <section class="view" id="v-semaine" aria-labelledby="t-semaine" hidden>
+    <div>
+      <p class="eyebrow" id="periode"></p>
+      <h1 id="t-semaine">La semaine en <span class="hl">60 secondes</span></h1>
+      <p class="lede">Cinq faits datés et sourcés, du plus récent au plus ancien. Aucun commentaire, aucun pronostic.</p>
+    </div>
+    <ol class="facts rule" id="facts"></ol>
+    <div class="duo">
+      <div class="panel">
+        <p class="eyebrow" style="margin:0">Le chiffre</p>
+        <div class="stat"><span class="n" id="nb-cand"></span><span class="u" id="nb-cand-u">candidatures déclarées</span></div>
+        <p class="small" id="chiffre-note"></p>
+      </div>
+      <div class="panel">
+        <p class="eyebrow" style="margin:0">Prochaines étapes</p>
+        <ul class="plain" id="next"></ul>
+      </div>
+    </div>
+    <div class="block">
+      <div class="head-row"><h2>Thèmes à la une</h2><span class="small"><span class="pst-s" aria-hidden="true">S</span> sujet traité par The Shift Project</span></div>
+      <div class="une" id="une"></div>
+    </div>
+    <div class="block">
+      <h2>Où en est la course</h2>
+      <div class="plain" id="phases" style="display:grid;gap:8px"></div>
+    </div>
+  </section>
+
+  <section class="view" id="v-candidats" aria-labelledby="t-cand" hidden>
+    <div>
+      <p class="eyebrow" id="cand-eyebrow">Phase 1 · candidats déclarés</p>
+      <h1 id="t-cand"><span id="nb-cand-2"></span> <span id="nb-cand-2u">candidatures déclarées</span></h1>
+      <p class="lede" id="cand-lede">La liste évolue au fil des déclarations, retraits et ralliements. Elle sera remplacée par la liste officielle du Conseil constitutionnel. Ordre alphabétique.</p>
+    </div>
+    <div class="controls">
+      <div class="field"><label for="q">Rechercher un nom ou un parti</label><input type="search" id="q" placeholder="Ex. Tondelier, Horizons" autocomplete="off"></div>
+      <div class="field" style="flex:0 1 13rem"><label for="sort">Trier par</label><select id="sort"><option value="nom">Nom</option><option value="date">Date de déclaration</option></select></div>
+    </div>
+    <div class="cands" id="cands"></div>
+    <p class="small">Chaque fiche renvoie à la source de la candidature. Une date absente n'est pas encore sourcée.</p>
+  </section>
+
+  <section class="view" id="v-themes" aria-labelledby="t-themes" hidden>
+    <div>
+      <p class="eyebrow">Comparateur</p>
+      <h1 id="t-themes">Les propositions, thème par thème</h1>
+      <p class="lede">Chaque thème est résumé par deux à quatre questions tranchées, les <b>variables pivots</b>, sur lesquelles tous les candidats se placent sur le même axe.</p>
+    </div>
+    <p class="demo" data-demo hidden><b>Démonstration</b> Positions fictives attribuées aux candidats A à F, pour valider les formats.</p>
+    <div class="notice" id="cmp-vide" hidden><b>Le comparateur s'ouvre avec les premières positions vérifiées.</b><span>Chaque position est relevée sur la source primaire du candidat, puis relue avant publication. Les variables pivots de chaque thème sont déjà listées ci-dessous.</span></div>
+    <div class="block" style="gap:8px">
+      <p class="eyebrow" style="margin:0">À la une</p>
+      <div class="chips" id="chips-une" role="group" aria-label="Thèmes à la une"></div>
+      <p class="eyebrow" style="margin:8px 0 0">Autres thèmes</p>
+      <div class="chips" id="chips" role="group" aria-label="Autres thèmes"></div>
+      <p class="small"><span class="pst-s" aria-hidden="true">S</span> thème qui recoupe un chantier du Plan robuste de The Shift Project</p>
+    </div>
+    <div class="block" id="theme"></div>
+    <div class="block" style="margin-top:8px">
+      <div>
+        <p class="eyebrow">Empreinte thématique</p>
+        <h2>Quelle part de son programme chaque candidat consacre à chaque thème</h2>
+      </div>
+      <p class="small" id="radars-vide" hidden></p>
+      <div class="radars" id="radars"></div>
+      <blockquote>L'empreinte mesure la place d'un thème dans un programme (part des propositions recensées). Elle ne mesure ni l'ambition ni la qualité des mesures : un programme plus détaillé sur un sujet y pèse davantage.</blockquote>
+      <div class="compare panel" id="compare">
+        <h3>Superposer deux empreintes</h3>
+        <div class="sel">
+          <div class="field"><label for="ca">Premier candidat (trait plein)</label><select id="ca"></select></div>
+          <div class="field"><label for="cb">Second candidat (pointillés)</label><select id="cb"></select></div>
+        </div>
+        <figure id="cmp" style="margin:0"></figure>
+        <div class="legend" id="cmp-legend"></div>
+        <details class="data"><summary>Voir le tableau</summary><div class="tbl" id="cmp-table"></div></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="view" id="v-sondages" aria-labelledby="t-sond" hidden>
+    <div>
+      <p class="eyebrow">Intentions de vote · premier tour</p>
+      <h1 id="t-sond">Une enquête de référence, avec ses écarts</h1>
+      <p class="lede" id="poll-lecture"></p>
+    </div>
+    <div class="panel" id="poll-panel">
+      <div class="dp" id="poll"></div>
+      <details class="data"><summary>Voir le tableau</summary><div class="tbl" id="poll-table"></div></details>
+    </div>
+    <p class="small" id="poll-mentions"></p>
+    <blockquote>Module complet en préparation : moyenne de toutes les enquêtes publiées, avec leurs mentions légales et un lien vers chaque notice de la Commission des sondages. Les sondages ne seront ni publiés ni commentés la veille et le jour de chaque tour.</blockquote>
+  </section>
+
+  <section class="view" id="v-shift" aria-labelledby="t-shift" hidden>
+    <div>
+      <p class="eyebrow">Grille de lecture</p>
+      <h1 id="t-shift">Les candidats au prisme du <span class="hl">Shift Project</span></h1>
+      <p class="lede">The Shift Project, think tank présidé par Jean-Marc Jancovici, a publié un Plan robuste pour l'économie française. Pour chacun de ses <span id="sh-count"></span> chantiers détaillés, la grille indique si le candidat le reprend, en partie, s'y oppose ou ne l'aborde pas.</p>
+    </div>
+    <blockquote><b>Choix éditorial assumé.</b> Cette grille est celle d'une organisation, pas celle du site. Les correspondances sont factuelles et sourcées, appliquées à tous les candidats de la même façon, sans note ni classement.</blockquote>
+    <p class="demo" data-demo hidden><b>Démonstration</b> Correspondances fictives pour les candidats A à F, en attendant la publication des programmes.</p>
+    <div class="notice" id="sh-vide" hidden><b>Les correspondances seront publiées avec les programmes.</b><span>Pour chaque candidat du comparateur, chaque chantier est rapproché de ses propositions, avec la source citée. Les chantiers et les dispositifs de l'organisation sont présentés ci-dessous.</span></div>
+    <div class="block" id="sh-ensemble">
+      <h2>Vue d'ensemble par candidat</h2>
+      <div class="keys" id="sh-legend"></div>
+      <div class="unit" id="sh-summary"></div>
+      <p class="small">Un carré par chantier. Candidats dans l'ordre de la charte, jamais triés selon le nombre de chantiers repris.</p>
+    </div>
+    <div class="block">
+      <h2>Chantier par chantier</h2>
+      <div class="mx" id="sh-matrix"></div>
+      <details class="data" id="sh-table-wrap"><summary>Voir le tableau</summary><div class="tbl" id="sh-table"></div></details>
+    </div>
+    <div class="block">
+      <h2>L'organisation</h2>
+      <div class="panel" id="sh-org"></div>
+    </div>
+    <div class="block">
+      <h2>Ses dispositifs pour 2027</h2>
+      <div class="disp" id="sh-disp"></div>
+    </div>
+  </section>
+
+  <section class="view" id="v-calendrier" aria-labelledby="t-cal" hidden>
+    <div>
+      <p class="eyebrow">De l'annonce des dates au second tour</p>
+      <h1 id="t-cal">Calendrier de l'élection</h1>
+      <p class="lede">Plusieurs dates découlent du décret de convocation, pas encore publié. Elles sont calculées selon les règles en vigueur et seront confirmées.</p>
+    </div>
+    <div class="keys"><span class="st st-officiel">Officiel</span>date arrêtée<span class="st st-fait">Fait</span>déjà passé<span class="st st-annonce">Annoncé</span>par un parti ou une institution<span class="st st-calcule">Calculé</span>selon la loi, à confirmer</div>
+    <ol class="cal" id="cal"></ol>
+  </section>
+
+  <section class="view" id="v-methode" aria-labelledby="t-meth" hidden>
+    <div>
+      <p class="eyebrow">Charte publique</p>
+      <h1 id="t-meth">Comment ce site est fait</h1>
+      <p class="lede">Repères 2027 résume la course à l'Élysée et compare les propositions sans recommander de vote. Initiative indépendante, sans publicité ni financement.</p>
+    </div>
+    <div class="block">
+      <h2>Cinq règles</h2>
+      <ol class="rules">
+        <li><b>Même gabarit pour tous</b> : trois mesures phares par thème, mêmes formats graphiques.</li>
+        <li><b>Une source datée par information</b> : une proposition n'est publiée que vérifiée sur la source primaire du candidat.</li>
+        <li><b>Formulation neutre</b> : verbe à l'infinitif, ni adjectif ni adverbe évaluatif.</li>
+        <li><b>« Non abordé » plutôt qu'une case vide</b> : l'absence de position connue est affichée et datée ; « À documenter » signale une position pas encore relevée.</li>
+        <li><b>Ni note ni classement</b> : aucun code couleur de jugement ; corrections publiques sous 48 heures.</li>
+      </ol>
+    </div>
+    <div class="block">
+      <h2>Deux phases</h2>
+      <p style="max-width:64ch">Jusqu'à la liste officielle, le site suit toutes les candidatures déclarées, au fil des annonces. Le comparateur complet porte sur les candidatures soutenues par un parti doté d'un groupe parlementaire ou à 2 % de moyenne dans les trois dernières enquêtes. Dès la publication de la liste par le Conseil constitutionnel, il présente tous les candidats officiels, dans l'ordre du tirage au sort, avec un traitement strictement identique.</p>
+    </div>
+    <div class="block">
+      <h2>Hiérarchie des sources</h2>
+      <div class="levels">
+        <div><b>1</b><span>Sources officielles : Conseil constitutionnel, Journal officiel, Commission des sondages, Arcom.</span></div>
+        <div><b>2</b><span>Sources des candidats : programmes, sites de campagne, discours. Seule base admise pour une proposition.</span></div>
+        <div><b>3</b><span>Médias de référence, d'orientations différentes, pour l'actualité.</span></div>
+        <div><b>4</b><span>Instituts et think tanks, toujours cités à plusieurs.</span></div>
+        <div><b>5</b><span>Rubriques de vérification des faits.</span></div>
+      </div>
+    </div>
+    <div class="block">
+      <h2>Choix éditoriaux déclarés</h2>
+      <ul class="rules">
+        <li><b>Trois thèmes à la une</b> : environnement, climat et énergie ; transports et mobilités ; numérique, innovation technologique et IA. Ils ouvrent l'accueil et le comparateur.</li>
+        <li><b>Une grille de lecture The Shift Project</b> : une section dédiée et une pastille « S » sur les sujets qui recoupent son Plan robuste. Les correspondances restent factuelles, sourcées et identiques pour tous les candidats.</li>
+      </ul>
+    </div>
+    <div class="block">
+      <h2>Données ouvertes</h2>
+      <p style="max-width:64ch">Toutes les données affichées proviennent d'un seul fichier, <a href="data/site.json">data/site.json</a>, réutilisable sous Licence Ouverte Etalab 2.0. Il est régénéré à chaque validation ; seules les informations relues et sourcées y figurent.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="wrap">
+  <p id="maj"></p>
+  <p>Initiative indépendante, sans publicité ni cookies de suivi. <a href="#methode">Méthode</a> · <a href="data/site.json">Données ouvertes</a></p>
+</footer>
+
+<div id="tip" role="tooltip" hidden></div>
+
+</body>
+</html>

@@ -1,0 +1,3 @@
+# Ce dossier ne doit jamais être servi par le web.
+# Il est déployé hors de www/ ; cette règle protège en cas d'erreur de chemin.
+Require all denied

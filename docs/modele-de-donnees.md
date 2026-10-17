@@ -1,0 +1,76 @@
+# Modèle de données
+
+MySQL est la source de vérité. Le site public ne lit jamais la base : il lit `data/site.json`, produit par `app/lib/export.php`. Seules les lignes à l'état `valide` et sourcées sont exportées.
+
+## Tables
+
+### Référentiels
+
+| Table | Rôle | Points d'attention |
+| --- | --- | --- |
+| `parametre` | réglages clé/valeur : `phase`, dates des tours, `liste_officielle`, `empreinte_min`, `chiffre_note` | `phase` pilote l'affichage : `declares`, `officiels`, `entre_deux_tours` |
+| `source` | toute référence citée sur le site | `cle` unique et lisible ; `niveau` de 1 (texte officiel) à 5 (presse d'opinion) |
+| `theme` | les 14 thèmes communs | identifiants fixes ; `a_la_une` = Environnement (6), Transports (13), Numérique et IA (14) |
+| `variable` | variables pivots d'un thème, au plus 3 | `numerique` (bornes, unité, graduations) ou `categorielle` ; `chantier_id` relie une variable à un chantier du Shift Project |
+| `modalite` | options d'une variable catégorielle | ordre d'affichage par `ordre` |
+
+### Candidatures et propositions
+
+| Table | Rôle | Points d'attention |
+| --- | --- | --- |
+| `candidat` | une candidature | `statut` : `declare`, `a_confirmer`, `officiel`, `retire`, `non_retenu`, `qualifie_t2` ; `niveau = 'complet'` l'ouvre au comparateur en phase 1 ; `source_id` obligatoire |
+| `position_candidat` | position d'un candidat sur une variable pivot | une ligne par couple candidat × variable ; `non_aborde = 1` distingue « Non abordé » de « À documenter » (ligne absente) |
+| `proposition` | une mesure, codée `P-XXX-NNN` | intitulé de 160 caractères au plus ; `mesure_phare` (3 au plus par thème) ; `chantier_id` pour la pastille Shift ; `version_precedente_id` garde l'historique d'une mesure modifiée |
+
+### Actualité
+
+| Table | Rôle | Points d'attention |
+| --- | --- | --- |
+| `digest` | une semaine de veille | `publie = 1` pour l'afficher ; seul le plus récent publié est exporté |
+| `evenement` | un fait daté | `type` : candidature, programme, sondage, institutions, décompte, société civile… ; 5 faits au plus par digest |
+| `evenement_source`, `evenement_candidat` | liens d'un fait vers ses sources et candidats | un fait sans source n'est pas publié |
+| `sondage`, `sondage_resultat` | enquêtes d'intentions de vote | résultats en fourchette `valeur_min` / `valeur_max` ; mentions obligatoires (institut, commanditaire, échantillon, marge) |
+| `calendrier_etape` | jalons de la campagne | `statut` : `officiel`, `fait`, `annonce`, `calcule` ; `societe_civile = 1` pour les étapes hors institutions |
+
+### The Shift Project
+
+| Table | Rôle | Points d'attention |
+| --- | --- | --- |
+| `organisation` | organisation suivie | `grille_dediee = 1` ouvre la section dédiée (The Shift Project) |
+| `organisation_dispositif`, `dispositif_source` | actions de plaidoyer (propositions, consultation des Shifters, communiqués) | chaque dispositif est sourcé |
+| `chantier` | les 19 chantiers de la grille | `slug` court (`train`, `nucleaire`, `datacenters`…) |
+| `correspondance` | position d'un candidat sur un chantier | `etat_chantier` : `repris`, `en_partie`, `oppose`, `non_aborde` ; source obligatoire pour être publiée |
+
+### Traçabilité
+
+| Table | Rôle |
+| --- | --- |
+| `publication` | une ligne par génération de `site.json` : déclencheur, empreinte, statistiques, alertes |
+| `signalement` | erreurs signalées par les lecteurs |
+| `erratum` | corrections publiées |
+| `journal` | historique des modifications, alimenté par les déclencheurs facultatifs |
+| `schema_version` | version du schéma appliquée |
+
+## Contrat JSON (`data/site.json`, version 1)
+
+| Clé | Contenu |
+| --- | --- |
+| `meta` | `version`, `genere_le`, `maj`, dates des tours, `liste_officielle`, `phase`, `demo`, `chiffre_note`, `empreinte_min`, `empreinte` (SHA-256 des données) |
+| `semaine` | `periode` et `faits[]` : `d` date, `tag`, `t` texte, `src` liste de couples [libellé, URL] |
+| `phases` | les 3 phases : `n` nom, `from`, `to`, `d` description |
+| `calendrier` | `d` date, `l` libellé de date, `t` intitulé, `s` statut, `src` |
+| `candidats` | `id`, `p` prénom, `n` nom, `parti`, `d` date de déclaration, `dp` précision, `dk` type de désignation, `b` badges, `f` points d'attention, `note`, `prog` programme, `nb` nombre de propositions, `cmp` présent au comparateur, `src` |
+| `comparateur` | `candidats[]` : `id`, `nom`, `court` |
+| `themes` | `id`, `slug`, `n` nom, `c` nom court, `une`, `pivots`, `vars[]` (`slug`, `q` question, `type` num ou cat, `v` valeurs par candidat, `src`, `shift`, et `unit`/`min`/`max`/`ticks` ou `mods`), `r` scores radar et `mesures` lorsqu'il y a des données |
+| `empreinte` | répartition des propositions par thème, publiée à partir de `empreinte_min` propositions |
+| `sondage` | `rows`, `mentions`, `lecture`, `url`, `notice` |
+| `shift` | `nom`, `qui`, `demande`, `finance`, `financeSrc`, `hatvp`, `dispositifs`, `chantiers`, `etats`, `src` |
+
+Toute évolution incompatible du contrat incrémente `meta.version` ; `public/assets/app.js` et `outils/demo.mjs` sont à mettre à jour dans le même commit.
+
+## Règles appliquées à l'export
+
+- Une ligne `valide` sans source n'est pas publiée et produit une alerte.
+- Plus de trois mesures phares par candidat et par thème, ou plus de cinq faits dans le digest : alerte.
+- Vérification de plus de 30 jours sur une position : alerte.
+- `site.json` n'est réécrit que si l'empreinte des données change ; l'écriture est atomique (fichier temporaire puis renommage).

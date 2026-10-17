@@ -1,0 +1,11 @@
+# Configuration privée : écrite sur le serveur par le déploiement, jamais versionnée
+app/config.local.json
+
+# Fichiers temporaires
+*.tmp
+*.bak
+*.log
+node_modules/
+.DS_Store
+Thumbs.db
+build/

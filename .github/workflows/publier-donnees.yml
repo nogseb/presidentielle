@@ -1,0 +1,51 @@
+# Régénère data/site.json à partir de la base MySQL, sans redéployer le code.
+#
+# À lancer après une saisie dans phpMyAdmin : onglet Actions → « Publier les données » → Run workflow.
+# Tourne aussi toutes les heures de 7 h à 23 h (heure de Paris en été) ; le fichier n'est réécrit
+# que si les données ont changé.
+#
+# Réglages : secret PUBLIER_JETON, variable facultative SITE_URL (https://nogues.app/presidentielle).
+
+name: Publier les données
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "23 5-21 * * *"
+
+concurrency:
+  group: publier-donnees
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  publier:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      PUBLIER_JETON: ${{ secrets.PUBLIER_JETON }}
+      SITE_URL: ${{ vars.SITE_URL || 'https://nogues.app/presidentielle' }}
+      DECLENCHEUR: ${{ github.event_name == 'schedule' && 'planifie' || 'manuel' }}
+    steps:
+      - name: Appeler le point de publication
+        run: |
+          if [ "${#PUBLIER_JETON}" -lt 32 ]; then
+            echo "::warning::Secret PUBLIER_JETON absent ou trop court : rien à faire."
+            exit 0
+          fi
+          code=$(curl -sS -o rapport.json -w '%{http_code}' -X POST \
+            -H "X-Publication-Jeton: $PUBLIER_JETON" -H "X-Declencheur: $DECLENCHEUR" \
+            "$SITE_URL/api/publier.php" || echo "000")
+          {
+            echo "### Publication des données (HTTP $code)"
+            echo '```json'; cat rapport.json 2>/dev/null; echo; echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+          if [ "$code" != "200" ]; then
+            echo "::error::Le serveur a répondu HTTP $code."
+            exit 1
+          fi
+          if grep -q '"alertes":\[[^]]' rapport.json; then
+            echo "::warning::Des alertes de la charte sont à traiter (voir le résumé)."
+          fi

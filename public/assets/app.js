@@ -1,0 +1,410 @@
+/* Repères 2027 · interface
+ * Lit data/site.json (ou data/demo.json avec ?demo=1) et dessine les vues.
+ * Le contrat des données est décrit dans docs/modele-de-donnees.md.
+ */
+"use strict";
+
+(function () {
+  const $ = s => document.querySelector(s);
+  const esc = s => String(s == null ? "" : s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const fr = n => Number(n).toLocaleString("fr-FR", { maximumFractionDigits: 1 });
+  const dayNum = iso => { const [y, m, d] = iso.split("-").map(Number); return Date.UTC(y, m - 1, d) / 864e5; };
+  const fmt = (iso, o) => new Date(iso + "T12:00:00Z").toLocaleDateString("fr-FR", Object.assign({ timeZone: "UTC" }, o));
+  const norm = s => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+  const link = l => l ? `<a href="${esc(l[1])}" target="_blank" rel="noopener">${esc(l[0])}</a>` : "";
+  const parisToday = () => { try { return new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Paris" }).format(new Date()); } catch (e) { return new Date().toISOString().slice(0, 10); } };
+  const TODAY = parisToday();
+
+  const DEMO = new URLSearchParams(location.search).has("demo");
+  if (DEMO) {
+    const m = document.createElement("meta"); m.name = "robots"; m.content = "noindex"; document.head.appendChild(m);
+  }
+
+  fetch(DEMO ? "data/demo.json" : "data/site.json", { cache: "no-cache" })
+    .then(r => { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
+    .then(init)
+    .catch(err => {
+      console.error(err);
+      $("#chargement").hidden = true;
+      $("#erreur").hidden = false;
+    });
+
+  function init(DATA) {
+    $("#chargement").hidden = true;
+    const META = DATA.meta || {};
+    const CMP = (DATA.comparateur && DATA.comparateur.candidats) || [];
+    const IDS = CMP.map(c => c.id);
+    const NAME = {}; CMP.forEach(c => { NAME[c.id] = c.nom; });
+    const nameOf = id => NAME[id] || id;
+    const shortOf = id => { const c = CMP.find(x => x.id === id); return c ? c.court : id; };
+    const themeById = id => DATA.themes.find(t => t.id === id);
+    const SH = DATA.shift;
+
+    if (META.demo) {
+      $("#demo-banner").hidden = false;
+      document.querySelectorAll("[data-demo]").forEach(el => { el.hidden = false; });
+    }
+
+    /* Grille The Shift Project : R repris, P en partie, O opposé, N non abordé, D à documenter */
+    const ST = { R: "Repris", P: "En partie", O: "Opposé", N: "Non abordé", D: "À documenter" };
+    const ST_ORDER = ["R", "P", "O", "N", "D"];
+    const CH = {};
+    if (SH) SH.chantiers.forEach((c, i) => { CH[c.id] = Object.assign({ i }, c); });
+    const stateOf = (cand, ch) => (SH && SH.etats && SH.etats[cand] && SH.etats[cand][ch]) || "D";
+    const shiftSrc = (cand, ch) => SH && SH.src && SH.src[cand] && SH.src[cand][ch];
+    const sg = (s, tip) => `<span class="sg sg-${s}" role="img" aria-label="${ST[s]}"${tip ? ` tabindex="0" data-tip="${esc(tip)}"` : ""}></span>`;
+    const PST = `<span class="pst-s" aria-hidden="true">S</span>`;
+    const shiftChantiersOf = t => SH ? SH.chantiers.filter(c => c.th === t.id) : [];
+    const hasShiftData = !!(SH && SH.etats && Object.keys(SH.etats).length);
+
+    /* Compte à rebours */
+    const j = Math.max(0, dayNum(META.premier_tour || "2027-04-18") - dayNum(TODAY));
+    $("#jcount").textContent = j > 0 ? "J-" + j : "Jour J";
+
+    /* Pied de page */
+    if (META.genere_le) {
+      const d = new Date(META.genere_le);
+      $("#maj").textContent = "Données mises à jour le " + d.toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" }) + " à " + d.toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" }) + (META.demo ? " · démonstration" : "") + ".";
+    }
+
+    /* ---------------------------------------------------------------- La semaine */
+    function renderSemaine() {
+      const S = DATA.semaine;
+      if (S && S.faits.length) {
+        $("#periode").textContent = S.periode;
+        $("#facts").innerHTML = S.faits.map(f => `
+          <li class="fact">
+            <time datetime="${f.d}">${esc(fmt(f.d, { day: "numeric", month: "short" }))}</time>
+            <div class="txt">
+              <p>${esc(f.t)}</p>
+              <div class="meta"><span class="tag">${esc(f.tag)}</span><span>Source : ${f.src.map(link).join(", ")}</span></div>
+            </div>
+          </li>`).join("");
+      } else {
+        $("#periode").textContent = "Premier digest à paraître";
+        $("#facts").innerHTML = `<li class="empty">Le premier digest sera publié un lundi, avec cinq faits sourcés.</li>`;
+      }
+      const officiels = META.phase && META.phase !== "declares";
+      const n = DATA.candidats.length;
+      const unite = officiels ? (n > 1 ? "candidats officiels" : "candidat officiel") : (n > 1 ? "candidatures déclarées" : "candidature déclarée");
+      $("#nb-cand").textContent = n; $("#nb-cand-u").textContent = unite;
+      $("#nb-cand-2").textContent = n; $("#nb-cand-2u").textContent = unite;
+      $("#chiffre-note").textContent = META.chiffre_note || "";
+      if (officiels) {
+        $("#cand-eyebrow").textContent = "Phase 2 · candidats officiels";
+        $("#cand-lede").textContent = "Liste publiée par le Conseil constitutionnel, dans l'ordre du tirage au sort.";
+        $("#sort").closest(".field").hidden = true;
+      }
+      const next = DATA.calendrier.filter(c => c.d >= TODAY && !c.soc).slice(0, 3);
+      $("#next").innerHTML = next.map(c => `<li class="next"><time datetime="${c.d}">${esc(c.lc || fmt(c.d, { day: "numeric", month: "short" }))}</time><span>${esc(c.court || c.t)}</span></li>`).join("")
+        + `<li><a href="#calendrier">Tout le calendrier</a></li>`;
+      $("#phases").innerHTML = DATA.phases.map(p => {
+        const on = TODAY >= p.from && TODAY < p.to;
+        const past = TODAY >= p.to;
+        const left = dayNum(p.to) - dayNum(TODAY);
+        const st = on ? (p.n.indexOf("Phase 1") === 0 ? `En cours · J-${left} avant la liste officielle` : "En cours") : (past ? "Terminée" : "À venir");
+        return `<div class="phase${on ? " on" : ""}"><b>${esc(p.n)}</b><span class="ph-st">${esc(st)}</span><span class="d">${esc(p.d)}</span></div>`;
+      }).join("");
+      $("#une").innerHTML = DATA.themes.filter(t => t.une).map(t => {
+        const k = shiftChantiersOf(t).length;
+        return `<a class="une-card" href="#themes" data-theme="${t.id}">
+          <span class="eyebrow" style="margin:0">Thème ${t.id}</span>
+          <b>${esc(t.n)}</b>
+          <span class="small">${t.pivots.slice(0, 3).map(esc).join(" · ")}</span>
+          ${k ? `<span class="pst">${PST}${k} chantier${k > 1 ? "s" : ""} du Shift Project</span>` : ""}
+        </a>`;
+      }).join("");
+    }
+
+    /* ---------------------------------------------------------------- Candidats */
+    function dateLabel(c) {
+      if (!c.d) return "Date à sourcer";
+      const mot = { declaration: "Déclaration", annonce: "Annonce", primaire: "Désignation", parti: "Désignation" }[c.dk] || "Déclaration";
+      return c.dp === "mois" ? `${mot} : ${fmt(c.d, { month: "long", year: "numeric" })}` : `${mot} : ${fmt(c.d, { day: "numeric", month: "short", year: "numeric" })}`;
+    }
+    function renderCands() {
+      const q = norm($("#q").value.trim());
+      const sort = $("#sort").value;
+      let list = DATA.candidats.filter(c => !q || norm(c.p + " " + c.n + " " + (c.parti || "")).indexOf(q) >= 0);
+      if (sort === "date") list = list.slice().sort((a, b) => (b.d || "0000").localeCompare(a.d || "0000") || a.n.localeCompare(b.n, "fr"));
+      if (!list.length) { $("#cands").innerHTML = `<p class="empty">Aucune candidature ne correspond à « ${esc($("#q").value)} ».</p>`; return; }
+      $("#cands").innerHTML = list.map(c => {
+        const badges = (c.b || []).map(x => `<span class="badge">${esc(x)}</span>`).concat((c.f || []).map(x => `<span class="badge flag">${esc(x)}</span>`)).join("");
+        const shiftLine = (SH && c.cmp) ? (() => {
+          const e = (SH.etats && SH.etats[c.id]) || {};
+          const n = Object.keys(e).length;
+          return `<p><span class="pst">${PST}Chantiers du Shift Project</span> ${n ? `${n} sur ${SH.chantiers.length} documentés. <a href="#shift">Voir la grille</a>` : "correspondances à établir."}</p>`;
+        })() : "";
+        return `<details class="cand">
+          <summary>
+            <span class="nm">${esc(c.p)} <span class="last">${esc(c.n)}</span></span>
+            <span class="dt">${esc(dateLabel(c))}</span>
+            <span class="pt">${esc(c.parti || "Sans parti indiqué")}</span>
+            ${badges ? `<span class="badges">${badges}</span>` : ""}
+          </summary>
+          <div class="more">
+            ${c.note ? `<p>${esc(c.note)}</p>` : ""}
+            <p>${c.prog ? `Programme : <a href="${esc(c.prog.url)}" target="_blank" rel="noopener">consulter</a>${c.prog.date ? ` (publié le ${esc(fmt(c.prog.date, { day: "numeric", month: "long", year: "numeric" }))})` : ""}.` : "Programme : non publié à ce jour."}
+              ${c.nb ? ` ${c.nb} proposition${c.nb > 1 ? "s" : ""} vérifiée${c.nb > 1 ? "s" : ""}.` : ""}</p>
+            <p>${c.cmp ? "Comparaison complète dans l'onglet Thèmes." : "Fiche courte : la comparaison complète suit le critère publié dans la méthode."}</p>
+            ${shiftLine}
+            ${c.src ? `<p class="small">Source de la candidature : ${link(c.src)}</p>` : ""}
+          </div>
+        </details>`;
+      }).join("");
+    }
+
+    /* ---------------------------------------------------------------- Graphiques */
+    function axisRow(min, max, ticks, fmtTick) {
+      return `<div class="dp-axis" aria-hidden="true"><span></span><span class="dp-ticks">${ticks.map(t => `<span style="left:${(t - min) / (max - min) * 100}%">${fmtTick(t)}</span>`).join("")}</span><span></span></div>`;
+    }
+    const gridLines = (min, max, ticks) => ticks.map(t => `<span class="dp-grid" style="left:${(t - min) / (max - min) * 100}%"></span>`).join("");
+    const has = (o, k) => Object.prototype.hasOwnProperty.call(o, k);
+    const numLabel = (v, x) => (v.unit === " 000" ? fr(x * 1000) : fr(x) + (v.unit || ""));
+
+    function numVar(v) {
+      const rows = IDS.map(id => {
+        if (!has(v.v, id)) return `<div class="dp-row"><span class="dp-name">${esc(shortOf(id))}</span><span class="dp-track">${gridLines(v.min, v.max, v.ticks)}</span><span class="dp-val todo">À documenter</span></div>`;
+        const x = v.v[id];
+        if (x === null) return `<div class="dp-row"><span class="dp-name">${esc(shortOf(id))}</span><span class="dp-track">${gridLines(v.min, v.max, v.ticks)}</span><span class="dp-val na">Non abordé</span></div>`;
+        const pct = Math.max(0, Math.min(100, (x - v.min) / (v.max - v.min) * 100));
+        const lab = numLabel(v, x);
+        const s = v.src && v.src[id];
+        return `<div class="dp-row"><span class="dp-name">${esc(shortOf(id))}</span><span class="dp-track">${gridLines(v.min, v.max, v.ticks)}<span class="dp-dot" style="left:${pct}%" tabindex="0" data-tip="${esc(nameOf(id) + " · " + lab + (s ? " · source : " + s[0] : ""))}"></span></span><span class="dp-val">${esc(lab)}</span></div>`;
+      }).join("");
+      return `<div class="dp" role="img" aria-label="${esc(v.q)} : position de chaque candidat sur un axe">${rows}${axisRow(v.min, v.max, v.ticks, t => v.unit === " 000" ? fr(t * 1000) : fr(t))}</div>`;
+    }
+    function catVar(v) {
+      const rows = v.mods.map(m => {
+        const who = IDS.filter(id => v.v[id] === m);
+        return `<div class="cat-row"><span class="cat-mod">${esc(m)}</span><span class="cat-cands">${who.length ? who.map(id => `<span class="pill" tabindex="0" data-tip="${esc(nameOf(id) + " · " + m + (v.src && v.src[id] ? " · source : " + v.src[id][0] : ""))}">${esc(shortOf(id))}</span>`).join("") : `<span class="none">Aucun</span>`}</span></div>`;
+      });
+      const na = IDS.filter(id => has(v.v, id) && v.v[id] === null);
+      if (na.length) rows.push(`<div class="cat-row na"><span class="cat-mod">Non abordé</span><span class="cat-cands">${na.map(id => `<span class="pill">${esc(shortOf(id))}</span>`).join("")}</span></div>`);
+      const todo = IDS.filter(id => !has(v.v, id));
+      if (todo.length) rows.push(`<div class="cat-row todo"><span class="cat-mod todo">À documenter</span><span class="cat-cands">${todo.map(id => `<span class="pill">${esc(shortOf(id))}</span>`).join("")}</span></div>`);
+      return `<div class="cat">${rows.join("")}</div>`;
+    }
+    function shiftStrip(chId) {
+      const c = CH[chId];
+      if (!c) return "";
+      return `<div class="shift-strip">
+        <span class="pst">${PST}Chantier du Shift Project : ${esc(c.l)}</span>
+        <div class="ss">${IDS.map(id => { const s = stateOf(id, chId); return `<span class="ss-c">${sg(s, nameOf(id) + " · " + c.l + " : " + ST[s].toLowerCase())}<span>${esc(shortOf(id))}</span><span class="ss-l">${ST[s]}</span></span>`; }).join("")}</div>
+        <a class="small" href="#shift">Voir toute la grille du Shift Project</a>
+      </div>`;
+    }
+    function varTable(v) {
+      return `<details class="data"><summary>Voir le tableau</summary><div class="tbl"><table><thead><tr><th>Candidat</th><th>Position</th>${v.shift ? "<th>Chantier Shift</th>" : ""}<th>Source</th></tr></thead><tbody>${
+        IDS.map(id => {
+          const val = !has(v.v, id) ? "À documenter" : (v.v[id] === null ? "Non abordé" : (v.type === "num" ? numLabel(v, v.v[id]) : v.v[id]));
+          const s = v.src && v.src[id];
+          return `<tr><td>${esc(nameOf(id))}</td><td class="num">${esc(val)}</td>${v.shift ? `<td>${ST[stateOf(id, v.shift)]}</td>` : ""}<td class="src-cell">${s ? link(s) : "—"}</td></tr>`;
+        }).join("")
+      }</tbody></table></div></details>`;
+    }
+
+    /* ---------------------------------------------------------------- Comparateur */
+    let currentTheme = (DATA.themes.find(t => t.une) || DATA.themes[0]).id;
+    const chip = t => `<button type="button" data-id="${t.id}" aria-pressed="${t.id === currentTheme}">${esc(t.c)}${shiftChantiersOf(t).length ? PST : ""}</button>`;
+    function renderChips() {
+      $("#chips-une").innerHTML = DATA.themes.filter(t => t.une).map(chip).join("");
+      $("#chips").innerHTML = DATA.themes.filter(t => !t.une).map(chip).join("");
+    }
+    function mesureItem(id, x) {
+      const src = x.src ? ` <span class="small">(${link(x.src)})</span>` : "";
+      if (!x.s || !CH[x.s]) return `<li>${esc(x.t)}${src}</li>`;
+      return `<li>${esc(x.t)}${src} <span class="pst">${PST}${esc(CH[x.s].l)} : ${ST[stateOf(id, x.s)].toLowerCase()}</span></li>`;
+    }
+    function renderTheme() {
+      const t = themeById(currentTheme);
+      const chs = shiftChantiersOf(t);
+      let html = `<div><p class="eyebrow">Thème ${t.id} sur ${DATA.themes.length}${t.une ? " · à la une" : ""}</p><h2>${esc(t.n)}</h2></div>`;
+      if (chs.length) html += `<div class="pst-line"><span class="pst">${PST}Sujet traité par The Shift Project</span><span class="small">${chs.map(c => esc(c.l)).join(" · ")}</span></div>`;
+      if (!IDS.length || !t.vars || !t.vars.length) {
+        html += `<div class="panel"><p><b>Aucune position publiée pour ce thème.</b> Les positions apparaissent à mesure que les programmes sont publiés et vérifiés.</p><p class="small">Variables pivots : ${t.pivots.map(esc).join(" · ")}.</p>${chs.length ? `<p class="small">Correspondances avec le Shift Project : <a href="#shift">voir la grille</a>.</p>` : ""}</div>`;
+      } else {
+        html += t.vars.map(v => `<div class="var"><div class="q"><h3>${esc(v.q)}</h3><span class="kind">${v.type === "num" ? "Valeur chiffrée" : "Choix entre options"}</span></div>${v.type === "num" ? numVar(v) : catVar(v)}${v.shift ? shiftStrip(v.shift) : ""}${varTable(v)}</div>`).join("");
+        const autres = t.pivots.filter(q => !t.vars.some(v => v.q === q));
+        if (autres.length) html += `<p class="small">Pas encore de position publiée sur : ${autres.map(esc).join(" · ")}.</p>`;
+      }
+      if (IDS.length && t.mesures) {
+        html += `<div class="var"><div class="q"><h3>Trois mesures phares par candidat</h3><span class="kind">Texte</span></div><div class="mesures">${
+          IDS.map(id => {
+            const m = t.mesures[id] || [];
+            const k = m.filter(x => x && x.s).length;
+            return `<details><summary>${esc(nameOf(id))} <span>${m.length ? `${m.length} mesure${m.length > 1 ? "s" : ""}${k ? ` · ${k} liée${k > 1 ? "s" : ""} au Shift` : ""}` : "À documenter"}</span></summary>${m.length ? `<ul>${m.map(x => mesureItem(id, x)).join("")}</ul>` : ""}</details>`;
+          }).join("")
+        }</div></div>`;
+      }
+      $("#theme").innerHTML = html;
+    }
+
+    /* ---------------------------------------------------------------- Radars : un axe par thème, échelle commune 0-30 % */
+    const RMAX = 30;
+    const NT = DATA.themes.length;
+    const EMP = DATA.empreinte || {};
+    const EIDS = IDS.filter(id => EMP[id]);
+    function radarFrame(n, cx, cy, r) {
+      let s = "";
+      [10, 20, 30].forEach(lv => {
+        const pts = Array.from({ length: n }, (_, i) => { const a = -Math.PI / 2 + i * 2 * Math.PI / n; const k = lv / RMAX * r; return (cx + k * Math.cos(a)).toFixed(1) + "," + (cy + k * Math.sin(a)).toFixed(1); }).join(" ");
+        s += `<polygon class="r-ring" points="${pts}"/>`;
+      });
+      for (let i = 0; i < n; i++) { const a = -Math.PI / 2 + i * 2 * Math.PI / n; s += `<line class="r-spoke" x1="${cx}" y1="${cy}" x2="${(cx + r * Math.cos(a)).toFixed(1)}" y2="${(cy + r * Math.sin(a)).toFixed(1)}"/>`; }
+      return s;
+    }
+    function radarShape(vals, cx, cy, r, cls, who, dotR) {
+      const pts = vals.map((v, i) => { const a = -Math.PI / 2 + i * 2 * Math.PI / vals.length; const k = Math.min(v, RMAX) / RMAX * r; return [cx + k * Math.cos(a), cy + k * Math.sin(a)]; });
+      let s = `<polygon class="r-shape ${cls}" points="${pts.map(p => p[0].toFixed(1) + "," + p[1].toFixed(1)).join(" ")}"/>`;
+      pts.forEach((p, i) => {
+        s += `<g tabindex="0" data-tip="${esc(`${who} · ${DATA.themes[i].n} : ${vals[i]} % des propositions`)}"><circle class="r-hit" cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="9"/>${(cls === "b" || !dotR) ? "" : `<circle class="r-dot" cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="${dotR}"/>`}</g>`;
+      });
+      return s;
+    }
+    function renderRadars() {
+      if (!EIDS.length) {
+        $("#radars").hidden = true; $("#compare").hidden = true;
+        $("#radars-vide").hidden = false;
+        $("#radars-vide").textContent = `Les empreintes s'affichent quand un candidat compte au moins ${META.empreinte_min || 10} propositions vérifiées.`;
+        return;
+      }
+      $("#radars").innerHTML = EIDS.map(id => {
+        const vals = EMP[id];
+        const top = vals.map((v, i) => [v, i]).sort((a, b) => b[0] - a[0]).slice(0, 2);
+        return `<figure class="radar" style="margin:0">
+          <svg viewBox="0 0 160 160" role="img" aria-label="Empreinte thématique de ${esc(nameOf(id))}">${radarFrame(NT, 80, 80, 66)}${radarShape(vals, 80, 80, 66, "a", nameOf(id), 0)}</svg>
+          <figcaption><span class="rn">${esc(nameOf(id))}</span><br><span class="rt">Plus fortes parts : ${top.map(t => `${esc(DATA.themes[t[1]].c)} ${t[0]} %`).join(", ")}</span></figcaption>
+        </figure>`;
+      }).join("");
+      const opts = EIDS.map(id => `<option value="${esc(id)}">${esc(nameOf(id))}</option>`).join("");
+      $("#ca").innerHTML = opts; $("#cb").innerHTML = opts;
+      $("#ca").value = EIDS[0]; $("#cb").value = EIDS[Math.min(2, EIDS.length - 1)];
+      renderCompare();
+    }
+    function renderCompare() {
+      const a = $("#ca").value, b = $("#cb").value;
+      const cx = 210, cy = 150, r = 104;
+      let labels = "";
+      for (let i = 0; i < NT; i++) {
+        const ang = -Math.PI / 2 + i * 2 * Math.PI / NT, c = Math.cos(ang), s = Math.sin(ang);
+        const x = cx + (r + 14) * c, y = cy + (r + 14) * s + (s > 0.5 ? 10 : (s < -0.5 ? -2 : 4));
+        const anchor = c > 0.2 ? "start" : (c < -0.2 ? "end" : "middle");
+        const t = DATA.themes[i];
+        labels += `<text class="r-label" x="${x.toFixed(1)}" y="${y.toFixed(1)}" text-anchor="${anchor}">${esc(t.r || t.c)}</text>`;
+      }
+      const ticks = [10, 20, 30].map(lv => `<text class="r-tick" x="${cx + 4}" y="${(cy - lv / RMAX * r + 11).toFixed(1)}">${lv} %</text>`).join("");
+      $("#cmp").innerHTML = `<svg viewBox="0 0 420 300" role="img" aria-label="Empreintes superposées de ${esc(nameOf(a))} et ${esc(nameOf(b))}">${radarFrame(NT, cx, cy, r)}${ticks}${radarShape(EMP[a], cx, cy, r, "a", nameOf(a), 3.5)}${a !== b ? radarShape(EMP[b], cx, cy, r, "b", nameOf(b), 3.5) : ""}${labels}</svg>`;
+      $("#cmp-legend").innerHTML = `<span><svg width="28" height="10" aria-hidden="true"><line class="lg-a" x1="0" y1="5" x2="28" y2="5"/></svg>${esc(nameOf(a))}</span>` + (a !== b ? `<span><svg width="28" height="10" aria-hidden="true"><line class="lg-b" x1="0" y1="5" x2="28" y2="5"/></svg>${esc(nameOf(b))}</span>` : "");
+      $("#cmp-table").innerHTML = `<table><thead><tr><th>Thème</th><th>${esc(nameOf(a))}</th>${a !== b ? `<th>${esc(nameOf(b))}</th>` : ""}</tr></thead><tbody>${DATA.themes.map((t, i) => `<tr><td>${esc(t.n)}</td><td class="num">${EMP[a][i]} %</td>${a !== b ? `<td class="num">${EMP[b][i]} %</td>` : ""}</tr>`).join("")}</tbody></table>`;
+    }
+
+    /* ---------------------------------------------------------------- Sondage : fourchettes entre scénarios */
+    function renderPoll() {
+      const S = DATA.sondage;
+      if (!S || !S.rows.length) {
+        $("#poll-panel").hidden = true;
+        $("#poll-lecture").textContent = "Aucune enquête publiée pour l'instant.";
+        return;
+      }
+      const min = 0, max = Math.max(40, Math.ceil(Math.max.apply(null, S.rows.map(r => r.hi)) / 10) * 10);
+      const ticks = []; for (let t = 0; t <= max; t += 10) ticks.push(t);
+      $("#poll-lecture").textContent = (S.lecture || "") + " Candidats dans l'ordre alphabétique.";
+      const short = n => n.indexOf("Le Pen") >= 0 ? "Le Pen" : n.split(" ").slice(-1)[0];
+      $("#poll").innerHTML = S.rows.map(r => {
+        const l = (r.lo - min) / (max - min) * 100, w = (r.hi - r.lo) / (max - min) * 100;
+        const lab = r.lo === r.hi ? `${fr(r.lo)} %` : `${fr(r.lo)}–${fr(r.hi)} %`;
+        return `<div class="dp-row"><span class="dp-name" title="${esc(r.n)}">${esc(short(r.n))}</span><span class="dp-track">${gridLines(min, max, ticks)}<span class="dp-bar" style="left:${l}%;width:${w}%" tabindex="0" data-tip="${esc(r.n + " · " + (r.lo === r.hi ? fr(r.lo) + " %" : "de " + fr(r.lo) + " à " + fr(r.hi) + " % selon les scénarios"))}"></span></span><span class="dp-val">${esc(lab)}</span></div>`;
+      }).join("") + axisRow(min, max, ticks, t => t + " %");
+      $("#poll-table").innerHTML = `<table><thead><tr><th>Candidat</th><th>Plus bas</th><th>Plus haut</th></tr></thead><tbody>${S.rows.map(r => `<tr><td>${esc(r.n)}</td><td class="num">${fr(r.lo)} %</td><td class="num">${fr(r.hi)} %</td></tr>`).join("")}</tbody></table>`;
+      $("#poll-mentions").innerHTML = `${esc(S.mentions)}${S.url ? ` <a href="${esc(S.url)}" target="_blank" rel="noopener">Voir l'enquête</a>` : ""} · <a href="${esc(S.notice || "https://www.commission-des-sondages.fr/")}" target="_blank" rel="noopener">Commission des sondages</a>`;
+    }
+
+    /* ---------------------------------------------------------------- The Shift Project */
+    function renderShift() {
+      if (!SH) { document.querySelector('nav.tabs a[href="#shift"]').hidden = true; return; }
+      $("#sh-count").textContent = SH.chantiers.length;
+      $("#sh-vide").hidden = hasShiftData || !!META.demo;
+      $("#sh-ensemble").hidden = !hasShiftData || !IDS.length;
+      $("#sh-table-wrap").hidden = !hasShiftData || !IDS.length;
+      $("#sh-legend").innerHTML = ST_ORDER.map(s => `<span class="key">${sg(s)}${ST[s]}</span>`).join("");
+      $("#sh-summary").innerHTML = IDS.map(id => {
+        const counts = ST_ORDER.map(s => SH.chantiers.filter(c => stateOf(id, c.id) === s).length);
+        const glyphs = ST_ORDER.map((s, k) => Array.from({ length: counts[k] }, () => sg(s)).join("")).join("");
+        const txt = ST_ORDER.map((s, k) => counts[k] ? `${counts[k]} ${ST[s].toLowerCase()}` : "").filter(Boolean).join(" · ");
+        return `<div class="unit-row"><span class="unit-name">${esc(shortOf(id))}</span><span class="unit-g" role="img" aria-label="${esc(txt)}">${glyphs}</span><span class="unit-n">${esc(txt)}</span></div>`;
+      }).join("");
+      const doms = SH.chantiers.map(c => c.dom).filter((d, i, a) => a.indexOf(d) === i);
+      const cols = IDS.length ? IDS : [];
+      const tpl = cols.length ? `grid-template-columns:minmax(9rem,1fr) repeat(${cols.length},30px);min-width:calc(9rem + ${cols.length * 34}px)` : "grid-template-columns:1fr";
+      let mx = cols.length ? `<div class="mx-row mx-head" style="${tpl}" aria-hidden="true"><span></span>${cols.map(id => `<span title="${esc(nameOf(id))}">${esc(shortOf(id))}</span>`).join("")}</div>` : "";
+      doms.forEach(d => {
+        const list = SH.chantiers.filter(c => c.dom === d);
+        const th = themeById(list[0].th);
+        mx += `<div class="mx-dom" style="min-width:calc(9rem + ${cols.length * 34}px)"><b>${esc(d)}</b>${th ? `<a class="small" href="#themes" data-theme="${th.id}">Thème ${esc(th.c)}</a>` : ""}</div>`;
+        list.forEach(c => {
+          mx += `<div class="mx-row" style="${tpl}"><span class="mx-l">${esc(c.l)}</span>${cols.map(id => { const s = stateOf(id, c.id); const src = shiftSrc(id, c.id); return `<span class="mx-c">${sg(s, nameOf(id) + " · " + c.l + " : " + ST[s].toLowerCase() + (src ? " · source : " + src[0] : ""))}</span>`; }).join("")}</div>`;
+        });
+      });
+      $("#sh-matrix").innerHTML = mx;
+      $("#sh-table").innerHTML = cols.length ? `<table><thead><tr><th>Chantier</th>${cols.map(id => `<th>${esc(shortOf(id))}</th>`).join("")}</tr></thead><tbody>${SH.chantiers.map(c => `<tr><td>${esc(c.l)}</td>${cols.map(id => { const src = shiftSrc(id, c.id); return `<td>${ST[stateOf(id, c.id)]}${src ? ` (${link(src)})` : ""}</td>`; }).join("")}</tr>`).join("")}</tbody></table>` : "";
+      $("#sh-org").innerHTML = `<dl class="facts-org">
+          <dt>Qui</dt><dd>${esc(SH.qui)}</dd>
+          <dt>Demande</dt><dd>${esc(SH.demande)}</dd>
+          <dt>Financement</dt><dd>${esc(SH.finance)} ${link(SH.financeSrc)}</dd>
+          ${SH.hatvp ? `<dt>HATVP</dt><dd><a href="${esc(SH.hatvp)}" target="_blank" rel="noopener">Fiche au répertoire des représentants d'intérêts</a></dd>` : ""}
+        </dl>`;
+      $("#sh-disp").innerHTML = SH.dispositifs.map(d => `<article><span class="when">${esc(d.when)}</span><h3>${esc(d.t)}</h3><p>${esc(d.d)}</p>${d.src.length ? `<p class="small">Source : ${d.src.map(link).join(", ")}</p>` : ""}</article>`).join("");
+    }
+
+    /* ---------------------------------------------------------------- Calendrier */
+    function renderCal() {
+      const lab = { officiel: "Officiel", fait: "Fait", annonce: "Annoncé", calcule: "Calculé" };
+      $("#cal").innerHTML = DATA.calendrier.map(c => `<li class="${c.d < TODAY ? "past" : ""}"><span class="when">${esc(c.l)}</span><span class="what">${esc(c.t)}${c.soc ? '<span class="soc">Société civile</span>' : ""}${c.src ? ` <span class="small">(${link(c.src)})</span>` : ""}</span><span class="s"><span class="st st-${c.s}">${lab[c.s]}</span></span></li>`).join("");
+    }
+
+    /* ---------------------------------------------------------------- Navigation par onglets */
+    const VIEWS = ["semaine", "candidats", "themes", "sondages", "shift", "calendrier", "methode"];
+    function route() {
+      const h = (location.hash || "").replace("#", "");
+      const v = VIEWS.indexOf(h) >= 0 ? h : "semaine";
+      VIEWS.forEach(id => { $("#v-" + id).hidden = id !== v; });
+      document.querySelectorAll("nav.tabs a").forEach(a => {
+        if (a.getAttribute("href") === "#" + v) { a.setAttribute("aria-current", "page"); a.scrollIntoView({ block: "nearest", inline: "nearest" }); }
+        else a.removeAttribute("aria-current");
+      });
+    }
+    window.addEventListener("hashchange", () => { route(); window.scrollTo(0, 0); });
+
+    document.addEventListener("click", e => {
+      const a = e.target.closest("a[data-theme]");
+      if (!a) return;
+      currentTheme = Number(a.dataset.theme);
+      renderChips(); renderTheme();
+      if (location.hash === "#themes") { e.preventDefault(); route(); window.scrollTo(0, 0); }
+    });
+
+    /* ---------------------------------------------------------------- Infobulles */
+    const tip = $("#tip");
+    function placeTip(x, y) {
+      const w = tip.offsetWidth, h = tip.offsetHeight;
+      tip.style.left = Math.max(8, Math.min(x + 12, innerWidth - w - 8)) + "px";
+      tip.style.top = Math.max(8, (y - h - 12 < 8 ? y + 16 : y - h - 12)) + "px";
+    }
+    function showTip(el, x, y) { tip.textContent = el.getAttribute("data-tip"); tip.hidden = false; placeTip(x, y); }
+    document.addEventListener("pointerover", e => { const el = e.target.closest("[data-tip]"); if (el) showTip(el, e.clientX, e.clientY); else tip.hidden = true; });
+    document.addEventListener("pointermove", e => { if (!tip.hidden && e.target.closest("[data-tip]")) placeTip(e.clientX, e.clientY); });
+    document.addEventListener("focusin", e => { const el = e.target.closest("[data-tip]"); if (el) { const r = el.getBoundingClientRect(); showTip(el, r.left + r.width / 2, r.top); } else tip.hidden = true; });
+    document.addEventListener("scroll", () => { tip.hidden = true; }, { passive: true });
+
+    /* ---------------------------------------------------------------- Démarrage */
+    ["#chips", "#chips-une"].forEach(sel => $(sel).addEventListener("click", e => { const b = e.target.closest("button[data-id]"); if (!b) return; currentTheme = Number(b.dataset.id); renderChips(); renderTheme(); }));
+    $("#q").addEventListener("input", renderCands);
+    $("#sort").addEventListener("change", renderCands);
+    $("#ca").addEventListener("change", renderCompare);
+    $("#cb").addEventListener("change", renderCompare);
+    $("#cmp-vide").hidden = IDS.length > 0;
+
+    renderSemaine(); renderCands(); renderChips(); renderTheme(); renderRadars(); renderPoll(); renderShift(); renderCal(); route();
+  }
+})();

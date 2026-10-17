@@ -1,0 +1,10 @@
+{
+  "_lisez-moi": "Copier en config.local.json (jamais versionné). En production, le workflow de déploiement l'écrit à partir des secrets GitHub.",
+  "db_host": "xxxxxxxx.mysql.db",
+  "db_port": 3306,
+  "db_name": "nom_de_la_base",
+  "db_user": "utilisateur",
+  "db_password": "mot-de-passe",
+  "publier_jeton": "au-moins-32-caracteres-aleatoires",
+  "data_dir": "../www/presidentielle/data"
+}

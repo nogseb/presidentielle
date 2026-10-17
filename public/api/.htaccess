@@ -1,0 +1,8 @@
+# Seul publier.php est appelable ; il exige un POST et le jeton de publication.
+<Files "chemin-app.php">
+  Require all denied
+</Files>
+<IfModule mod_headers.c>
+  Header set Cache-Control "no-store"
+  Header set X-Robots-Tag "noindex"
+</IfModule>

@@ -1,0 +1,1206 @@
+{
+    "meta": {
+        "version": 1,
+        "genere_le": "2026-10-17T17:57:25+02:00",
+        "maj": "2026-10-17",
+        "premier_tour": "2027-04-18",
+        "second_tour": "2027-05-02",
+        "liste_officielle": "2027-03-26",
+        "phase": "declares",
+        "demo": false,
+        "chiffre_note": "Selon Toute l'Europe au 14 octobre 2026 ; L'Obs en compte 31. En 2022, 12 candidats avaient obtenu leurs 500 parrainages.",
+        "empreinte_min": 10,
+        "empreinte": "28e326e26ec1bf68fd5db84cfbfc49afed32ebcbcfb3e7cc23c791c370a25774"
+    },
+    "semaine": {
+        "periode": "Du 11 au 17 octobre 2026",
+        "faits": [
+            {
+                "d": "2026-10-16",
+                "tag": "Institutions",
+                "t": "Des parlementaires RN et UDR saisissent le Conseil constitutionnel pour demander la démission de son président, Richard Ferrand.",
+                "src": [
+                    [
+                        "Public Sénat",
+                        "https://www.publicsenat.fr/actualites/politique/marine-le-pen-demande-la-demission-de-richard-ferrand-le-president-du-conseil-constitutionnel-est-il-vraiment-sorti-de-sa-reserve"
+                    ]
+                ]
+            },
+            {
+                "d": "2026-10-15",
+                "tag": "Décompte",
+                "t": "L'Obs recense 31 candidatures déclarées ; Toute l'Europe en compte 30. L'écart tient à la date et à la règle de décompte.",
+                "src": [
+                    [
+                        "L'Obs",
+                        "https://www.nouvelobs.com/politique/20261015.OBS119225/presidentielle-2027-quels-sont-les-31-candidats-actuellement-declares.html"
+                    ],
+                    [
+                        "Toute l'Europe",
+                        "https://www.touteleurope.eu/vie-politique-des-etats-membres/presidentielle-2027-qui-sont-les-candidats-deja-declares/"
+                    ]
+                ]
+            },
+            {
+                "d": "2026-10-14",
+                "tag": "Candidature",
+                "t": "Natacha Polony annonce sa candidature sur France Inter.",
+                "src": [
+                    [
+                        "Public Sénat",
+                        "https://www.publicsenat.fr/actualites/politique/election-presidentielle-2027-qui-sont-les-candidats-declares-ou-presque"
+                    ]
+                ]
+            },
+            {
+                "d": "2026-10-12",
+                "tag": "Programme",
+                "t": "Bruno Retailleau présente un plan de 197 milliards d'euros d'économies et vise un déficit public sous 3 % du PIB en 2031.",
+                "src": [
+                    [
+                        "Public Sénat",
+                        "https://www.publicsenat.fr/actualites/economie/presidentielle-2027-bruno-retailleau-sengage-sur-un-plan-deconomies-de-pres-de-200-milliards-deuros-sil-est-elu"
+                    ]
+                ]
+            },
+            {
+                "d": "2026-10-11",
+                "tag": "Primaire",
+                "t": "Raphaël Glucksmann remporte dès le premier tour la primaire sociale-démocrate (PS, Place publique, GRS), avec plus de 66 % des voix.",
+                "src": [
+                    [
+                        "LCP",
+                        "https://lcp.fr/actualites/primaire-socialiste-vainqueur-des-le-1er-tour-raphael-glucksmann-sera-le-candidat-de-la"
+                    ],
+                    [
+                        "Toute l'Europe",
+                        "https://www.touteleurope.eu/vie-politique-des-etats-membres/presidentielle-2027-qui-sont-les-candidats-deja-declares/"
+                    ]
+                ]
+            }
+        ]
+    },
+    "phases": [
+        {
+            "n": "Phase 1 · Candidats déclarés",
+            "from": "2026-07-01",
+            "to": "2027-03-26",
+            "d": "Toutes les candidatures publiquement déclarées, ajoutées au fil des annonces."
+        },
+        {
+            "n": "Phase 2 · Candidats officiels",
+            "from": "2027-03-26",
+            "to": "2027-04-18",
+            "d": "Les seuls candidats de la liste du Conseil constitutionnel, dans l’ordre du tirage au sort."
+        },
+        {
+            "n": "Entre-deux-tours",
+            "from": "2027-04-18",
+            "to": "2027-05-02",
+            "d": "Les deux qualifiés, comparés thème par thème."
+        }
+    ],
+    "calendrier": [
+        {
+            "d": "2026-07-01",
+            "l": "1er juillet 2026",
+            "t": "Dates du scrutin arrêtées en Conseil des ministres",
+            "s": "fait",
+            "src": [
+                "Weka",
+                "https://www.weka.fr/actualite/elus/article_juridique/parrainages-des-candidats-a-l-election-presidentielle-2027-quel-role-pour-les-elus-216318/"
+            ]
+        },
+        {
+            "d": "2026-10-11",
+            "l": "11 octobre 2026",
+            "t": "Primaire sociale-démocrate : Raphaël Glucksmann désigné",
+            "s": "fait",
+            "src": [
+                "LCP",
+                "https://lcp.fr/actualites/primaire-socialiste-vainqueur-des-le-1er-tour-raphael-glucksmann-sera-le-candidat-de-la"
+            ]
+        },
+        {
+            "d": "2026-10-31",
+            "l": "Octobre 2026",
+            "t": "Livre de synthèse du Plan robuste pour l'économie française (The Shift Project)",
+            "s": "annonce",
+            "soc": true,
+            "src": [
+                "The Shift Project",
+                "https://theshiftproject.org/publications/plan-robuste-economie/"
+            ]
+        },
+        {
+            "d": "2026-12-13",
+            "l": "13 décembre 2026",
+            "t": "Vote des militants écologistes sur la candidature de Marine Tondelier",
+            "s": "annonce",
+            "court": "Vote des militants écologistes",
+            "src": [
+                "Public Sénat",
+                "https://www.publicsenat.fr/actualites/politique/election-presidentielle-2027-qui-sont-les-candidats-declares-ou-presque"
+            ]
+        },
+        {
+            "d": "2027-02-05",
+            "l": "Début février 2027 au plus tard",
+            "t": "Décret de convocation des électeurs et ouverture des parrainages",
+            "s": "calcule",
+            "lc": "Début févr.",
+            "court": "Ouverture des parrainages",
+            "src": [
+                "Weka",
+                "https://www.weka.fr/actualite/elus/article_juridique/parrainages-des-candidats-a-l-election-presidentielle-2027-quel-role-pour-les-elus-216318/"
+            ]
+        },
+        {
+            "d": "2027-02-28",
+            "l": "Février 2027",
+            "t": "Fin des travaux de l'assemblée citoyenne « Un commun accord » lancée par Jean-Marc Jancovici",
+            "s": "annonce",
+            "soc": true,
+            "src": [
+                "Carenews, 26 août 2026",
+                "https://www.carenews.com/carenews-info/news/jean-marc-jancovici-lance-une-assemblee-citoyenne-en-perspective-de-2027"
+            ]
+        },
+        {
+            "d": "2027-03-12",
+            "l": "Vendredi 12 mars 2027, 18 h",
+            "t": "Clôture du dépôt des parrainages",
+            "s": "calcule",
+            "court": "Clôture des parrainages",
+            "src": [
+                "Toute l'Europe",
+                "https://www.touteleurope.eu/vie-politique-des-etats-membres/presidentielle-2027-qui-sont-les-candidats-deja-declares/"
+            ]
+        },
+        {
+            "d": "2027-03-26",
+            "l": "Au plus tard le vendredi 26 mars 2027",
+            "t": "Liste officielle des candidats, ordonnée par tirage au sort",
+            "s": "calcule",
+            "court": "Liste officielle",
+            "src": [
+                "Weka",
+                "https://www.weka.fr/actualite/elus/article_juridique/parrainages-des-candidats-a-l-election-presidentielle-2027-quel-role-pour-les-elus-216318/"
+            ]
+        },
+        {
+            "d": "2027-04-05",
+            "l": "Lundi 5 avril 2027",
+            "t": "Ouverture de la campagne officielle",
+            "s": "calcule"
+        },
+        {
+            "d": "2027-04-16",
+            "l": "Vendredi 16 avril 2027, 0 h",
+            "t": "Gel des sondages sur ce site (la loi l'impose la veille et le jour du scrutin ; plusieurs outre-mer votent le samedi)",
+            "s": "calcule"
+        },
+        {
+            "d": "2027-04-18",
+            "l": "Dimanche 18 avril 2027",
+            "t": "Premier tour (samedi 17 avril dans plusieurs outre-mer)",
+            "s": "officiel",
+            "src": [
+                "Weka",
+                "https://www.weka.fr/actualite/elus/article_juridique/parrainages-des-candidats-a-l-election-presidentielle-2027-quel-role-pour-les-elus-216318/"
+            ]
+        },
+        {
+            "d": "2027-05-02",
+            "l": "Dimanche 2 mai 2027",
+            "t": "Second tour (samedi 1er mai dans plusieurs outre-mer)",
+            "s": "officiel",
+            "src": [
+                "Weka",
+                "https://www.weka.fr/actualite/elus/article_juridique/parrainages-des-candidats-a-l-election-presidentielle-2027-quel-role-pour-les-elus-216318/"
+            ]
+        }
+    ],
+    "candidats": [
+        {
+            "id": "arthaud",
+            "p": "Nathalie",
+            "n": "Arthaud",
+            "parti": "Lutte ouvrière",
+            "d": null,
+            "dp": "jour",
+            "dk": "declaration",
+            "b": [],
+            "f": [],
+            "note": null,
+            "prog": null,
+            "nb": 0,
+            "cmp": false,
+            "src": [
+                "Toute l'Europe",
+                "https://www.touteleurope.eu/vie-politique-des-etats-membres/presidentielle-2027-qui-sont-les-candidats-deja-declares/"
+            ]
+        },
+        {
+            "id": "asselineau",
+            "p": "François",
+            "n": "Asselineau",
+            "parti": "Union populaire républicaine",
+            "d": null,
+            "dp": "jour",
+            "dk": "declaration",
+            "b": [],
+            "f": [],
+            "note": null,
+            "prog": null,
+            "nb": 0,
+            "cmp": false,
+            "src": [
+                "Toute l'Europe",
+                "https://www.touteleurope.eu/vie-politique-des-etats-membres/presidentielle-2027-qui-sont-les-candidats-deja-declares/"
+            ]
+        },
+        {
+            "id": "attal",
+            "p": "Gabriel",
+            "n": "Attal",
+            "parti": "Renaissance",
+            "d": "2026-05-22",
+            "dp": "jour",
+            "dk": "declaration",
+            "b": [],
+            "f": [],
+            "note": null,
+            "prog": null,
+            "nb": 0,
+            "cmp": false,
+            "src": [
+                "Toute l'Europe",
+                "https://www.touteleurope.eu/vie-politique-des-etats-membres/presidentielle-2027-qui-sont-les-candidats-deja-declares/"
+            ]
+        },
+        {
+            "id": "batho",
+            "p": "Delphine",
+            "n": "Batho",
+            "parti": "Génération Écologie",
+            "d": null,
+            "dp": "jour",
+            "dk": "declaration",
+            "b": [],
+            "f": [],
+            "note": null,
+            "prog": null,
+            "nb": 0,
+            "cmp": false,
+            "src": [
+                "Toute l'Europe",
+                "https://www.touteleurope.eu/vie-politique-des-etats-membres/presidentielle-2027-qui-sont-les-candidats-deja-declares/"
+            ]
+        },
+        {
+            "id": "becht",
+            "p": "Olivier",
+            "n": "Becht",
+            "parti": null,
+            "d": "2026-09-24",
+            "dp": "jour",
+            "dk": "declaration",
+            "b": [],
+            "f": [],
+            "note": null,
+            "prog": null,
+            "nb": 0,
+            "cmp": false,
+            "src": [
+                "Toute l'Europe",
+                "https://www.touteleurope.eu/vie-politique-des-etats-membres/presidentielle-2027-qui-sont-les-candidats-deja-declares/"
+            ]
+        },
+        {
+            "id": "bertrand",
+            "p": "Xavier",
+            "n": "Bertrand",
+            "parti": "Les Républicains",
+            "d": "2026-08-27",
+            "dp": "jour",
+            "dk": "declaration",
+            "b": [],
+            "f": [],
+            "note": "Refuse de participer à une primaire.",
+            "prog": null,
+            "nb": 0,
+            "cmp": false,
+            "src": [
+                "Toute l'Europe",
+                "https://www.touteleurope.eu/vie-politique-des-etats-membres/presidentielle-2027-qui-sont-les-candidats-deja-declares/"
+            ]
+        },
+        {
+            "id": "bouamrane",
+            "p": "Karim",
+            "n": "Bouamrane",
+            "parti": "Parti socialiste",
+            "d": null,
+            "dp": "jour",
+            "dk": "declaration",
+            "b": [
+                "Hors primaire"
+            ],
+            "f": [],
+            "note": null,
+            "prog": null,
+            "nb": 0,
+            "cmp": false,
+            "src": [
+                "Toute l'Europe",
+                "https://www.touteleurope.eu/vie-politique-des-etats-membres/presidentielle-2027-qui-sont-les-candidats-deja-declares/"
+            ]
+        },
+        {
+            "id": "branco",
+            "p": "Juan",
+            "n": "Branco",
+            "parti": "Les Ruches",
+            "d": null,
+            "dp": "jour",
+            "dk": "declaration",
+            "b": [],
+            "f": [],
+            "note": null,
+            "prog": null,
+            "nb": 0,
+            "cmp": false,
+            "src": [
+                "Toute l'Europe",
+                "https://www.touteleurope.eu/vie-politique-des-etats-membres/presidentielle-2027-qui-sont-les-candidats-deja-declares/"
+            ]
+        },
+        {
+            "id": "cazeneuve",
+            "p": "Bernard",
+            "n": "Cazeneuve",
+            "parti": "La Convention",
+            "d": null,
+            "dp": "jour",
+            "dk": "declaration",
+            "b": [
+                "Hors primaire"
+            ],
+            "f": [],
+            "note": "Candidature annoncée selon Toute l'Europe ; jugée « pressentie » par Public Sénat le 14 octobre 2026.",
+            "prog": null,
+            "nb": 0,
+            "cmp": false,
+            "src": [
+                "Toute l'Europe",
+                "https://www.touteleurope.eu/vie-politique-des-etats-membres/presidentielle-2027-qui-sont-les-candidats-deja-declares/"
+            ]
+        },
+        {
+            "id": "dupont-aignan",
+            "p": "Nicolas",
+            "n": "Dupont-Aignan",
+            "parti": "Debout la France",
+            "d": null,
+            "dp": "jour",
+            "dk": "declaration",
+            "b": [],
+            "f": [],
+            "note": null,
+            "prog": null,
+            "nb": 0,
+            "cmp": false,
+            "src": [
+                "Toute l'Europe",
+                "https://www.touteleurope.eu/vie-politique-des-etats-membres/presidentielle-2027-qui-sont-les-candidats-deja-declares/"
+            ]
+        },
+        {
+            "id": "egger",
+            "p": "Clara",
+            "n": "Egger",
+            "parti": "Solution démocratique",
+            "d": null,
+            "dp": "jour",
+            "dk": "declaration",
+            "b": [],
+            "f": [],
+            "note": null,
+            "prog": null,
+            "nb": 0,
+            "cmp": false,
+            "src": [
+                "Toute l'Europe",
+                "https://www.touteleurope.eu/vie-politique-des-etats-membres/presidentielle-2027-qui-sont-les-candidats-deja-declares/"
+            ]
+        },
+        {
+            "id": "glucksmann",
+            "p": "Raphaël",
+            "n": "Glucksmann",
+            "parti": "Place publique",
+            "d": "2026-10-11",
+            "dp": "jour",
+            "dk": "primaire",
+            "b": [
+                "Primaire remportée"
+            ],
+            "f": [],
+            "note": "Vainqueur de la primaire organisée par le PS, Place publique et la Gauche républicaine et socialiste.",
+            "prog": null,
+            "nb": 0,
+            "cmp": false,
+            "src": [
+                "Toute l'Europe",
+                "https://www.touteleurope.eu/vie-politique-des-etats-membres/presidentielle-2027-qui-sont-les-candidats-deja-declares/"
+            ]
+        },
+        {
+            "id": "kazib",
+            "p": "Anasse",
+            "n": "Kazib",
+            "parti": "Révolution permanente",
+            "d": null,
+            "dp": "jour",
+            "dk": "declaration",
+            "b": [],
+            "f": [],
+            "note": null,
+            "prog": null,
+            "nb": 0,
+            "cmp": false,
+            "src": [
+                "Toute l'Europe",
+                "https://www.touteleurope.eu/vie-politique-des-etats-membres/presidentielle-2027-qui-sont-les-candidats-deja-declares/"
+            ]
+        },
+        {
+            "id": "labib",
+            "p": "Selma",
+            "n": "Labib",
+            "parti": "NPA-Révolutionnaires",
+            "d": null,
+            "dp": "jour",
+            "dk": "declaration",
+            "b": [],
+            "f": [],
+            "note": null,
+            "prog": null,
+            "nb": 0,
+            "cmp": false,
+            "src": [
+                "Toute l'Europe",
+                "https://www.touteleurope.eu/vie-politique-des-etats-membres/presidentielle-2027-qui-sont-les-candidats-deja-declares/"
+            ]
+        },
+        {
+            "id": "lalanne",
+            "p": "Francis",
+            "n": "Lalanne",
+            "parti": null,
+            "d": null,
+            "dp": "jour",
+            "dk": "declaration",
+            "b": [],
+            "f": [],
+            "note": null,
+            "prog": null,
+            "nb": 0,
+            "cmp": false,
+            "src": [
+                "Toute l'Europe",
+                "https://www.touteleurope.eu/vie-politique-des-etats-membres/presidentielle-2027-qui-sont-les-candidats-deja-declares/"
+            ]
+        },
+        {
+            "id": "le-pen",
+            "p": "Marine",
+            "n": "Le Pen",
+            "parti": "Rassemblement national",
+            "d": "2026-07-07",
+            "dp": "jour",
+            "dk": "declaration",
+            "b": [],
+            "f": [
+                "Volet judiciaire"
+            ],
+            "note": "Condamnée en appel le 7 juillet 2026, pourvoi en cassation en cours ; éligible à ce stade selon Toute l'Europe.",
+            "prog": null,
+            "nb": 0,
+            "cmp": false,
+            "src": [
+                "Toute l'Europe",
+                "https://www.touteleurope.eu/vie-politique-des-etats-membres/presidentielle-2027-qui-sont-les-candidats-deja-declares/"
+            ]
+        },
+        {
+            "id": "lisnard",
+            "p": "David",
+            "n": "Lisnard",
+            "parti": "Nouvelle Énergie",
+            "d": "2026-03-31",
+            "dp": "jour",
+            "dk": "declaration",
+            "b": [],
+            "f": [],
+            "note": null,
+            "prog": null,
+            "nb": 0,
+            "cmp": false,
+            "src": [
+                "Toute l'Europe",
+                "https://www.touteleurope.eu/vie-politique-des-etats-membres/presidentielle-2027-qui-sont-les-candidats-deja-declares/"
+            ]
+        },
+        {
+            "id": "markovic",
+            "p": "Mira",
+            "n": "Markovic",
+            "parti": "Parti animaliste",
+            "d": null,
+            "dp": "jour",
+            "dk": "declaration",
+            "b": [],
+            "f": [],
+            "note": null,
+            "prog": null,
+            "nb": 0,
+            "cmp": false,
+            "src": [
+                "Toute l'Europe",
+                "https://www.touteleurope.eu/vie-politique-des-etats-membres/presidentielle-2027-qui-sont-les-candidats-deja-declares/"
+            ]
+        },
+        {
+            "id": "massard",
+            "p": "Lydie",
+            "n": "Massard",
+            "parti": "Union démocratique bretonne",
+            "d": null,
+            "dp": "jour",
+            "dk": "declaration",
+            "b": [],
+            "f": [],
+            "note": null,
+            "prog": null,
+            "nb": 0,
+            "cmp": false,
+            "src": [
+                "Toute l'Europe",
+                "https://www.touteleurope.eu/vie-politique-des-etats-membres/presidentielle-2027-qui-sont-les-candidats-deja-declares/"
+            ]
+        },
+        {
+            "id": "mathieu",
+            "p": "Benoît",
+            "n": "Mathieu",
+            "parti": null,
+            "d": null,
+            "dp": "jour",
+            "dk": "declaration",
+            "b": [],
+            "f": [],
+            "note": null,
+            "prog": null,
+            "nb": 0,
+            "cmp": false,
+            "src": [
+                "Toute l'Europe",
+                "https://www.touteleurope.eu/vie-politique-des-etats-membres/presidentielle-2027-qui-sont-les-candidats-deja-declares/"
+            ]
+        },
+        {
+            "id": "melenchon",
+            "p": "Jean-Luc",
+            "n": "Mélenchon",
+            "parti": "La France insoumise",
+            "d": "2026-05-03",
+            "dp": "jour",
+            "dk": "declaration",
+            "b": [],
+            "f": [],
+            "note": null,
+            "prog": null,
+            "nb": 0,
+            "cmp": false,
+            "src": [
+                "Toute l'Europe",
+                "https://www.touteleurope.eu/vie-politique-des-etats-membres/presidentielle-2027-qui-sont-les-candidats-deja-declares/"
+            ]
+        },
+        {
+            "id": "mikolajczak",
+            "p": "Antoine",
+            "n": "Mikolajczak",
+            "parti": "Équinoxe",
+            "d": null,
+            "dp": "jour",
+            "dk": "declaration",
+            "b": [],
+            "f": [],
+            "note": null,
+            "prog": null,
+            "nb": 0,
+            "cmp": false,
+            "src": [
+                "Toute l'Europe",
+                "https://www.touteleurope.eu/vie-politique-des-etats-membres/presidentielle-2027-qui-sont-les-candidats-deja-declares/"
+            ]
+        },
+        {
+            "id": "philippe",
+            "p": "Édouard",
+            "n": "Philippe",
+            "parti": "Horizons",
+            "d": "2024-09-01",
+            "dp": "mois",
+            "dk": "declaration",
+            "b": [],
+            "f": [],
+            "note": null,
+            "prog": null,
+            "nb": 0,
+            "cmp": false,
+            "src": [
+                "Toute l'Europe",
+                "https://www.touteleurope.eu/vie-politique-des-etats-membres/presidentielle-2027-qui-sont-les-candidats-deja-declares/"
+            ]
+        },
+        {
+            "id": "philippot",
+            "p": "Florian",
+            "n": "Philippot",
+            "parti": "Les Patriotes",
+            "d": null,
+            "dp": "jour",
+            "dk": "declaration",
+            "b": [],
+            "f": [],
+            "note": null,
+            "prog": null,
+            "nb": 0,
+            "cmp": false,
+            "src": [
+                "Toute l'Europe",
+                "https://www.touteleurope.eu/vie-politique-des-etats-membres/presidentielle-2027-qui-sont-les-candidats-deja-declares/"
+            ]
+        },
+        {
+            "id": "polony",
+            "p": "Natacha",
+            "n": "Polony",
+            "parti": null,
+            "d": "2026-10-14",
+            "dp": "jour",
+            "dk": "declaration",
+            "b": [],
+            "f": [],
+            "note": null,
+            "prog": null,
+            "nb": 0,
+            "cmp": false,
+            "src": [
+                "Toute l'Europe",
+                "https://www.touteleurope.eu/vie-politique-des-etats-membres/presidentielle-2027-qui-sont-les-candidats-deja-declares/"
+            ]
+        },
+        {
+            "id": "retailleau",
+            "p": "Bruno",
+            "n": "Retailleau",
+            "parti": "Les Républicains",
+            "d": "2026-04-19",
+            "dp": "jour",
+            "dk": "parti",
+            "b": [
+                "Investiture du parti"
+            ],
+            "f": [],
+            "note": "Désigné par les adhérents LR avec 73,8 % des voix.",
+            "prog": null,
+            "nb": 0,
+            "cmp": false,
+            "src": [
+                "Toute l'Europe",
+                "https://www.touteleurope.eu/vie-politique-des-etats-membres/presidentielle-2027-qui-sont-les-candidats-deja-declares/"
+            ]
+        },
+        {
+            "id": "roussel",
+            "p": "Fabien",
+            "n": "Roussel",
+            "parti": "Parti communiste français",
+            "d": "2026-09-06",
+            "dp": "jour",
+            "dk": "parti",
+            "b": [
+                "Investiture du parti"
+            ],
+            "f": [],
+            "note": "Candidature validée par les adhérents.",
+            "prog": null,
+            "nb": 0,
+            "cmp": false,
+            "src": [
+                "Toute l'Europe",
+                "https://www.touteleurope.eu/vie-politique-des-etats-membres/presidentielle-2027-qui-sont-les-candidats-deja-declares/"
+            ]
+        },
+        {
+            "id": "ruffin",
+            "p": "François",
+            "n": "Ruffin",
+            "parti": "Debout !",
+            "d": null,
+            "dp": "jour",
+            "dk": "declaration",
+            "b": [],
+            "f": [],
+            "note": null,
+            "prog": null,
+            "nb": 0,
+            "cmp": false,
+            "src": [
+                "Toute l'Europe",
+                "https://www.touteleurope.eu/vie-politique-des-etats-membres/presidentielle-2027-qui-sont-les-candidats-deja-declares/"
+            ]
+        },
+        {
+            "id": "tondelier",
+            "p": "Marine",
+            "n": "Tondelier",
+            "parti": "Les Écologistes",
+            "d": null,
+            "dp": "jour",
+            "dk": "declaration",
+            "b": [],
+            "f": [
+                "Candidature à confirmer"
+            ],
+            "note": "Vote des militants prévu le 13 décembre 2026 (Public Sénat).",
+            "prog": null,
+            "nb": 0,
+            "cmp": false,
+            "src": [
+                "Toute l'Europe",
+                "https://www.touteleurope.eu/vie-politique-des-etats-membres/presidentielle-2027-qui-sont-les-candidats-deja-declares/"
+            ]
+        },
+        {
+            "id": "zemmour",
+            "p": "Éric",
+            "n": "Zemmour",
+            "parti": "Reconquête !",
+            "d": "2026-09-17",
+            "dp": "jour",
+            "dk": "annonce",
+            "b": [],
+            "f": [
+                "Déclaration formelle attendue"
+            ],
+            "note": "Candidature annoncée sur BFM TV ; déclaration formelle attendue selon Toute l'Europe.",
+            "prog": null,
+            "nb": 0,
+            "cmp": false,
+            "src": [
+                "Toute l'Europe",
+                "https://www.touteleurope.eu/vie-politique-des-etats-membres/presidentielle-2027-qui-sont-les-candidats-deja-declares/"
+            ]
+        }
+    ],
+    "comparateur": {
+        "candidats": []
+    },
+    "themes": [
+        {
+            "id": 1,
+            "slug": "pouvoir-achat-logement",
+            "n": "Pouvoir d'achat et logement",
+            "c": "Achat",
+            "une": false,
+            "pivots": [
+                "Niveau du SMIC net mensuel proposé",
+                "Indexation des salaires sur l'inflation",
+                "Logements neufs par an",
+                "Rénovations performantes de logements par an"
+            ],
+            "vars": []
+        },
+        {
+            "id": 2,
+            "slug": "finances-fiscalite",
+            "n": "Finances publiques et fiscalité",
+            "c": "Finances",
+            "une": false,
+            "pivots": [
+                "Année visée pour un déficit public sous 3 % du PIB",
+                "Évolution des prélèvements obligatoires",
+                "Imposition du patrimoine"
+            ],
+            "vars": []
+        },
+        {
+            "id": 3,
+            "slug": "travail-retraites",
+            "n": "Travail, emploi et retraites",
+            "c": "Retraites",
+            "une": false,
+            "pivots": [
+                "Âge légal de départ à la retraite",
+                "Durée de cotisation pour une pension à taux plein",
+                "Durée maximale d'indemnisation du chômage"
+            ],
+            "vars": []
+        },
+        {
+            "id": 4,
+            "slug": "sante",
+            "n": "Santé et autonomie",
+            "c": "Santé",
+            "une": false,
+            "pivots": [
+                "Installation des médecins",
+                "Hausse annuelle des dépenses d'assurance maladie"
+            ],
+            "vars": []
+        },
+        {
+            "id": 5,
+            "slug": "education",
+            "n": "Éducation, jeunesse et enseignement supérieur",
+            "c": "Éducation",
+            "une": false,
+            "pivots": [
+                "Revalorisation des salaires des enseignants",
+                "Avenir de Parcoursup",
+                "Aide à l'autonomie des étudiants"
+            ],
+            "vars": []
+        },
+        {
+            "id": 6,
+            "slug": "environnement",
+            "n": "Environnement, climat et énergie",
+            "c": "Environnement",
+            "une": true,
+            "pivots": [
+                "Nouveaux réacteurs nucléaires à lancer",
+                "Part des renouvelables visée dans l'électricité en 2035",
+                "Année visée pour la neutralité carbone"
+            ],
+            "vars": []
+        },
+        {
+            "id": 7,
+            "slug": "agriculture",
+            "n": "Agriculture et alimentation",
+            "c": "Agriculture",
+            "une": false,
+            "pivots": [
+                "Accords de libre-échange (dont Mercosur)",
+                "Encadrement des pesticides",
+                "Évolution de l'élevage"
+            ],
+            "vars": []
+        },
+        {
+            "id": 8,
+            "slug": "securite-justice",
+            "n": "Sécurité et justice",
+            "c": "Sécurité",
+            "une": false,
+            "pivots": [
+                "Policiers et gendarmes supplémentaires",
+                "Places de prison supplémentaires",
+                "Peines minimales"
+            ],
+            "vars": []
+        },
+        {
+            "id": 9,
+            "slug": "immigration",
+            "n": "Immigration et intégration",
+            "c": "Immigration",
+            "une": false,
+            "pivots": [
+                "Droit du sol",
+                "Aide médicale de l'État",
+                "Référendum sur l'immigration"
+            ],
+            "vars": []
+        },
+        {
+            "id": 10,
+            "slug": "europe-defense",
+            "n": "Europe, international et défense",
+            "c": "Europe",
+            "une": false,
+            "pivots": [
+                "Effort de défense visé, en % du PIB",
+                "Évolution des traités européens",
+                "Soutien à l'Ukraine"
+            ],
+            "vars": []
+        },
+        {
+            "id": 11,
+            "slug": "institutions",
+            "n": "Institutions et démocratie",
+            "c": "Institutions",
+            "une": false,
+            "pivots": [
+                "Mode de scrutin aux élections législatives",
+                "Référendum d'initiative citoyenne",
+                "Droit de vote à 16 ans"
+            ],
+            "vars": []
+        },
+        {
+            "id": 12,
+            "slug": "economie-industrie",
+            "n": "Économie et industrie",
+            "c": "Économie",
+            "une": false,
+            "pivots": [
+                "Taux de l'impôt sur les sociétés",
+                "Soutien public à l'industrie bas-carbone"
+            ],
+            "vars": []
+        },
+        {
+            "id": 13,
+            "slug": "transports",
+            "n": "Transports et mobilités",
+            "c": "Transports",
+            "une": true,
+            "pivots": [
+                "Investissement public annuel dans le ferroviaire",
+                "Fin de vente des voitures thermiques neuves",
+                "Tarifs des transports en commun"
+            ],
+            "vars": []
+        },
+        {
+            "id": 14,
+            "slug": "numerique-ia",
+            "n": "Numérique, innovation technologique et IA",
+            "c": "Numérique et IA",
+            "une": true,
+            "pivots": [
+                "Encadrement de l'intelligence artificielle",
+                "Nouveaux centres de données",
+                "Hébergement des données publiques"
+            ],
+            "vars": [],
+            "r": "Numérique"
+        }
+    ],
+    "empreinte": {},
+    "sondage": {
+        "rows": [
+            {
+                "n": "Gabriel Attal",
+                "lo": 6,
+                "hi": 15.5
+            },
+            {
+                "n": "Raphaël Glucksmann",
+                "lo": 11.5,
+                "hi": 13.5
+            },
+            {
+                "n": "Marine Le Pen",
+                "lo": 33,
+                "hi": 35
+            },
+            {
+                "n": "Jean-Luc Mélenchon",
+                "lo": 15.5,
+                "hi": 17
+            },
+            {
+                "n": "Édouard Philippe",
+                "lo": 14,
+                "hi": 21
+            },
+            {
+                "n": "Bruno Retailleau",
+                "lo": 7,
+                "hi": 10.5
+            }
+        ],
+        "mentions": "Ipsos bva-CESI École d'ingénieurs pour le CEVIPOF, la Fondation Jean-Jaurès, l'Institut Montaigne et Le Monde, réalisée du 3 au 9 septembre 2026 auprès de 13 060 personnes inscrites sur les listes électorales. En pourcentage des suffrages exprimés. Enquête antérieure à la primaire du 11 octobre.",
+        "lecture": "Chaque barre va du score le plus bas au plus haut obtenu selon les hypothèses de candidatures testées. Ce n'est pas une marge d'erreur.",
+        "url": "https://www.ipsos.com/fr-fr/presidentielle-2027-le-point-7-mois-du-scrutin",
+        "notice": null
+    },
+    "shift": {
+        "nom": "The Shift Project",
+        "qui": "Think tank consacré à la transition bas-carbone, présidé par Jean-Marc Jancovici.",
+        "demande": "Faire de la décarbonation une priorité politique et économique dès le prochain quinquennat, en menant de front une vingtaine de chantiers.",
+        "finance": "Campagne de dons « Décarbonons la France ! » en 2025 : 3,3 millions d'euros auprès de plus de 26 000 contributeurs. Autres financements et inscription au répertoire de la HATVP à documenter.",
+        "financeSrc": [
+            "FrenchWeb, 20 juin 2025",
+            "https://www.frenchweb.fr/jean-marc-jancovici-leve-33-millions-deuros-avec-le-shift-project-pour-imposer-la-decarbonation-dans-le-debat-de-2027/455625"
+        ],
+        "hatvp": null,
+        "dispositifs": [
+            {
+                "when": "14 avril 2026 · livre de synthèse annoncé pour octobre 2026",
+                "t": "Plan robuste pour l'économie française",
+                "d": "Premier volet, « Réussir la transition dans l'incertitude » : 20 chantiers et 5 leviers (énergies bas-carbone, électrification, sobriété, émissions hors combustion, puits de carbone). Objectif affiché : éclairer le débat à un an de la présidentielle.",
+                "src": [
+                    [
+                        "The Shift Project",
+                        "https://theshiftproject.org/publications/plan-robuste-economie/"
+                    ],
+                    [
+                        "Communiqué",
+                        "https://theshiftproject.org/app/uploads/2026/04/Communique-de-presse-Transition-Robuste-avril26.pdf"
+                    ]
+                ]
+            },
+            {
+                "when": "Septembre 2026 à février 2027",
+                "t": "Assemblée citoyenne « Un commun accord »",
+                "d": "Lancée par Jean-Marc Jancovici : 150 citoyens tirés au sort par Toluna Harris Interactive, six week-ends de travail au Cnam. Les membres décideront eux-mêmes de présenter ou non leurs propositions aux candidats.",
+                "src": [
+                    [
+                        "Carenews, 26 août 2026",
+                        "https://www.carenews.com/carenews-info/news/jean-marc-jancovici-lance-une-assemblee-citoyenne-en-perspective-de-2027"
+                    ]
+                ]
+            },
+            {
+                "when": "2025-2027",
+                "t": "Réseau bénévole des Shifters",
+                "d": "Initiatives locales de portage du Plan robuste pendant la campagne. Suivi comme signal de veille.",
+                "src": [
+                    [
+                        "The Shifters",
+                        "https://initiatives.theshifters.org/initiative/I20260405185057/"
+                    ]
+                ]
+            }
+        ],
+        "chantiers": [
+            {
+                "id": "velo",
+                "l": "Vélo",
+                "dom": "Transports",
+                "th": 13
+            },
+            {
+                "id": "tc",
+                "l": "Transports en commun",
+                "dom": "Transports",
+                "th": 13
+            },
+            {
+                "id": "ve",
+                "l": "Voiture électrique sobre",
+                "dom": "Transports",
+                "th": 13
+            },
+            {
+                "id": "train",
+                "l": "Train",
+                "dom": "Transports",
+                "th": 13
+            },
+            {
+                "id": "aerien",
+                "l": "Aérien décarboné",
+                "dom": "Transports",
+                "th": 13
+            },
+            {
+                "id": "fret",
+                "l": "Fret ferroviaire",
+                "dom": "Transports",
+                "th": 13
+            },
+            {
+                "id": "camions",
+                "l": "Camions électriques",
+                "dom": "Transports",
+                "th": 13
+            },
+            {
+                "id": "renov",
+                "l": "Rénovation des logements",
+                "dom": "Logement",
+                "th": 1
+            },
+            {
+                "id": "pac",
+                "l": "Pompes à chaleur",
+                "dom": "Logement",
+                "th": 1
+            },
+            {
+                "id": "datacenters",
+                "l": "Maîtrise des centres de données",
+                "dom": "Numérique",
+                "th": 14
+            },
+            {
+                "id": "acier",
+                "l": "Acier bas-carbone",
+                "dom": "Industrie",
+                "th": 12
+            },
+            {
+                "id": "h2",
+                "l": "Hydrogène bas-carbone",
+                "dom": "Industrie",
+                "th": 12
+            },
+            {
+                "id": "ccs",
+                "l": "Captage et stockage du carbone",
+                "dom": "Industrie",
+                "th": 12
+            },
+            {
+                "id": "elevage",
+                "l": "Transformation de l'élevage bovin",
+                "dom": "Agriculture",
+                "th": 7
+            },
+            {
+                "id": "azote",
+                "l": "Gestion de l'azote (légumineuses)",
+                "dom": "Agriculture",
+                "th": 7
+            },
+            {
+                "id": "puits",
+                "l": "Puits de carbone naturels et forestiers",
+                "dom": "Agriculture",
+                "th": 7
+            },
+            {
+                "id": "nucleaire",
+                "l": "Nucléaire historique et EPR2",
+                "dom": "Énergie",
+                "th": 6
+            },
+            {
+                "id": "enr",
+                "l": "Solaire et éolien",
+                "dom": "Énergie",
+                "th": 6
+            },
+            {
+                "id": "bio",
+                "l": "Bioénergies",
+                "dom": "Énergie",
+                "th": 6
+            }
+        ],
+        "etats": {},
+        "src": {}
+    }
+}

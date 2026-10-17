@@ -1,0 +1,159 @@
+# Publie Repères 2027 sur l'hébergement OVHcloud de nogues.app, en SFTP, à chaque mise à jour.
+#
+#   public/  →  www/presidentielle      (le site, servi sur https://nogues.app/presidentielle)
+#   app/     →  presidentielle-app      (code privé et configuration, HORS du dossier www)
+#
+# Réglages (Settings > Secrets and variables > Actions de CE dépôt), jamais écrits ici :
+#   secrets   OVH_SFTP_HOST, OVH_SFTP_USER, OVH_SFTP_PASSWORD   mêmes valeurs que pour nogues.app
+#             OVH_DB_HOST, OVH_DB_NAME, OVH_DB_USER, OVH_DB_PASSWORD   base MySQL créée chez OVHcloud
+#             PUBLIER_JETON   au moins 32 caractères aléatoires, protège api/publier.php
+#   variables OVH_TARGET_DIR (www/presidentielle), OVH_APP_DIR (presidentielle-app),
+#             SITE_URL (https://nogues.app/presidentielle), toutes facultatives
+#
+# GitHub ne se connecte jamais à la base : les secrets OVH_DB_* servent uniquement à écrire
+# app/config.local.json, déposé hors du dossier public. Le serveur lit ensuite la base en local.
+#
+# Sans les secrets SFTP, le workflow s'arrête proprement sans rien envoyer.
+# Sans les secrets de base, le site est publié mais les données ne sont pas régénérées.
+# Rien n'est jamais supprimé sur le serveur, et data/site.json n'est envoyé que s'il n'existe pas
+# encore : la version en ligne, produite par le serveur, n'est jamais écrasée.
+
+name: Publier Repères 2027 sur OVHcloud
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "public/**"
+      - "app/**"
+      - ".github/workflows/deploy-ovh.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-ovh-presidentielle
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      SFTP_HOST: ${{ secrets.OVH_SFTP_HOST }}
+      SFTP_USER: ${{ secrets.OVH_SFTP_USER }}
+      LFTP_PASSWORD: ${{ secrets.OVH_SFTP_PASSWORD }}
+      DB_HOST: ${{ secrets.OVH_DB_HOST }}
+      DB_NAME: ${{ secrets.OVH_DB_NAME }}
+      DB_USER: ${{ secrets.OVH_DB_USER }}
+      DB_PASSWORD: ${{ secrets.OVH_DB_PASSWORD }}
+      PUBLIER_JETON: ${{ secrets.PUBLIER_JETON }}
+      TARGET_DIR: ${{ vars.OVH_TARGET_DIR || 'www/presidentielle' }}
+      APP_DIR: ${{ vars.OVH_APP_DIR || 'presidentielle-app' }}
+      SITE_URL: ${{ vars.SITE_URL || 'https://nogues.app/presidentielle' }}
+    steps:
+      - name: Vérifier la configuration
+        id: check
+        run: |
+          if [ -z "$SFTP_HOST" ] || [ -z "$SFTP_USER" ] || [ -z "$LFTP_PASSWORD" ]; then
+            echo "::warning::Secrets OVH_SFTP_HOST, OVH_SFTP_USER ou OVH_SFTP_PASSWORD absents de ce dépôt : publication ignorée."
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          TARGET_DIR="${TARGET_DIR%/}"; APP_DIR="${APP_DIR%/}"
+          case "$TARGET_DIR" in
+            ""|"."|"/"|"www") echo "::error::Dossier cible refusé (« $TARGET_DIR ») : indiquez www/presidentielle."; exit 1 ;;
+          esac
+          case "$APP_DIR" in
+            ""|"."|"/"|www|www/*|/*|*..*) echo "::error::OVH_APP_DIR (« $APP_DIR ») doit être un dossier relatif, hors de www."; exit 1 ;;
+          esac
+          if [ -n "$DB_HOST" ] && [ -n "$DB_NAME" ] && [ -n "$DB_USER" ] && [ -n "$DB_PASSWORD" ]; then
+            echo "db=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "::warning::Secrets OVH_DB_* incomplets : le site est publié, mais api/publier.php restera inactif."
+            echo "db=false" >> "$GITHUB_OUTPUT"
+          fi
+          if [ "${#PUBLIER_JETON}" -lt 32 ]; then
+            echo "::warning::PUBLIER_JETON absent ou trop court (32 caractères minimum) : publication des données désactivée."
+          fi
+          echo "ready=true" >> "$GITHUB_OUTPUT"
+
+      - name: Récupérer le dépôt
+        if: steps.check.outputs.ready == 'true'
+        uses: actions/checkout@v4
+
+      - name: Préparer les fichiers
+        if: steps.check.outputs.ready == 'true'
+        run: |
+          set -euo pipefail
+          TARGET_DIR="${TARGET_DIR%/}"; APP_DIR="${APP_DIR%/}"
+          mkdir -p build/seed-data
+          cp -R public build/public
+          cp -R app build/app
+          rm -f build/app/config.local.json
+
+          # data/site.json n'est envoyé que s'il manque sur le serveur (étape suivante)
+          mv build/public/data/site.json build/seed-data/site.json
+
+          # Chemin du dossier privé, vu depuis www/presidentielle/api/
+          niveaux=$(( $(echo "$TARGET_DIR" | awk -F/ '{print NF}') + 1 ))
+          printf "<?php\n// Écrit par le déploiement : dossier privé de l'application.\nreturn dirname(__DIR__, %d) . '/%s';\n" "$niveaux" "$APP_DIR" > build/public/api/chemin-app.php
+
+          # Dossier des données, vu depuis le dossier privé
+          remonter=$(echo "$APP_DIR" | awk -F/ '{for(i=1;i<=NF;i++) printf "../"}')
+          data_dir="${remonter}${TARGET_DIR}/data"
+
+          # Configuration privée, écrite à partir des secrets
+          if [ "${{ steps.check.outputs.db }}" = "true" ]; then
+            jq -n \
+              --arg h "$DB_HOST" --arg n "$DB_NAME" --arg u "$DB_USER" --arg p "$DB_PASSWORD" \
+              --arg j "$PUBLIER_JETON" --arg d "$data_dir" \
+              '{db_host:$h, db_port:3306, db_name:$n, db_user:$u, db_password:$p, publier_jeton:$j, data_dir:$d}' \
+              > build/app/config.local.json
+            chmod 600 build/app/config.local.json
+          fi
+
+          # Les navigateurs rechargent la feuille de style et le script à chaque version
+          v="${GITHUB_SHA::8}"
+          sed -i "s#assets/app.css\"#assets/app.css?v=$v\"#; s#assets/app.js\"#assets/app.js?v=$v\"#" build/public/index.html
+
+      - name: Installer lftp
+        if: steps.check.outputs.ready == 'true'
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
+
+      - name: Envoyer en SFTP
+        if: steps.check.outputs.ready == 'true'
+        run: |
+          TARGET_DIR="${TARGET_DIR%/}"; APP_DIR="${APP_DIR%/}"
+          proteger=""
+          [ -f build/app/config.local.json ] && proteger="chmod 600 '$APP_DIR/config.local.json';"
+          lftp --env-password -u "$SFTP_USER" "sftp://$SFTP_HOST" -e "
+            set sftp:auto-confirm yes;
+            set net:timeout 20; set net:max-retries 3; set net:reconnect-interval-base 5;
+            mkdir -p -f '$TARGET_DIR/data'; mkdir -p -f '$APP_DIR';
+            mirror --reverse --parallel=4 build/public/ '$TARGET_DIR';
+            mirror --reverse --only-missing build/seed-data/ '$TARGET_DIR/data';
+            mirror --reverse --parallel=4 build/app/ '$APP_DIR';
+            $proteger
+            bye"
+          {
+            echo "### Publication terminée"
+            echo "- Site : $(find build/public -type f | wc -l) fichiers dans \`$TARGET_DIR\`"
+            echo "- Application privée : $(find build/app -type f | wc -l) fichiers dans \`$APP_DIR\`"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Régénérer les données
+        if: steps.check.outputs.ready == 'true' && steps.check.outputs.db == 'true'
+        run: |
+          if [ "${#PUBLIER_JETON}" -lt 32 ]; then exit 0; fi
+          code=$(curl -sS -o rapport.json -w '%{http_code}' -X POST \
+            -H "X-Publication-Jeton: $PUBLIER_JETON" -H "X-Declencheur: deploiement" \
+            "$SITE_URL/api/publier.php" || echo "000")
+          {
+            echo "### Données (HTTP $code)"
+            echo '```json'; cat rapport.json 2>/dev/null; echo; echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+          if [ "$code" != "200" ]; then
+            echo "::warning::La régénération des données a répondu HTTP $code. Voir le résumé de l'exécution."
+          fi

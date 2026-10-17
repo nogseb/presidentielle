@@ -1,0 +1,32 @@
+# Repères 2027 · nogues.app/presidentielle (hébergement Apache OVHcloud)
+
+DirectoryIndex index.html
+Options -Indexes
+AddDefaultCharset utf-8
+AddType application/json .json
+AddType font/woff2 .woff2
+
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+  Header set X-Frame-Options "SAMEORIGIN"
+  Header set Permissions-Policy "camera=(), microphone=(), geolocation=(), interest-cohort=()"
+  Header set Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-ancestors 'self'; base-uri 'self'; form-action 'self'"
+
+  # Données ouvertes : réutilisables depuis n'importe quel site, rafraîchies en 5 minutes au plus
+  <FilesMatch "\.json$">
+    Header set Cache-Control "public, max-age=300"
+    Header set Access-Control-Allow-Origin "*"
+  </FilesMatch>
+  <FilesMatch "\.(css|js)$">
+    Header set Cache-Control "public, max-age=3600"
+  </FilesMatch>
+  <FilesMatch "\.(woff2|svg)$">
+    Header set Cache-Control "public, max-age=2592000"
+  </FilesMatch>
+</IfModule>
+
+# Fichiers temporaires de l'export et sauvegardes
+<FilesMatch "\.(tmp|bak|sql)$">
+  Require all denied
+</FilesMatch>
