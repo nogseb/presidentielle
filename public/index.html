@@ -76,14 +76,23 @@
     <div>
       <p class="eyebrow" id="cand-eyebrow">Phase 1 · candidats déclarés</p>
       <h1 id="t-cand"><span id="nb-cand-2"></span> <span id="nb-cand-2u">candidatures déclarées</span></h1>
-      <p class="lede" id="cand-lede">La liste évolue au fil des déclarations, retraits et ralliements. Elle sera remplacée par la liste officielle du Conseil constitutionnel. Ordre alphabétique.</p>
+      <p class="lede" id="cand-lede">La liste évolue au fil des déclarations, retraits et ralliements. Elle sera remplacée par la liste officielle du Conseil constitutionnel.</p>
     </div>
-    <div class="controls">
-      <div class="field"><label for="q">Rechercher un nom ou un parti</label><input type="search" id="q" placeholder="Ex. Tondelier, Horizons" autocomplete="off"></div>
-      <div class="field" style="flex:0 1 13rem"><label for="sort">Trier par</label><select id="sort"><option value="nom">Nom</option><option value="date">Date de déclaration</option></select></div>
+    <div class="tiles" id="cand-tiles" role="group" aria-label="Filtrer les candidatures"></div>
+    <div class="block" style="gap:10px">
+      <div class="controls">
+        <div class="seg" role="group" aria-label="Affichage">
+          <button type="button" id="vue-fiches" aria-pressed="true">Fiches</button>
+          <button type="button" id="vue-chrono" aria-pressed="false">Chronologie</button>
+        </div>
+        <div class="field f-search"><label for="q" class="vh">Rechercher un nom ou un parti</label><input type="search" id="q" placeholder="Rechercher un nom ou un parti" autocomplete="off"></div>
+        <div class="field f-sort"><label for="sort" class="vh">Trier les fiches</label><select id="sort"><option value="nom">Tri : nom</option><option value="date">Tri : date récente</option><option value="parti">Tri : parti</option></select></div>
+      </div>
+      <p class="small" id="cands-n" aria-live="polite" hidden></p>
     </div>
-    <div class="cands" id="cands"></div>
-    <p class="small">Chaque fiche renvoie à la source de la candidature. Une date absente n'est pas encore sourcée.</p>
+    <div class="cards" id="cands"></div>
+    <div class="chrono" id="chrono" hidden></div>
+    <p class="small" id="cands-note">Chaque fiche renvoie à la source de la candidature. Une date absente n'est pas encore sourcée.</p>
   </section>
 
   <section class="view" id="v-themes" aria-labelledby="t-themes" hidden>

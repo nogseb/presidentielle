@@ -158,6 +158,7 @@ final class ExportSite
                 'p'     => $c['prenom'],
                 'n'     => $c['nom'],
                 'parti' => $c['parti'],
+                'st'    => $c['statut'],
                 'd'     => $c['date_declaration'],
                 'dp'    => $c['precision_date'],
                 'dk'    => $c['designation'],

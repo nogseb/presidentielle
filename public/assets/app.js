@@ -117,41 +117,115 @@
     }
 
     /* ---------------------------------------------------------------- Candidats */
-    function dateLabel(c) {
-      if (!c.d) return "Date à sourcer";
-      const mot = { declaration: "Déclaration", annonce: "Annonce", primaire: "Désignation", parti: "Désignation" }[c.dk] || "Déclaration";
-      return c.dp === "mois" ? `${mot} : ${fmt(c.d, { month: "long", year: "numeric" })}` : `${mot} : ${fmt(c.d, { day: "numeric", month: "short", year: "numeric" })}`;
+    const OFFICIELS = !!(META.phase && META.phase !== "declares");
+    const MOT_DATE = { declaration: "Déclaration", annonce: "Annonce", primaire: "Désignation", parti: "Désignation" };
+    const dateTxt = c => c.dp === "mois" ? fmt(c.d, { month: "long", year: "numeric" }) : fmt(c.d, { day: "numeric", month: "long", year: "numeric" });
+    const dateLabel = c => c.d ? `${MOT_DATE[c.dk] || "Déclaration"} · ${dateTxt(c)}` : "";
+    const fullName = c => c.p + " " + c.n;
+    const initials = c => (c.p.charAt(0) + c.n.charAt(0)).toUpperCase();
+    const investi = c => c.dk === "primaire" || c.dk === "parti";
+    const aConfirmer = c => !OFFICIELS && (c.st === "a_confirmer" || c.dk === "annonce" || (!c.st && (c.f || []).indexOf("Candidature à confirmer") >= 0));
+    const pl = (n, un, plusieurs) => n > 1 ? plusieurs : un;
+    const FILTRES = [
+      { k: "toutes", l: n => OFFICIELS ? pl(n, "candidat officiel", "candidats officiels") : pl(n, "candidature", "candidatures"), t: () => true },
+      { k: "investies", l: n => pl(n, "investie par un parti ou une primaire", "investies par un parti ou une primaire"), t: investi },
+      { k: "confirmer", l: () => "en attente de confirmation", t: aConfirmer, phase1: true },
+      { k: "programme", l: n => pl(n, "programme publié", "programmes publiés"), t: c => !!c.prog },
+    ];
+    let filtre = "toutes";
+    let vue = "fiches";
+
+    function renderTiles() {
+      $("#cand-tiles").innerHTML = FILTRES.filter(f => !(f.phase1 && OFFICIELS)).map(f => {
+        const n = DATA.candidats.filter(f.t).length;
+        const vide = n === 0 && f.k !== "toutes";
+        return `<button type="button" class="tile" data-f="${f.k}" aria-pressed="${filtre === f.k}"${vide ? " disabled" : ""}><b>${n}</b><span>${esc(f.l(n))}</span></button>`;
+      }).join("");
     }
-    function renderCands() {
+
+    function candList() {
       const q = norm($("#q").value.trim());
+      const f = FILTRES.find(x => x.k === filtre) || FILTRES[0];
+      let list = DATA.candidats.filter(c => f.t(c) && (!q || norm(fullName(c) + " " + (c.parti || "")).indexOf(q) >= 0));
       const sort = $("#sort").value;
-      let list = DATA.candidats.filter(c => !q || norm(c.p + " " + c.n + " " + (c.parti || "")).indexOf(q) >= 0);
       if (sort === "date") list = list.slice().sort((a, b) => (b.d || "0000").localeCompare(a.d || "0000") || a.n.localeCompare(b.n, "fr"));
-      if (!list.length) { $("#cands").innerHTML = `<p class="empty">Aucune candidature ne correspond à « ${esc($("#q").value)} ».</p>`; return; }
-      $("#cands").innerHTML = list.map(c => {
-        const badges = (c.b || []).map(x => `<span class="badge">${esc(x)}</span>`).concat((c.f || []).map(x => `<span class="badge flag">${esc(x)}</span>`)).join("");
-        const shiftLine = (SH && c.cmp) ? (() => {
-          const e = (SH.etats && SH.etats[c.id]) || {};
-          const n = Object.keys(e).length;
-          return `<p><span class="pst">${PST}Chantiers du Shift Project</span> ${n ? `${n} sur ${SH.chantiers.length} documentés. <a href="#shift">Voir la grille</a>` : "correspondances à établir."}</p>`;
-        })() : "";
-        return `<details class="cand">
+      else if (sort === "parti") list = list.slice().sort((a, b) => (a.parti ? 0 : 1) - (b.parti ? 0 : 1) || (a.parti || "").localeCompare(b.parti || "", "fr") || a.n.localeCompare(b.n, "fr"));
+      return list;
+    }
+
+    function card(c) {
+      const badges = (c.b || []).map(x => `<span class="badge">${esc(x)}</span>`).concat((c.f || []).map(x => `<span class="badge flag">${esc(x)}</span>`)).join("");
+      const rows = [
+        ["Date", c.d ? `${esc(dateTxt(c))} <span class="kv-n">(${esc((MOT_DATE[c.dk] || "Déclaration").toLowerCase())})</span>` : `<span class="todo">À sourcer</span>`],
+        ["Programme", c.prog ? `<a href="${esc(c.prog.url)}" target="_blank" rel="noopener">consulter</a>${c.prog.date ? ` <span class="kv-n">(${esc(fmt(c.prog.date, { day: "numeric", month: "long", year: "numeric" }))})</span>` : ""}` : "non publié à ce jour"],
+        ["Propositions", c.nb ? `${c.nb} ${pl(c.nb, "vérifiée", "vérifiées")}` : "aucune vérifiée pour l'instant"],
+        ["Comparateur", c.cmp ? `<a href="#themes">comparaison complète</a>` : `fiche courte, selon le <a href="#methode">critère publié</a>`],
+      ];
+      if (SH && c.cmp) {
+        const n = Object.keys((SH.etats && SH.etats[c.id]) || {}).length;
+        rows.push([`${PST}Shift Project`, n ? `${n} chantier${n > 1 ? "s" : ""} sur ${SH.chantiers.length} documenté${n > 1 ? "s" : ""} · <a href="#shift">voir la grille</a>` : "correspondances à établir"]);
+      }
+      if (c.src) rows.push(["Source", link(c.src)]);
+      return `<details class="cand" id="cand-${esc(c.id)}">
           <summary>
-            <span class="nm">${esc(c.p)} <span class="last">${esc(c.n)}</span></span>
-            <span class="dt">${esc(dateLabel(c))}</span>
-            <span class="pt">${esc(c.parti || "Sans parti indiqué")}</span>
+            <span class="mono" aria-hidden="true">${esc(initials(c))}</span>
+            <span class="who"><span class="nm">${esc(c.p)} <span class="last">${esc(c.n)}</span></span><span class="pt${c.parti ? "" : " sans"}">${esc(c.parti || "Sans parti indiqué")}</span></span>
+            ${c.d ? `<span class="cdate">${esc(dateLabel(c))}</span>` : ""}
             ${badges ? `<span class="badges">${badges}</span>` : ""}
           </summary>
           <div class="more">
             ${c.note ? `<p>${esc(c.note)}</p>` : ""}
-            <p>${c.prog ? `Programme : <a href="${esc(c.prog.url)}" target="_blank" rel="noopener">consulter</a>${c.prog.date ? ` (publié le ${esc(fmt(c.prog.date, { day: "numeric", month: "long", year: "numeric" }))})` : ""}.` : "Programme : non publié à ce jour."}
-              ${c.nb ? ` ${c.nb} proposition${c.nb > 1 ? "s" : ""} vérifiée${c.nb > 1 ? "s" : ""}.` : ""}</p>
-            <p>${c.cmp ? "Comparaison complète dans l'onglet Thèmes." : "Fiche courte : la comparaison complète suit le critère publié dans la méthode."}</p>
-            ${shiftLine}
-            ${c.src ? `<p class="small">Source de la candidature : ${link(c.src)}</p>` : ""}
+            <dl class="kv">${rows.map(r => `<dt>${r[0]}</dt><dd>${r[1]}</dd>`).join("")}</dl>
           </div>
         </details>`;
-      }).join("");
+    }
+
+    /* Chronologie : un rang par mois, du plus récent au plus ancien, sur douze mois au plus */
+    const ymOf = iso => iso.slice(0, 7);
+    const ymMinus = (ym, k) => { let [y, m] = ym.split("-").map(Number); m -= k; while (m < 1) { m += 12; y--; } return y + "-" + String(m).padStart(2, "0"); };
+    function chipCand(c, avecMois) {
+      const jour = c.dp === "mois" ? "" : String(Number(c.d.slice(8, 10)));
+      const suffixe = avecMois ? fmt(c.d, c.dp === "mois" ? { month: "short", year: "numeric" } : { day: "numeric", month: "short", year: "numeric" }) : jour;
+      return `<button type="button" class="who-chip" data-cand="${esc(c.id)}" data-tip="${esc(fullName(c) + (c.parti ? " (" + c.parti + ")" : "") + " · " + dateLabel(c))}">${esc(fullName(c))}${suffixe ? `<span class="cm-d">${esc(suffixe)}</span>` : ""}</button>`;
+    }
+    function renderChrono(list) {
+      if (!list.length) { $("#chrono").innerHTML = `<p class="empty">Aucune candidature ne correspond.</p>`; return; }
+      const dated = list.filter(c => c.d).sort((a, b) => b.d.localeCompare(a.d) || a.n.localeCompare(b.n, "fr"));
+      const sans = list.filter(c => !c.d);
+      const fin = [ymOf(META.maj || TODAY)].concat(dated.map(c => ymOf(c.d))).sort().pop();
+      const limite = ymMinus(fin, 11);
+      const recents = dated.filter(c => ymOf(c.d) >= limite);
+      const anciens = dated.filter(c => ymOf(c.d) < limite);
+      const debut = recents.length ? ymOf(recents[recents.length - 1].d) : fin;
+      const rows = [];
+      for (let m = fin; m >= debut; m = ymMinus(m, 1)) {
+        const ici = recents.filter(c => ymOf(c.d) === m);
+        rows.push(`<div class="cm-row"><span class="cm-l">${esc(fmt(m + "-15", { month: "short", year: "numeric" }))}</span><span class="cm-n${ici.length ? "" : " zero"}">${ici.length}</span><span class="cm-c">${ici.map(c => chipCand(c, false)).join("")}</span></div>`);
+      }
+      if (anciens.length) rows.push(`<div class="cm-row"><span class="cm-l">Plus tôt</span><span class="cm-n">${anciens.length}</span><span class="cm-c">${anciens.map(c => chipCand(c, true)).join("")}</span></div>`);
+      $("#chrono").innerHTML = `<p class="small">Du plus récent au plus ancien. Date retenue : déclaration publique, annonce, ou désignation par un parti ou une primaire. Un nom ouvre la fiche correspondante.</p>
+        <div class="cm">${rows.join("")}</div>
+        ${sans.length ? `<details class="cm-todo"><summary>${sans.length} ${pl(sans.length, "date", "dates")} de déclaration à sourcer</summary><div class="cm-c">${sans.map(c => `<button type="button" class="who-chip" data-cand="${esc(c.id)}">${esc(fullName(c))}</button>`).join("")}</div></details>` : ""}`;
+    }
+
+    function renderCands() {
+      const list = candList();
+      const total = DATA.candidats.length;
+      $("#cands-n").textContent = `${list.length} sur ${total} affichée${list.length > 1 ? "s" : ""}`;
+      $("#cands-n").hidden = list.length === total;
+      $("#cands").innerHTML = list.length ? list.map(card).join("")
+        : `<p class="empty">Aucune candidature ne correspond${$("#q").value.trim() ? ` à « ${esc($("#q").value.trim())} »` : " à ce filtre"}.</p>`;
+      renderChrono(list);
+    }
+
+    function setVue(v) {
+      vue = v;
+      $("#vue-fiches").setAttribute("aria-pressed", v === "fiches");
+      $("#vue-chrono").setAttribute("aria-pressed", v === "chrono");
+      $("#cands").hidden = v !== "fiches";
+      $("#chrono").hidden = v !== "chrono";
+      $("#cands-note").hidden = v !== "fiches";
+      if (!OFFICIELS) $("#sort").closest(".field").hidden = v !== "fiches";
     }
 
     /* ---------------------------------------------------------------- Graphiques */
@@ -401,10 +475,25 @@
     ["#chips", "#chips-une"].forEach(sel => $(sel).addEventListener("click", e => { const b = e.target.closest("button[data-id]"); if (!b) return; currentTheme = Number(b.dataset.id); renderChips(); renderTheme(); }));
     $("#q").addEventListener("input", renderCands);
     $("#sort").addEventListener("change", renderCands);
+    $("#cand-tiles").addEventListener("click", e => {
+      const b = e.target.closest("button[data-f]");
+      if (!b || b.disabled) return;
+      filtre = b.dataset.f === filtre ? "toutes" : b.dataset.f;
+      renderTiles(); renderCands();
+    });
+    $("#vue-fiches").addEventListener("click", () => setVue("fiches"));
+    $("#vue-chrono").addEventListener("click", () => setVue("chrono"));
+    $("#chrono").addEventListener("click", e => {
+      const b = e.target.closest("[data-cand]");
+      if (!b) return;
+      setVue("fiches");
+      const el = document.getElementById("cand-" + b.dataset.cand);
+      if (el) { el.open = true; el.scrollIntoView({ block: "center" }); el.querySelector("summary").focus({ preventScroll: true }); }
+    });
     $("#ca").addEventListener("change", renderCompare);
     $("#cb").addEventListener("change", renderCompare);
     $("#cmp-vide").hidden = IDS.length > 0;
 
-    renderSemaine(); renderCands(); renderChips(); renderTheme(); renderRadars(); renderPoll(); renderShift(); renderCal(); route();
+    renderSemaine(); renderTiles(); renderCands(); renderChips(); renderTheme(); renderRadars(); renderPoll(); renderShift(); renderCal(); route();
   }
 })();

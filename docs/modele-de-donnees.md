@@ -59,7 +59,7 @@ MySQL est la source de vérité. Le site public ne lit jamais la base : il lit `
 | `semaine` | `periode` et `faits[]` : `d` date, `tag`, `t` texte, `src` liste de couples [libellé, URL] |
 | `phases` | les 3 phases : `n` nom, `from`, `to`, `d` description |
 | `calendrier` | `d` date, `l` libellé de date, `t` intitulé, `s` statut, `src` |
-| `candidats` | `id`, `p` prénom, `n` nom, `parti`, `d` date de déclaration, `dp` précision, `dk` type de désignation, `b` badges, `f` points d'attention, `note`, `prog` programme, `nb` nombre de propositions, `cmp` présent au comparateur, `src` |
+| `candidats` | `id`, `p` prénom, `n` nom, `parti`, `st` statut (`declare`, `a_confirmer`, `officiel`…), `d` date de déclaration, `dp` précision, `dk` type de désignation, `b` badges, `f` points d'attention, `note`, `prog` programme, `nb` nombre de propositions, `cmp` présent au comparateur, `src` |
 | `comparateur` | `candidats[]` : `id`, `nom`, `court` |
 | `themes` | `id`, `slug`, `n` nom, `c` nom court, `une`, `pivots`, `vars[]` (`slug`, `q` question, `type` num ou cat, `v` valeurs par candidat, `src`, `shift`, et `unit`/`min`/`max`/`ticks` ou `mods`), `r` scores radar et `mesures` lorsqu'il y a des données |
 | `empreinte` | répartition des propositions par thème, publiée à partir de `empreinte_min` propositions |
