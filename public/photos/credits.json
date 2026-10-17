@@ -1,0 +1,214 @@
+{
+ "regle": "Photo de l'infobox de l'article de Wikipédia en français, hébergée sur Wikimedia Commons, recadrée au format 4:5.",
+ "photos": {
+  "arthaud": {
+   "fichier": "photos/arthaud.webp",
+   "auteur": "Kokluts",
+   "licence": "CC BY-SA 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Nathalie_Arthaud_(LO)_19-05-2024.jpg",
+   "date": "2024-05-19"
+  },
+  "asselineau": {
+   "fichier": "photos/asselineau.webp",
+   "auteur": "Union Populaire Républicaine",
+   "licence": "CC BY-SA 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Fran%C3%A7ois_ASSELINEAU.jpg",
+   "date": "2014-01-01"
+  },
+  "attal": {
+   "fichier": "photos/attal.webp",
+   "auteur": "Ismail Aissoub",
+   "licence": "CC BY 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Gabriel_Attal_2025_(close_crop).jpg",
+   "date": "2025-03-03"
+  },
+  "batho": {
+   "fichier": "photos/batho.webp",
+   "auteur": "DeuxSevres79",
+   "licence": "CC BY-SA 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Delphine_Batho_(cropped-2).png",
+   "date": "2018-09-08"
+  },
+  "becht": {
+   "fichier": "photos/becht.webp",
+   "auteur": "Dominique Giannelli",
+   "licence": "CC BY 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Olivier_Becht_en_2026_(cropped).png",
+   "date": "2026-08-27"
+  },
+  "bertrand": {
+   "fichier": "photos/bertrand.webp",
+   "auteur": "Claudio Centonze / European Union, 2025 / EC - Audiovisual Service",
+   "licence": "CC BY 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Xavier_Bertrand_-_2025_(cropped).jpg",
+   "date": "2025-04-08"
+  },
+  "bouamrane": {
+   "fichier": "photos/bouamrane.webp",
+   "auteur": "Oumma",
+   "licence": "CC BY 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Karim_Bouamrane_en_2026_(cropped).jpg",
+   "date": "2026-07-02"
+  },
+  "branco": {
+   "fichier": "photos/branco.webp",
+   "auteur": "Web Summit",
+   "licence": "CC BY 2.0",
+   "licence_url": "https://creativecommons.org/licenses/by/2.0",
+   "source": "https://commons.wikimedia.org/wiki/File:2019_-_Centre_Stage_-_Day_2_VJR21625_(49024215596).jpg",
+   "date": "2019-11-06"
+  },
+  "cazeneuve": {
+   "fichier": "photos/cazeneuve.webp",
+   "auteur": "Jérémy Barande",
+   "licence": "CC BY-SA 2.0",
+   "licence_url": "https://creativecommons.org/licenses/by-sa/2.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Bernard_Cazeneuve,_(42399145362)_(cropped).jpg",
+   "date": "2018-05-29"
+  },
+  "dupont-aignan": {
+   "fichier": "photos/dupont-aignan.webp",
+   "auteur": "Debout la France",
+   "licence": "CC BY-SA 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Nicolas_Dupont-Aignan,_homme_politique_fran%C3%A7ais.jpg",
+   "date": "2019-03-01"
+  },
+  "egger": {
+   "fichier": "photos/egger.webp",
+   "auteur": "Thomas Binet",
+   "licence": "CC BY-SA 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Clara_Egger.jpg",
+   "date": "2021-11-02"
+  },
+  "glucksmann": {
+   "fichier": "photos/glucksmann.webp",
+   "auteur": "European Union 2024 - Source : EP",
+   "licence": "European Parliament",
+   "licence_url": "https://www.europarl.europa.eu/legal-notice/",
+   "source": "https://commons.wikimedia.org/wiki/File:1720448398743_20240708_GLUCKSMANN_Raphael_FR_006.jpg",
+   "date": "2024-07"
+  },
+  "kazib": {
+   "fichier": "photos/kazib.webp",
+   "auteur": "PabloMorao27",
+   "licence": "CC BY-SA 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Anasse_Kazib,_d%C3%A9cembre_2021.jpg",
+   "date": "2021-12-01"
+  },
+  "lalanne": {
+   "fichier": "photos/lalanne.webp",
+   "auteur": "Thomas Bresson",
+   "licence": "CC BY 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Lalanne_2021_(cropped).jpg",
+   "date": "2021-07-17"
+  },
+  "le-pen": {
+   "fichier": "photos/le-pen.webp",
+   "auteur": "Vox España",
+   "licence": "CC0",
+   "licence_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+   "source": "https://commons.wikimedia.org/wiki/File:Marine_Le_Pen_2025_(cropped).jpg",
+   "date": "2025-02-08"
+  },
+  "lisnard": {
+   "fichier": "photos/lisnard.webp",
+   "auteur": "Grégor Sauvagère",
+   "licence": "CC BY-SA 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:David_Lisnard_en_2026.jpg",
+   "date": "2026-10-08"
+  },
+  "massard": {
+   "fichier": "photos/massard.webp",
+   "auteur": "© European Union, 1998 – 2026",
+   "licence": "Attribution",
+   "licence_url": null,
+   "source": "https://commons.wikimedia.org/wiki/File:Member_of_the_European_Parliament_for_France_Lydie_Massard.jpg",
+   "date": "2023-09-25"
+  },
+  "melenchon": {
+   "fichier": "photos/melenchon.webp",
+   "auteur": "jlm2017.fr",
+   "licence": "CC BY 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Jean_Luc_M%C3%A9lenchon_en_mai_2026-_55261894422_(cropped).jpg",
+   "date": "2026-05-06"
+  },
+  "philippe": {
+   "fichier": "photos/philippe.webp",
+   "auteur": "Wasasaq8",
+   "licence": "CC0",
+   "licence_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+   "source": "https://commons.wikimedia.org/wiki/File:Edouard_Philippe_3x4_crop.jpg",
+   "date": "2024-11-09"
+  },
+  "philippot": {
+   "fichier": "photos/philippot.webp",
+   "auteur": "Thomas Bresson",
+   "licence": "CC BY 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:2022-04-16_16-49-26_MAM-Paris_02.jpg",
+   "date": "2022-04-16"
+  },
+  "polony": {
+   "fichier": "photos/polony.webp",
+   "auteur": "Georges Biard",
+   "licence": "CC BY-SA 3.0",
+   "licence_url": "https://creativecommons.org/licenses/by-sa/3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Natacha_Polony_Cannes_2015.jpg",
+   "date": "2015-05"
+  },
+  "retailleau": {
+   "fichier": "photos/retailleau.webp",
+   "auteur": "Anthonymontardyfr",
+   "licence": "CC BY 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Bruno_Retailleau_-_Ministre_de_l%27Int%C3%A9rieur_fran%C3%A7ais_(cropped).jpg",
+   "date": "2025-06-05"
+  },
+  "roussel": {
+   "fichier": "photos/roussel.webp",
+   "auteur": "Zouhair NAKARA",
+   "licence": "CC BY-SA 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Roussel_Fabien_1.jpg",
+   "date": "2018-11-25"
+  },
+  "ruffin": {
+   "fichier": "photos/ruffin.webp",
+   "auteur": "Thinkerview",
+   "licence": "CC BY-SA 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Fran%C3%A7ois_Ruffin_(cropped).jpg",
+   "date": "2022-10-06"
+  },
+  "tondelier": {
+   "fichier": "photos/tondelier.webp",
+   "auteur": "Selbymay",
+   "licence": "CC BY 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by/4.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Huma2023MarineTondelier_(cropped).jpg",
+   "date": "2023-09-17"
+  },
+  "zemmour": {
+   "fichier": "photos/zemmour.webp",
+   "auteur": "Anh De France",
+   "licence": "CC0",
+   "licence_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+   "source": "https://commons.wikimedia.org/wiki/File:Portrait_d%27%C3%89ric_Zemmour,_avril_2022.jpg",
+   "date": "2022-04-25"
+  }
+ },
+ "mis_a_jour_le": "2026-10-17"
+}
