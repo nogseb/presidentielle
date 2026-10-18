@@ -70,7 +70,7 @@ jobs:
             ok(d.shift && d.shift.chantiers.length >= 19, "chantiers du Shift Project");
             ok(!d.semaine || d.semaine.faits.length <= 5, "cinq faits au plus");
             ok(d.debats && d.debats.liste.length >= 1, "au moins un débat");
-            ok(d.debats.liste.every(x => x.pour.length === x.contre.length && x.pour.length > 0), "autant d'arguments pour que contre");
+            ok(d.debats.liste.every(x => x.pour.length === x.contre.length && x.pour.length > 0), "autant d’arguments pour que contre");
             ok(d.debats.liste.every(x => x.ctxSrc && [...x.pour, ...x.contre].every(a => a.src && a.qui)), "chaque argument a un porteur et une source");
             console.log("site.json conforme :", d.candidats.length, "candidatures,", d.themes.length, "thèmes,", d.debats.liste.length, "débats");
           '
