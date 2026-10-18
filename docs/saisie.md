@@ -134,6 +134,27 @@ WHERE slug = 'slug-du-candidat';
 
 Les photos ne sont pas dans la base. Dans le dépôt GitHub, modifier `outils/photos/candidats.json` (article Wikipédia du candidat, ou fichier Commons imposé, et réglages de recadrage) : le workflow « Photos des candidats » télécharge la vignette, enregistre le crédit et redéploie le site. Pour un nouveau candidat, ajouter une ligne `"slug-du-candidat": {"article": "Prénom Nom"}`.
 
+### Placer un candidat dans un débat
+
+Échelle commune : `2` pour, `1` plutôt pour, `0` nuancé ou conditionnel, `-1` plutôt contre, `-2` contre. La citation est un extrait court de la source, sans reformulation.
+
+```sql
+INSERT INTO debat_position (debat_id, candidat_id, echelle, citation, source_id, statut_position, etat)
+VALUES ((SELECT id FROM debat WHERE slug = 'thermiques-2035'),
+        (SELECT id FROM candidat WHERE slug = 'slug-du-candidat'),
+        -1, 'Extrait exact de la déclaration.',
+        (SELECT id FROM source WHERE cle = 'cle-de-la-source'), 'declaration', 'a_valider');
+
+-- La première position relevée (François Ruffin, centres de données) attend relecture :
+UPDATE debat_position SET etat = 'valide', verifie_le = CURDATE(), verifie_par = 'SN'
+WHERE debat_id = (SELECT id FROM debat WHERE slug = 'moratoire-centres-donnees')
+  AND candidat_id = (SELECT id FROM candidat WHERE slug = 'ruffin');
+```
+
+### Ouvrir un nouveau débat
+
+Une ligne dans `debat` (mesure à l'infinitif, contexte de deux phrases, un chiffre), puis trois lignes `pour` et trois lignes `contre` dans `debat_argument`, chacune avec son porteur et sa source. Voir `database/seed/040_debats_2026-10-18.sql` pour le modèle.
+
 ### Passer en phase 2 (liste officielle)
 
 ```sql

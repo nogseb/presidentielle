@@ -29,6 +29,7 @@
       <a href="#semaine">La semaine</a>
       <a href="#candidats">Candidats</a>
       <a href="#themes">Thèmes</a>
+      <a href="#debats">Débats</a>
       <a href="#sondages">Sondages</a>
       <a href="#shift">The Shift Project</a>
       <a href="#calendrier">Calendrier</a>
@@ -132,6 +133,36 @@
     </div>
   </section>
 
+  <section class="view" id="v-debats" aria-labelledby="t-deb" hidden>
+    <div>
+      <p class="eyebrow">Débats</p>
+      <h1 id="t-deb">Le pour et le contre</h1>
+      <p class="lede">Des mesures qui divisent, présentées avec le même gabarit : le contexte chiffré, trois arguments pour et trois contre, chacun attribué à qui l'avance, puis la position de chaque candidat.</p>
+    </div>
+    <p class="demo" data-demo hidden><b>Démonstration</b> Positions fictives attribuées aux candidats A à F. Le contexte et les arguments sont réels.</p>
+    <div class="chips" id="deb-chips" role="group" aria-label="Choisir un débat"></div>
+    <article class="debat" id="debat" aria-live="polite"></article>
+    <div class="block" id="deb-ensemble">
+      <div>
+        <h2>Vue d'ensemble</h2>
+        <p class="lede" style="margin-top:6px">Tous les débats et tous les candidats sur la même échelle, de « contre » à « pour » la mesure.</p>
+      </div>
+      <div class="notice" id="deb-vide" hidden><b>Les positions s'affichent après relecture.</b><span>Chaque position est relevée sur une déclaration ou un programme du candidat, avec la citation et la source, pour les candidatures ouvertes à la comparaison complète.</span></div>
+      <div class="tbl" id="deb-matrice"></div>
+      <div class="compare panel" id="deb-duel">
+        <h3>Comparer deux candidats</h3>
+        <div class="sel">
+          <div class="field"><label for="da">Premier candidat (trait plein)</label><select id="da"></select></div>
+          <div class="field"><label for="db">Second candidat (pointillés)</label><select id="db"></select></div>
+        </div>
+        <figure id="deb-radar" style="margin:0"></figure>
+        <div class="legend" id="deb-legend"></div>
+        <p class="small">Chaque axe est un débat. Plus un point est éloigné du centre, plus le candidat soutient la mesure. Un axe sans point signale une position non abordée ou à documenter. La forme dépend des débats retenus : elle ne mesure ni une orientation politique ni la qualité des positions.</p>
+        <details class="data"><summary>Voir le tableau</summary><div class="tbl" id="deb-table"></div></details>
+      </div>
+    </div>
+  </section>
+
   <section class="view" id="v-sondages" aria-labelledby="t-sond" hidden>
     <div>
       <p class="eyebrow">Intentions de vote · premier tour</p>
@@ -220,6 +251,7 @@
       <h2>Choix éditoriaux déclarés</h2>
       <ul class="rules">
         <li><b>Trois thèmes à la une</b> : environnement, climat et énergie ; transports et mobilités ; numérique, innovation technologique et IA. Ils ouvrent l'accueil et le comparateur.</li>
+        <li><b>Débats pour et contre</b> : chaque débat porte sur une mesure précise. Il présente autant d'arguments pour que contre, de longueur comparable, chacun attribué à l'institution ou à l'organisation qui l'avance et renvoyant à sa source. Les candidats sont placés sur une échelle commune en cinq crans, d'après une citation sourcée.</li>
         <li><b>Portraits et biographies</b> : la photo est celle de l'article Wikipédia du candidat, sous licence libre sur Wikimedia Commons, créditée sur chaque fiche. La biographie tient en deux phrases au même gabarit pour tous (fonction actuelle, puis un ou deux jalons), sans appréciation, rédigée d'après une source citée et relue.</li>
         <li><b>Une grille de lecture The Shift Project</b> : une section dédiée et une pastille « S » sur les sujets qui recoupent son Plan robuste. Les correspondances restent factuelles, sourcées et identiques pour tous les candidats.</li>
       </ul>

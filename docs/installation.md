@@ -29,7 +29,8 @@ Depuis l'onglet Bases de données, ouvrir phpMyAdmin pour la nouvelle base, puis
 2. `database/seed/010_referentiels.sql` : paramètres, 14 thèmes, variables pivots, The Shift Project et ses chantiers ;
 3. `database/seed/020_actualite_2026-10-17.sql` : candidatures, calendrier, digest, sondage, sources ;
 4. `database/migrations/002_biographies.sql` puis `database/seed/030_biographies_2026-10-17.sql` : âge et biographie des candidats ;
-5. facultatif : `database/optionnel/journal_triggers.sql`, le journal automatique des modifications. Si phpMyAdmin refuse ce fichier (droit `TRIGGER` absent), ce n'est pas bloquant.
+5. `database/migrations/003_debats.sql` puis `database/seed/040_debats_2026-10-18.sql` : les cinq premiers débats pour et contre ;
+6. facultatif : `database/optionnel/journal_triggers.sql`, le journal automatique des modifications. Si phpMyAdmin refuse ce fichier (droit `TRIGGER` absent), ce n'est pas bloquant.
 
 Contrôle rapide dans l'onglet SQL :
 

@@ -97,6 +97,7 @@ final class ExportSite
             'empreinte'   => $this->empreinte($ids, count($themes)),
             'sondage'     => $this->sondage(),
             'shift'       => $this->shift($ids),
+            'debats'      => $this->debats($ids),
         ];
 
         $this->controlerFraicheur();
@@ -414,6 +415,102 @@ final class ExportSite
     // -----------------------------------------------------------------
     // The Shift Project (organisation à grille dédiée)
     // -----------------------------------------------------------------
+    // -----------------------------------------------------------------
+    // Débats : mesure, contexte chiffré, trois arguments pour et trois contre,
+    // positions des candidats du comparateur sur une échelle de -2 à +2
+    // -----------------------------------------------------------------
+    private function debats(array $ids): ?array
+    {
+        try {
+            $rows = $this->db->query(
+                "SELECT d.*, v.slug AS var_slug, ch.slug AS chantier_slug FROM debat d
+                 LEFT JOIN variable v ON v.id = d.variable_id
+                 LEFT JOIN chantier ch ON ch.id = d.chantier_id
+                 WHERE d.etat = 'valide' ORDER BY d.ordre, d.id"
+            )->fetchAll();
+        } catch (PDOException $e) {
+            $this->alerte('Tables des débats absentes : importer database/migrations/003_debats.sql.');
+            return null;
+        }
+        if (!$rows) {
+            return null;
+        }
+
+        $argStmt = $this->db->prepare("SELECT * FROM debat_argument WHERE debat_id = ? AND etat = 'valide' ORDER BY sens, ordre, id");
+        $posStmt = $this->db->prepare(
+            "SELECT p.*, c.slug AS cand FROM debat_position p JOIN candidat c ON c.id = p.candidat_id
+             WHERE p.debat_id = ? AND p.etat = 'valide'"
+        );
+        $dansComparateur = array_flip($ids);
+        $liste = [];
+        $nbPos = 0;
+        foreach ($rows as $d) {
+            $ctxSrc = $this->src((int) $d['contexte_source_id']);
+            if (!$ctxSrc) {
+                $this->alerte("Débat {$d['slug']} sans source de contexte : non publié.");
+                continue;
+            }
+            $arguments = ['pour' => [], 'contre' => []];
+            $argStmt->execute([$d['id']]);
+            foreach ($argStmt as $a) {
+                $l = $this->src((int) $a['source_id']);
+                if (!$l) {
+                    $this->alerte("Argument {$a['id']} du débat {$d['slug']} sans source : non publié.");
+                    continue;
+                }
+                $arguments[$a['sens']][] = ['t' => $a['texte'], 'qui' => $a['porteur'], 'src' => $l];
+            }
+            if (count($arguments['pour']) !== count($arguments['contre'])) {
+                $this->alerte("Débat {$d['slug']} : " . count($arguments['pour']) . ' argument(s) pour, ' . count($arguments['contre']) . ' contre. Le gabarit prévoit autant de chaque côté.');
+            }
+
+            $positions = [];
+            $posStmt->execute([$d['id']]);
+            foreach ($posStmt as $p) {
+                if (!isset($dansComparateur[$p['cand']])) {
+                    continue;
+                }
+                if ((int) $p['non_aborde'] === 1) {
+                    $positions[$p['cand']] = ['na' => true];
+                    $nbPos++;
+                    continue;
+                }
+                $l = $this->src($p['source_id'] ? (int) $p['source_id'] : null);
+                if (!$l || $p['echelle'] === null) {
+                    $this->alerte("Position {$p['cand']} / débat {$d['slug']} sans source ou sans cran : non publiée.");
+                    continue;
+                }
+                $positions[$p['cand']] = ['e' => (int) $p['echelle'], 'cit' => $p['citation'], 'src' => $l];
+                $nbPos++;
+            }
+
+            $liste[] = [
+                'id'     => $d['slug'],
+                'th'     => (int) $d['theme_id'],
+                'q'      => $d['proposition'],
+                'c'      => $d['nom_court'],
+                'ctx'    => $d['contexte'],
+                'ctxSrc' => $ctxSrc,
+                'chiffre' => $d['chiffre'] ? ['v' => $d['chiffre'], 'l' => $d['chiffre_libelle'], 'src' => $this->src($d['chiffre_source_id'] ? (int) $d['chiffre_source_id'] : null)] : null,
+                'var'    => $d['var_slug'],
+                'shift'  => $d['chantier_slug'],
+                'pour'   => $arguments['pour'],
+                'contre' => $arguments['contre'],
+                'pos'    => $positions ?: new stdClass(),
+            ];
+        }
+        $this->stats['nb_debats'] = count($liste);
+        $this->stats['nb_positions_debats'] = $nbPos;
+
+        return [
+            'echelle' => [
+                ['v' => 2, 'l' => 'Pour'], ['v' => 1, 'l' => 'Plutôt pour'], ['v' => 0, 'l' => 'Nuancé'],
+                ['v' => -1, 'l' => 'Plutôt contre'], ['v' => -2, 'l' => 'Contre'],
+            ],
+            'liste' => $liste,
+        ];
+    }
+
     private function shift(array $ids): ?array
     {
         $org = $this->db->query('SELECT * FROM organisation WHERE grille_dediee = 1 ORDER BY id LIMIT 1')->fetch();
@@ -591,6 +688,14 @@ final class ExportSite
                      + (SELECT COUNT(*) FROM correspondance WHERE etat = 'a_valider')
                      + (SELECT COUNT(*) FROM evenement WHERE etat = 'a_valider')";
         $this->stats['a_valider'] = (int) $this->db->query($sql)->fetchColumn();
+        try {
+            $this->stats['a_valider'] += (int) $this->db->query(
+                "SELECT (SELECT COUNT(*) FROM debat_position WHERE etat = 'a_valider')
+                      + (SELECT COUNT(*) FROM debat_argument WHERE etat = 'a_valider')"
+            )->fetchColumn();
+        } catch (PDOException $e) {
+            // Migration 003 pas encore importée : déjà signalé par debats()
+        }
     }
 
     private function param(string $cle, string $defaut): string

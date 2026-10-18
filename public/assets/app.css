@@ -205,7 +205,7 @@ img.mono{display:block;object-fit:cover;object-position:50% 30%}
 .cat-row.na .pill{background:transparent;color:var(--muted);box-shadow:inset 0 0 0 1px var(--line-strong)}
 .none{font-size:.85rem;color:var(--muted)}
 details.data summary{cursor:pointer;font-size:.84rem;font-weight:700;color:var(--ink-2);width:max-content}
-.tbl{overflow-x:auto;margin-top:8px}
+.tbl{overflow-x:auto;margin-top:8px;position:relative}
 table{border-collapse:collapse;font-size:.88rem;min-width:100%}
 th,td{text-align:left;padding:6px 10px 6px 0;border-bottom:1px solid var(--line);vertical-align:top}
 th{font-size:.76rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
@@ -237,7 +237,7 @@ td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
 .compare figure{margin:0;overflow-x:auto}
 .compare svg{display:block;width:100%;max-width:440px;height:auto;margin-inline:auto}
 .legend{display:flex;gap:16px;flex-wrap:wrap;font-size:.86rem;font-weight:700;justify-content:center}
-.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend span{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
 .lg-a{stroke:var(--ink);stroke-width:2}
 .lg-b{stroke:var(--ink);stroke-width:2;stroke-dasharray:6 4}
 blockquote{margin:0;padding:10px 14px;border-left:3px solid var(--mark);background:var(--surface);font-size:.9rem;color:var(--ink-2)}
@@ -333,6 +333,36 @@ footer ul{margin:0;padding-left:1.1rem;display:grid;gap:3px}
 .dp-val.todo,.todo{color:var(--muted);font-style:italic}
 .cat-row.todo .pill{background:transparent;color:var(--muted);box-shadow:inset 0 0 0 1px var(--line-strong);border:1px dashed var(--line-strong)}
 .sg-D{box-shadow:none;border:1px dashed var(--line-strong)}
+/* Débats */
+.debat{display:grid;gap:20px}
+.deb-head{display:grid;gap:8px}
+.deb-head .eyebrow{margin:0}
+.deb-q{font-size:clamp(1.35rem,4.6vw,1.75rem);line-height:1.15}
+.deb-ctx{display:grid;gap:14px}
+@media (min-width:640px){.deb-ctx{grid-template-columns:minmax(0,14rem) 1fr;align-items:start}}
+.deb-fig{border-left:4px solid var(--mark);padding:2px 0 2px 12px;display:grid;gap:6px}
+.deb-fig .n{font-family:var(--f-display);font-stretch:112%;font-weight:800;font-size:2.3rem;line-height:1;font-variant-numeric:tabular-nums}
+.balance{display:grid;gap:12px}
+@media (min-width:640px){.balance{grid-template-columns:1fr 1fr}}
+.side{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:14px 16px 16px;display:grid;gap:12px;align-content:start;min-width:0}
+.side h3{display:flex;align-items:center;gap:10px}
+.side .sym{display:inline-grid;place-items:center;width:1.6rem;height:1.6rem;border-radius:50%;border:2px solid var(--ink);font-family:var(--f-display);font-weight:800;font-size:1.05rem;line-height:1;flex:none}
+.side ol{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.side li{display:grid;gap:4px;padding-top:12px;border-top:1px solid var(--line)}
+.side li:first-child{border-top:0;padding-top:0}
+.side .arg-who{font-size:.8rem;color:var(--muted)}
+#deb-ensemble>*,#debat>*{min-width:0}
+.mxd{min-width:0}
+.mxd th,.mxd td{padding:8px 10px 8px 0;vertical-align:middle}
+.mxd thead th{text-transform:none;letter-spacing:0;font-size:.78rem;line-height:1.25;color:var(--ink-2);font-weight:700;min-width:5rem}
+.mxd thead th a{color:inherit}
+.mxd tbody th{font-size:.88rem;color:var(--ink);text-transform:none;letter-spacing:0;white-space:nowrap}
+.t5{position:relative;display:inline-block;width:58px;height:14px;vertical-align:middle;background:repeating-linear-gradient(90deg,var(--line-strong) 0 1px,transparent 1px 14.25px) 0 50%/100% 8px no-repeat,linear-gradient(var(--line-strong),var(--line-strong)) 0 50%/100% 1px no-repeat}
+.t5 i{position:absolute;top:50%;width:10px;height:10px;border-radius:50%;background:var(--ink);transform:translate(-50%,-50%)}
+.t5-na{font-size:.78rem;color:var(--muted)}
+.mxd-key{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:8px}
+.mxd-key .t5{width:40px;margin-inline:6px}
+.r-dot.b{fill:var(--surface);stroke:var(--ink);stroke-width:2}
 .notice{display:grid;gap:6px;margin:0;padding:14px;border:1px solid var(--line);border-radius:6px;background:var(--surface)}
 .src-cell a{white-space:nowrap}
 noscript p{padding:16px;border:1px solid var(--line);border-radius:6px;background:var(--surface)}

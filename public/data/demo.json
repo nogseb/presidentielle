@@ -1,8 +1,8 @@
 {
   "meta": {
     "version": 1,
-    "genere_le": "2026-10-17T19:18:54+02:00",
-    "maj": "2026-10-17",
+    "genere_le": "2026-10-18T11:22:18+02:00",
+    "maj": "2026-10-18",
     "premier_tour": "2027-04-18",
     "second_tour": "2027-05-02",
     "liste_officielle": "2027-03-26",
@@ -2425,5 +2425,633 @@
       }
     },
     "src": {}
+  },
+  "debats": {
+    "echelle": [
+      {
+        "v": 2,
+        "l": "Pour"
+      },
+      {
+        "v": 1,
+        "l": "Plutôt pour"
+      },
+      {
+        "v": 0,
+        "l": "Nuancé"
+      },
+      {
+        "v": -1,
+        "l": "Plutôt contre"
+      },
+      {
+        "v": -2,
+        "l": "Contre"
+      }
+    ],
+    "liste": [
+      {
+        "id": "nouveaux-reacteurs",
+        "th": 6,
+        "q": "Construire de nouveaux réacteurs nucléaires",
+        "c": "Nucléaire",
+        "ctx": "Six réacteurs EPR2 sont prévus à Penly, Gravelines et Bugey. EDF chiffre le programme à 72,8 milliards d'euros (valeur 2020) et vise une décision d'investissement fin 2026, pour un premier réacteur en 2038.",
+        "ctxSrc": [
+          "EDF",
+          "https://www.edf.fr/groupe-edf/espaces-dedies/journalistes/tous-les-communiques-de-presse/edf-presente-son-devis-previsionnel-du-programme-epr2-a-hauteur-de-728-mdeu"
+        ],
+        "chiffre": {
+          "v": "68 %",
+          "l": "de l'électricité produite en France en 2025 venait du nucléaire, dans un mix bas carbone à 95 %",
+          "src": [
+            "Connaissance des énergies",
+            "https://www.connaissancedesenergies.org/la-production-electrique-bas-carbone-de-la-france-atteint-un-maximum-historique-en-2025"
+          ]
+        },
+        "var": "reacteurs",
+        "shift": "nucleaire",
+        "pour": [
+          {
+            "t": "Selon RTE, les scénarios qui incluent de nouveaux réacteurs sont les moins coûteux à l'horizon 2050, car ils réduisent les besoins de flexibilité et de réseau.",
+            "qui": "RTE, gestionnaire du réseau électrique",
+            "src": [
+              "LCP",
+              "https://lcp.fr/actualites/pour-le-patron-de-rte-construire-de-nouveaux-reacteurs-nucleaires-est-pertinent-du-point"
+            ]
+          },
+          {
+            "t": "Renoncer au nucléaire, ou ralentir les renouvelables, ferait courir le risque de manquer d'électricité bas carbone et souveraine dès 2030, alors que l'électrification va accroître la consommation.",
+            "qui": "The Shift Project",
+            "src": [
+              "La Gazette France",
+              "https://www.lagazettefrance.fr/article/le-plan-du-shift-project-pour-reussir-la-decarbonation-de-la-france"
+            ]
+          },
+          {
+            "t": "Une électricité pilotable et peu émettrice, produite par une filière nationale qui maîtrise toute la chaîne, de l'uranium aux déchets, avec quelque 100 000 recrutements prévus en dix ans.",
+            "qui": "GIFEN, syndicat de la filière nucléaire",
+            "src": [
+              "GIFEN, cahier d'acteur",
+              "https://debatpublic.fr/sites/default/files/2024-11/CA08-GIFEN.pdf"
+            ]
+          }
+        ],
+        "contre": [
+          {
+            "t": "Le coût des six premiers EPR2 est passé de 51,7 à 67,4 milliards d'euros lors de la réévaluation de 2023 ; la Cour des comptes demande de différer la décision tant que le financement n'est pas sécurisé.",
+            "qui": "Cour des comptes",
+            "src": [
+              "Europe 1",
+              "https://www.europe1.fr/economie/construction-de-reacteurs-epr-la-cour-des-comptes-alerte-sur-le-risque-de-nouvelles-derives-240381"
+            ]
+          },
+          {
+            "t": "Les nouveaux réacteurs arriveraient trop tard face à l'urgence climatique ; les renouvelables et la sobriété permettraient de décarboner plus vite et à moindre coût.",
+            "qui": "Association négaWatt",
+            "src": [
+              "Politis",
+              "https://www.politis.fr/articles/2023/05/yves-marignac-negawatt-la-relance-du-nucleaire-est-une-fuite-en-avant-vertigineuse/"
+            ]
+          },
+          {
+            "t": "Déchets à vie longue, capacité du stockage géologique Cigéo, protection des sites en cas de conflit : le débat public sur les nouveaux réacteurs a laissé ces questions ouvertes.",
+            "qui": "Commission nationale du débat public",
+            "src": [
+              "Localtis",
+              "https://www.banquedesterritoires.fr/relance-du-nucleaire-de-nombreuses-interrogations-issues-du-debat-public"
+            ]
+          }
+        ],
+        "pos": {
+          "A": {
+            "e": -2,
+            "cit": "Citation fictive.",
+            "src": [
+              "Source fictive",
+              "./?demo=1"
+            ]
+          },
+          "B": {
+            "e": 2,
+            "cit": "Citation fictive.",
+            "src": [
+              "Source fictive",
+              "./?demo=1"
+            ]
+          },
+          "C": {
+            "e": 2,
+            "cit": "Citation fictive.",
+            "src": [
+              "Source fictive",
+              "./?demo=1"
+            ]
+          },
+          "D": {
+            "e": 1,
+            "cit": "Citation fictive.",
+            "src": [
+              "Source fictive",
+              "./?demo=1"
+            ]
+          },
+          "E": {
+            "e": -1,
+            "cit": "Citation fictive.",
+            "src": [
+              "Source fictive",
+              "./?demo=1"
+            ]
+          },
+          "F": {
+            "e": 0,
+            "cit": "Citation fictive.",
+            "src": [
+              "Source fictive",
+              "./?demo=1"
+            ]
+          }
+        }
+      },
+      {
+        "id": "thermiques-2035",
+        "th": 13,
+        "q": "Maintenir la fin des ventes de voitures thermiques neuves en 2035",
+        "c": "Thermiques 2035",
+        "ctx": "Le droit européen impose zéro émission à l'échappement pour les voitures neuves en 2035. La Commission a proposé en décembre 2025 de ramener l'objectif à −90 % ; Paris et Berlin ont défendu le 15 octobre 2026 un assouplissement plus large, que le Conseil et le Parlement européen doivent encore examiner.",
+        "ctxSrc": [
+          "Toute l'Europe",
+          "https://www.touteleurope.eu/economie-et-social/la-france-et-l-allemagne-trouvent-un-accord-sur-l-avenir-d-une-industrie-automobile-made-in-europe-au-prix-de-concessions-environnementales/"
+        ],
+        "chiffre": {
+          "v": "34 %",
+          "l": "des émissions de gaz à effet de serre de la France viennent des transports, dont plus de la moitié des voitures (2024)",
+          "src": [
+            "SDES",
+            "https://www.statistiques.developpement-durable.gouv.fr/edition-numerique/chiffres-cles-transports/fr/18-emissions-de-gaz-a-effet"
+          ]
+        },
+        "var": "voitures-thermiques",
+        "shift": "ve",
+        "pour": [
+          {
+            "t": "Sur sa durée de vie, une voiture électrique roulant en France a un impact carbone 2 à 3 fois inférieur à un modèle thermique comparable, si sa batterie reste sous 60 kWh.",
+            "qui": "Ademe, Agence de la transition écologique",
+            "src": [
+              "AFP",
+              "https://www.connaissancedesenergies.org/afp/la-voiture-electrique-est-ecologique-si-elle-reste-legere-souligne-lademe-dans-un-nouvel-avis-221012"
+            ]
+          },
+          {
+            "t": "Affaiblir l'échéance de 2035 brouille le signal donné aux industriels et retarde l'électrification européenne face aux constructeurs chinois, au détriment de la compétitivité et de l'emploi.",
+            "qui": "Transport & Environment, ONG européenne",
+            "src": [
+              "Parlons politique",
+              "https://www.parlons-politique.fr/union-europeenne/industrie-automobile-europeenne-le-compromis-sur-2035-protege-les-usines-mais-relache-le-cap-climatique_29493/"
+            ]
+          },
+          {
+            "t": "La demande suit : les voitures électriques représentaient 29 % des voitures neuves vendues en France en mai 2026, contre 16 % un an plus tôt.",
+            "qui": "Chiffres de la Plateforme automobile et d'AAA Data",
+            "src": [
+              "Presse-citron",
+              "https://www.presse-citron.net/la-voiture-electrique-atteint-une-part-de-marche-record-en-france-voici-les-chiffres-de-mai-2026/"
+            ]
+          }
+        ],
+        "contre": [
+          {
+            "t": "La filière a déjà perdu 40 000 emplois et pourrait en perdre 75 000 de plus d'ici 2035 ; les constructeurs demandent à pouvoir vendre encore hybrides et prolongateurs d'autonomie.",
+            "qui": "Plateforme automobile (PFA) et constructeurs",
+            "src": [
+              "L'Automobiliste",
+              "https://lautomobiliste.fr/05/11/2025/lelectrique-en-2035-une-folie-selon-les-industriels-francais-de-lautomobile/"
+            ]
+          },
+          {
+            "t": "Plus de souplesse permettrait de préserver la production automobile en Europe pendant sa transformation, avec une préférence européenne renforcée face à la concurrence chinoise.",
+            "qui": "Gouvernements français et allemand",
+            "src": [
+              "Toute l'Europe",
+              "https://www.touteleurope.eu/economie-et-social/la-france-et-l-allemagne-trouvent-un-accord-sur-l-avenir-d-une-industrie-automobile-made-in-europe-au-prix-de-concessions-environnementales/"
+            ]
+          },
+          {
+            "t": "Le tout-électrique suppose de multiplier les bornes, de 31 000 points publics en 2021 à 350 000 en dix ans, et expose à une dépendance à la Chine pour les batteries.",
+            "qui": "Fondation iFRAP",
+            "src": [
+              "Fondation iFRAP",
+              "https://www.ifrap.org/agriculture-et-energie/fin-des-vehicules-thermiques-en-2035-vraiment"
+            ]
+          }
+        ],
+        "pos": {
+          "A": {
+            "e": 2,
+            "cit": "Citation fictive.",
+            "src": [
+              "Source fictive",
+              "./?demo=1"
+            ]
+          },
+          "B": {
+            "e": 1,
+            "cit": "Citation fictive.",
+            "src": [
+              "Source fictive",
+              "./?demo=1"
+            ]
+          },
+          "C": {
+            "e": -1,
+            "cit": "Citation fictive.",
+            "src": [
+              "Source fictive",
+              "./?demo=1"
+            ]
+          },
+          "D": {
+            "e": -2,
+            "cit": "Citation fictive.",
+            "src": [
+              "Source fictive",
+              "./?demo=1"
+            ]
+          },
+          "E": {
+            "e": 2,
+            "cit": "Citation fictive.",
+            "src": [
+              "Source fictive",
+              "./?demo=1"
+            ]
+          },
+          "F": {
+            "e": -1,
+            "cit": "Citation fictive.",
+            "src": [
+              "Source fictive",
+              "./?demo=1"
+            ]
+          }
+        }
+      },
+      {
+        "id": "moratoire-centres-donnees",
+        "th": 14,
+        "q": "Instaurer un moratoire sur les nouveaux centres de données",
+        "c": "Centres de données",
+        "ctx": "Après 109 puis 93 milliards d'euros d'investissements annoncés dans l'intelligence artificielle, les projets de centres de données en cours sollicitent 28,6 GW de puissance électrique, selon le gouvernement (janvier 2026). Plusieurs projets suscitent des oppositions locales.",
+        "ctxSrc": [
+          "AFP",
+          "https://www.connaissancedesenergies.org/afp/en-france-larrivee-denormes-centres-de-donnees-bouscule-les-territoires-260612"
+        ],
+        "chiffre": {
+          "v": "× 3,7",
+          "l": "hausse possible de la consommation d'électricité des centres de données en France d'ici 2035, au rythme actuel des usages (Ademe)",
+          "src": [
+            "AFP",
+            "https://www.connaissancedesenergies.org/afp/en-france-larrivee-denormes-centres-de-donnees-bouscule-les-territoires-260612"
+          ]
+        },
+        "var": "centres-donnees",
+        "shift": "datacenters",
+        "pour": [
+          {
+            "t": "Sans arbitrage, l'électricité bas carbone ira en priorité aux centres de données, au détriment d'usages à électrifier comme les transports : il faut contenir leur déploiement.",
+            "qui": "The Shift Project",
+            "src": [
+              "AFP",
+              "https://www.connaissancedesenergies.org/afp/en-france-larrivee-denormes-centres-de-donnees-bouscule-les-territoires-260612"
+            ]
+          },
+          {
+            "t": "Des emprises jusqu'à 200 hectares, des craintes pour la ressource en eau, une chaleur rarement récupérée et des emplois très inférieurs aux promesses.",
+            "qui": "Élus locaux et députés porteurs d'une proposition de moratoire",
+            "src": [
+              "Localtis",
+              "https://www.banquedesterritoires.fr/la-fronde-contre-les-datacenters-trouve-des-relais-lassemblee-nationale"
+            ]
+          },
+          {
+            "t": "Selon les auteurs du moratoire, 90 % des 15 GW demandés iraient à des acteurs non européens, surtout américains, ce qui renforcerait la dépendance numérique.",
+            "qui": "Députés écologistes et communistes",
+            "src": [
+              "Localtis",
+              "https://www.banquedesterritoires.fr/la-fronde-contre-les-datacenters-trouve-des-relais-lassemblee-nationale"
+            ]
+          }
+        ],
+        "contre": [
+          {
+            "t": "Une pause stricte risquerait de « déclasser » la France : mieux vaut ralentir, privilégier les sites les moins impactants et les financements européens.",
+            "qui": "Philippe Latombe, député, ancien président de la commission sur les dépendances numériques",
+            "src": [
+              "Localtis",
+              "https://www.banquedesterritoires.fr/la-fronde-contre-les-datacenters-trouve-des-relais-lassemblee-nationale"
+            ]
+          },
+          {
+            "t": "Avec une électricité décarbonée à plus de 95 %, la France a intérêt à développer de nouveaux usages électriques ; EDF en a besoin comme relais de croissance.",
+            "qui": "France Datacenter, organisation professionnelle",
+            "src": [
+              "AFP",
+              "https://www.connaissancedesenergies.org/afp/en-france-larrivee-denormes-centres-de-donnees-bouscule-les-territoires-260612"
+            ]
+          },
+          {
+            "t": "Pour les territoires d'accueil, ces projets apportent des investissements et un renforcement de la desserte électrique.",
+            "qui": "Élus des territoires d'accueil",
+            "src": [
+              "AFP",
+              "https://www.connaissancedesenergies.org/afp/en-france-larrivee-denormes-centres-de-donnees-bouscule-les-territoires-260612"
+            ]
+          }
+        ],
+        "pos": {
+          "A": {
+            "e": 1,
+            "cit": "Citation fictive.",
+            "src": [
+              "Source fictive",
+              "./?demo=1"
+            ]
+          },
+          "B": {
+            "e": -1,
+            "cit": "Citation fictive.",
+            "src": [
+              "Source fictive",
+              "./?demo=1"
+            ]
+          },
+          "C": {
+            "e": -2,
+            "cit": "Citation fictive.",
+            "src": [
+              "Source fictive",
+              "./?demo=1"
+            ]
+          },
+          "D": {
+            "e": -2,
+            "cit": "Citation fictive.",
+            "src": [
+              "Source fictive",
+              "./?demo=1"
+            ]
+          },
+          "E": {
+            "e": 2,
+            "cit": "Citation fictive.",
+            "src": [
+              "Source fictive",
+              "./?demo=1"
+            ]
+          }
+        }
+      },
+      {
+        "id": "encadrement-ia",
+        "th": 14,
+        "q": "Encadrer l'intelligence artificielle au-delà du règlement européen",
+        "c": "Encadrement de l'IA",
+        "ctx": "Le règlement européen sur l'IA s'applique par étapes depuis 2024. L'accord européen du 7 mai 2026 reporte au 2 décembre 2027 les obligations des systèmes « à haut risque » (recrutement, éducation, justice…) et interdit les outils de « nudification ».",
+        "ctxSrc": [
+          "Localtis",
+          "https://www.banquedesterritoires.fr/ai-act-des-delais-supplementaires-pour-la-mise-en-conformite-des-ia-haut-risque"
+        ],
+        "chiffre": {
+          "v": "16 mois",
+          "l": "de report des obligations pour les systèmes d'IA à haut risque, du 2 août 2026 au 2 décembre 2027",
+          "src": [
+            "Localtis",
+            "https://www.banquedesterritoires.fr/ai-act-des-delais-supplementaires-pour-la-mise-en-conformite-des-ia-haut-risque"
+          ]
+        },
+        "var": "encadrement-ia",
+        "shift": null,
+        "pour": [
+          {
+            "t": "Les algorithmes publics peuvent introduire des biais et décider sans que l'usager le sache : il faut une supervision humaine réelle et un droit à l'explication.",
+            "qui": "Défenseure des droits",
+            "src": [
+              "Localtis",
+              "https://www.banquedesterritoires.fr/ia-et-algorithmes-dans-les-services-publics-la-defenseure-des-droits-alerte-sur-les-risques-pour"
+            ]
+          },
+          {
+            "t": "Le compromis européen « repousse des protections clés » et affaiblit la transparence ; il installe un précédent dangereux pour tout le droit numérique.",
+            "qui": "EDRi, Access Now, ECNL et Amnesty International",
+            "src": [
+              "Leto",
+              "https://www.leto.legal/news/edri-rejet-ai-omnibus-parlement-conseil-2026"
+            ]
+          },
+          {
+            "t": "Les outils de recrutement peuvent reproduire les biais de leurs données ; les syndicats veulent encadrer l'IA au travail par le dialogue social.",
+            "qui": "Syndicats (projet DialIA), CNIL",
+            "src": [
+              "CMS",
+              "https://cms.law/fr/fra/legal-updates/quelle-place-pour-l-ia-dans-les-relations-du-travail"
+            ]
+          }
+        ],
+        "contre": [
+          {
+            "t": "Les règles européennes sont déjà complexes et les surtranspositions nationales freinent le déploiement de l'IA en Europe ; une pause s'impose pour les usages à haut risque.",
+            "qui": "Mario Draghi, auteur du rapport sur la compétitivité européenne",
+            "src": [
+              "PPC Land",
+              "https://ppc.land/former-ecb-chief-demands-gdpr-cuts-and-ai-act-pause-at-brussels-conference/"
+            ]
+          },
+          {
+            "t": "Des règles floues créent une insécurité juridique : 45 entreprises européennes, dont Mistral AI, BNP Paribas et Carrefour, ont demandé un gel de deux ans.",
+            "qui": "Initiative EU AI Champions",
+            "src": [
+              "Journal du Net",
+              "https://www.journaldunet.com/business/1542935-bruxelles-sous-pression-l-ai-act-face-a-la-fronde-des-geants-europeens"
+            ]
+          },
+          {
+            "t": "Les entreprises ont obtenu des délais et des allègements pour se mettre en conformité, étendus en mai 2026 aux entreprises de moins de 750 salariés.",
+            "qui": "Industriels, selon l'accord européen de mai 2026",
+            "src": [
+              "Localtis",
+              "https://www.banquedesterritoires.fr/ai-act-des-delais-supplementaires-pour-la-mise-en-conformite-des-ia-haut-risque"
+            ]
+          }
+        ],
+        "pos": {
+          "A": {
+            "e": 2,
+            "cit": "Citation fictive.",
+            "src": [
+              "Source fictive",
+              "./?demo=1"
+            ]
+          },
+          "B": {
+            "e": 0,
+            "cit": "Citation fictive.",
+            "src": [
+              "Source fictive",
+              "./?demo=1"
+            ]
+          },
+          "C": {
+            "e": -1,
+            "cit": "Citation fictive.",
+            "src": [
+              "Source fictive",
+              "./?demo=1"
+            ]
+          },
+          "D": {
+            "e": -2,
+            "cit": "Citation fictive.",
+            "src": [
+              "Source fictive",
+              "./?demo=1"
+            ]
+          },
+          "E": {
+            "e": 1,
+            "cit": "Citation fictive.",
+            "src": [
+              "Source fictive",
+              "./?demo=1"
+            ]
+          },
+          "F": {
+            "e": 0,
+            "cit": "Citation fictive.",
+            "src": [
+              "Source fictive",
+              "./?demo=1"
+            ]
+          }
+        }
+      },
+      {
+        "id": "hebergement-souverain",
+        "th": 14,
+        "q": "Imposer un hébergeur européen pour les données publiques",
+        "c": "Cloud souverain",
+        "ctx": "Depuis la loi SREN (2024) et un décret du 14 avril 2026, la plateforme des données de santé et six groupements publics doivent recourir à un hébergement qualifié SecNumCloud, protégé des lois extraterritoriales. Une proposition de loi veut étendre l'obligation aux collectivités de plus de 30 000 habitants.",
+        "ctxSrc": [
+          "Localtis",
+          "https://www.banquedesterritoires.fr/secnumcloud-6-gip-assujettis-les-donnees-sensibles-enfin-definies"
+        ],
+        "chiffre": {
+          "v": "70 %",
+          "l": "du marché européen du cloud détenu par Amazon, Microsoft et Google, contre 15 % pour les fournisseurs européens (Synergy Research)",
+          "src": [
+            "TechRadar",
+            "https://www.techradar.com/pro/eu-efforts-to-reduce-reliance-on-us-hyperscalers-under-fire-from-those-it-wants-to-help"
+          ]
+        },
+        "var": "cloud-souverain",
+        "shift": null,
+        "pour": [
+          {
+            "t": "Interrogé sous serment au Sénat, le directeur juridique de Microsoft France n'a pas pu garantir que des données de Français ne seraient jamais transmises aux autorités américaines.",
+            "qui": "Audition au Sénat, juin 2025",
+            "src": [
+              "Génération NT",
+              "https://www.generation-nt.com/actualites/microsoft-donnees-europe-souverainete-cloud-loi-2060822"
+            ]
+          },
+          {
+            "t": "Les fournisseurs européens sont passés de 29 % à 15 % du marché depuis 2017 : la souveraineté doit être un critère clair de la commande publique, « on l'est ou on ne l'est pas ».",
+            "qui": "CISPE, association de fournisseurs européens de cloud",
+            "src": [
+              "TechRadar",
+              "https://www.techradar.com/pro/eu-efforts-to-reduce-reliance-on-us-hyperscalers-under-fire-from-those-it-wants-to-help"
+            ]
+          },
+          {
+            "t": "Les données liées aux missions essentielles, comme la gestion de crise, la santé ou l'ordre public, doivent être protégées de la même façon par l'État et les collectivités.",
+            "qui": "Philippe Latombe, rapporteur de la proposition de loi",
+            "src": [
+              "Localtis",
+              "https://www.banquedesterritoires.fr/les-collectivites-locales-bientot-obligees-dutiliser-un-cloud-souverain-pour-leurs-donnees"
+            ]
+          }
+        ],
+        "contre": [
+          {
+            "t": "Microsoft indique n'avoir jamais transmis de données d'une entité publique européenne et s'engage par contrat à contester les demandes qu'il juge infondées.",
+            "qui": "Microsoft France",
+            "src": [
+              "Génération NT",
+              "https://www.generation-nt.com/actualites/microsoft-donnees-europe-souverainete-cloud-loi-2060822"
+            ]
+          },
+          {
+            "t": "Des offres hybrides qualifiées SecNumCloud, comme S3NS (Thales, technologies Google), assurent selon leurs promoteurs l'immunité aux lois extraterritoriales tout en donnant accès à des technologies américaines.",
+            "qui": "Thales et Google (S3NS)",
+            "src": [
+              "Économie Matin",
+              "https://www.economiematin.fr/cloud-securise-confiance-thales-s3ns-anssi"
+            ]
+          },
+          {
+            "t": "L'offre qualifiée reste étroite, une dizaine de prestataires : le décret prévoit des dérogations d'un an, renouvelables, quand aucune offre n'est disponible.",
+            "qui": "Décret du 14 avril 2026",
+            "src": [
+              "Localtis",
+              "https://www.banquedesterritoires.fr/secnumcloud-6-gip-assujettis-les-donnees-sensibles-enfin-definies"
+            ]
+          }
+        ],
+        "pos": {
+          "A": {
+            "e": 2,
+            "cit": "Citation fictive.",
+            "src": [
+              "Source fictive",
+              "./?demo=1"
+            ]
+          },
+          "B": {
+            "e": 1,
+            "cit": "Citation fictive.",
+            "src": [
+              "Source fictive",
+              "./?demo=1"
+            ]
+          },
+          "C": {
+            "e": 0,
+            "cit": "Citation fictive.",
+            "src": [
+              "Source fictive",
+              "./?demo=1"
+            ]
+          },
+          "D": {
+            "e": 1,
+            "cit": "Citation fictive.",
+            "src": [
+              "Source fictive",
+              "./?demo=1"
+            ]
+          },
+          "E": {
+            "e": 2,
+            "cit": "Citation fictive.",
+            "src": [
+              "Source fictive",
+              "./?demo=1"
+            ]
+          },
+          "F": {
+            "na": true
+          }
+        }
+      }
+    ]
   }
 }

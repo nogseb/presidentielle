@@ -322,6 +322,8 @@
       const chs = shiftChantiersOf(t);
       let html = `<div><p class="eyebrow">Thème ${t.id} sur ${DATA.themes.length}${t.une ? " · à la une" : ""}</p><h2>${esc(t.n)}</h2></div>`;
       if (chs.length) html += `<div class="pst-line"><span class="pst">${PST}Sujet traité par The Shift Project</span><span class="small">${chs.map(c => esc(c.l)).join(" · ")}</span></div>`;
+      const debs = debatsDuTheme(t.id);
+      if (debs.length) html += `<p class="small">Pour et contre : ${debs.map(d => `<a href="#debats" data-debat="${esc(d.id)}">${esc(d.q)}</a>`).join(" · ")}.</p>`;
       if (!IDS.length || !t.vars || !t.vars.length) {
         html += `<div class="panel"><p><b>Aucune position publiée pour ce thème.</b> Les positions apparaissent à mesure que les programmes sont publiés et vérifiés.</p><p class="small">Variables pivots : ${t.pivots.map(esc).join(" · ")}.</p>${chs.length ? `<p class="small">Correspondances avec le Shift Project : <a href="#shift">voir la grille</a>.</p>` : ""}</div>`;
       } else {
@@ -400,6 +402,112 @@
       $("#cmp-table").innerHTML = `<table><thead><tr><th>Thème</th><th>${esc(nameOf(a))}</th>${a !== b ? `<th>${esc(nameOf(b))}</th>` : ""}</tr></thead><tbody>${DATA.themes.map((t, i) => `<tr><td>${esc(t.n)}</td><td class="num">${EMP[a][i]} %</td>${a !== b ? `<td class="num">${EMP[b][i]} %</td>` : ""}</tr>`).join("")}</tbody></table>`;
     }
 
+    /* ---------------------------------------------------------------- Débats : pour, contre, positions */
+    const DEB = DATA.debats && DATA.debats.liste && DATA.debats.liste.length ? DATA.debats : null;
+    const ECH = DEB ? DEB.echelle : [];
+    const echLabel = v => (ECH.find(e => e.v === v) || {}).l || "";
+    let currentDebat = DEB ? DEB.liste[0].id : null;
+    const debatById = id => DEB && DEB.liste.find(d => d.id === id);
+    const debatsDuTheme = th => DEB ? DEB.liste.filter(d => d.th === th) : [];
+    const posOf = (d, id) => (d.pos && d.pos[id]) || null;
+
+    function renderDebChips() {
+      $("#deb-chips").innerHTML = DEB.liste.map(d => `<button type="button" data-deb="${esc(d.id)}" aria-pressed="${d.id === currentDebat}">${esc(d.c)}${d.shift && CH[d.shift] ? PST : ""}</button>`).join("");
+    }
+    function argList(liste) {
+      return `<ol>${liste.map(a => `<li><p>${esc(a.t)}</p><p class="arg-who">${esc(a.qui)} · ${link(a.src)}</p></li>`).join("")}</ol>`;
+    }
+    function debScale(d) {
+      if (!IDS.length) return `<p class="small">Les positions des candidats s'affichent après relecture, pour les candidatures ouvertes à la comparaison complète.</p>`;
+      const pill = (id, p) => `<span class="pill" tabindex="0" data-tip="${esc(nameOf(id) + " · " + echLabel(p.e) + (p.cit ? " · « " + p.cit + " »" : "") + (p.src ? " · source : " + p.src[0] : ""))}">${esc(shortOf(id))}</span>`;
+      const rows = ECH.map(e => {
+        const who = IDS.filter(id => { const p = posOf(d, id); return p && !p.na && p.e === e.v; });
+        return `<div class="cat-row"><span class="cat-mod">${esc(e.l)}</span><span class="cat-cands">${who.length ? who.map(id => pill(id, posOf(d, id))).join("") : `<span class="none">Aucun</span>`}</span></div>`;
+      });
+      const na = IDS.filter(id => { const p = posOf(d, id); return p && p.na; });
+      if (na.length) rows.push(`<div class="cat-row na"><span class="cat-mod">Non abordé</span><span class="cat-cands">${na.map(id => `<span class="pill">${esc(shortOf(id))}</span>`).join("")}</span></div>`);
+      const todo = IDS.filter(id => !posOf(d, id));
+      if (todo.length) rows.push(`<div class="cat-row todo"><span class="cat-mod todo">À documenter</span><span class="cat-cands">${todo.map(id => `<span class="pill">${esc(shortOf(id))}</span>`).join("")}</span></div>`);
+      return `<div class="cat">${rows.join("")}</div>`;
+    }
+    function renderDebat() {
+      const d = debatById(currentDebat);
+      if (!d) return;
+      const t = themeById(d.th);
+      const fig = d.chiffre ? `<div class="deb-fig"><span class="n">${esc(d.chiffre.v)}</span><span class="small">${esc(d.chiffre.l)}${d.chiffre.src ? ` (${link(d.chiffre.src)})` : ""}</span></div>` : "";
+      const liens = [];
+      if (d.var && t) liens.push(`<a href="#themes" data-theme="${t.id}">la variable pivot dans le thème ${esc(t.c)}</a>`);
+      if (d.shift && CH[d.shift]) liens.push(`<a href="#shift">la grille du Shift Project</a>`);
+      $("#debat").innerHTML = `
+        <div class="deb-head">
+          <p class="eyebrow">${t ? `Thème ${t.id} · ${esc(t.n)}` : "Débat"}</p>
+          <h2 class="deb-q">${esc(d.q)}</h2>
+          ${d.shift && CH[d.shift] ? `<p><span class="pst">${PST}Chantier du Shift Project : ${esc(CH[d.shift].l)}</span></p>` : ""}
+        </div>
+        <div class="deb-ctx">${fig}<p>${esc(d.ctx)} <span class="small">(${link(d.ctxSrc)})</span></p></div>
+        <div class="balance">
+          <section class="side" aria-label="Arguments pour"><h3><span class="sym" aria-hidden="true">+</span>Arguments pour</h3>${argList(d.pour)}</section>
+          <section class="side" aria-label="Arguments contre"><h3><span class="sym" aria-hidden="true">−</span>Arguments contre</h3>${argList(d.contre)}</section>
+        </div>
+        <div class="var"><div class="q"><h3>Où se placent les candidats</h3><span class="kind">Échelle commune</span></div>${debScale(d)}</div>
+        ${liens.length ? `<p class="small">Voir aussi ${liens.join(" et ")}.</p>` : ""}`;
+    }
+    function miniScale(p, who, d) {
+      if (!p) return `<span class="t5-na" title="À documenter">?</span><span class="vh">${esc(who)} : à documenter</span>`;
+      if (p.na) return `<span class="t5-na">n.a.</span><span class="vh">${esc(who)} : non abordé</span>`;
+      const x = (p.e + 2) / 4 * 100;
+      return `<span class="t5" tabindex="0" data-tip="${esc(who + " · " + d.q + " : " + echLabel(p.e) + (p.cit ? " · « " + p.cit + " »" : ""))}"><i style="left:${x}%"></i></span><span class="vh">${esc(who)} : ${esc(echLabel(p.e))}</span>`;
+    }
+    function renderDebMatrice() {
+      $("#deb-vide").hidden = IDS.length > 0;
+      $("#deb-matrice").hidden = !IDS.length;
+      $("#deb-duel").hidden = IDS.length < 2;
+      if (!IDS.length) return;
+      $("#deb-matrice").innerHTML = `<table class="mxd"><thead><tr><th scope="col">Candidat</th>${DEB.liste.map(d => `<th scope="col"><a href="#debats" data-debat="${esc(d.id)}">${esc(d.c)}</a></th>`).join("")}</tr></thead><tbody>${
+        IDS.map(id => `<tr><th scope="row">${esc(shortOf(id))}</th>${DEB.liste.map(d => `<td>${miniScale(posOf(d, id), nameOf(id), d)}</td>`).join("")}</tr>`).join("")
+      }</tbody></table><p class="small mxd-key"><span class="t5" aria-hidden="true"><i style="left:0%"></i></span> contre · <span class="t5" aria-hidden="true"><i style="left:50%"></i></span> nuancé · <span class="t5" aria-hidden="true"><i style="left:100%"></i></span> pour · n.a. non abordé · ? à documenter</p>`;
+      const opts = IDS.map(id => `<option value="${esc(id)}">${esc(nameOf(id))}</option>`).join("");
+      $("#da").innerHTML = opts; $("#db").innerHTML = opts;
+      $("#da").value = IDS[0]; $("#db").value = IDS[Math.min(1, IDS.length - 1)];
+      renderDebRadar();
+    }
+    function renderDebRadar() {
+      const a = $("#da").value, b = $("#db").value, L = DEB.liste, n = L.length;
+      const cx = 210, cy = 150, r = 104;
+      const ang = i => -Math.PI / 2 + i * 2 * Math.PI / n;
+      const rad = e => (e + 3) / 5 * r;              // contre = 1/5 du rayon, pour = rayon complet
+      let s = "";
+      [-2, -1, 0, 1, 2].forEach(e => {
+        const pts = L.map((_, i) => (cx + rad(e) * Math.cos(ang(i))).toFixed(1) + "," + (cy + rad(e) * Math.sin(ang(i))).toFixed(1)).join(" ");
+        s += `<polygon class="r-ring" points="${pts}"/>`;
+      });
+      L.forEach((_, i) => { s += `<line class="r-spoke" x1="${cx}" y1="${cy}" x2="${(cx + r * Math.cos(ang(i))).toFixed(1)}" y2="${(cy + r * Math.sin(ang(i))).toFixed(1)}"/>`; });
+      const mid = -Math.PI / 2 + Math.PI / n;          // repères placés entre les deux premiers axes
+      s += [[-2, "Contre"], [2, "Pour"]].map(([e, l]) => `<text class="r-tick" x="${(cx + rad(e) * Math.cos(mid) + 3).toFixed(1)}" y="${(cy + rad(e) * Math.sin(mid) + 3).toFixed(1)}">${l}</text>`).join("");
+      const shape = (id, cls) => {
+        const pts = L.map((d, i) => { const p = posOf(d, id); if (!p || p.na) return null; return [cx + rad(p.e) * Math.cos(ang(i)), cy + rad(p.e) * Math.sin(ang(i)), d, p]; });
+        let out = "";
+        if (pts.every(Boolean)) out += `<polygon class="r-shape ${cls}" points="${pts.map(p => p[0].toFixed(1) + "," + p[1].toFixed(1)).join(" ")}"/>`;
+        else pts.forEach((p, i) => { const q = pts[(i + 1) % n]; if (p && q) out += `<line class="r-shape ${cls}" x1="${p[0].toFixed(1)}" y1="${p[1].toFixed(1)}" x2="${q[0].toFixed(1)}" y2="${q[1].toFixed(1)}"/>`; });
+        pts.forEach(p => { if (p) out += `<g tabindex="0" data-tip="${esc(nameOf(id) + " · " + p[2].c + " : " + echLabel(p[3].e))}"><circle class="r-hit" cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="9"/>${cls === "a" ? `<circle class="r-dot" cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="3.5"/>` : `<circle class="r-dot b" cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="3.5"/>`}</g>`; });
+        return out;
+      };
+      let labels = "";
+      L.forEach((d, i) => {
+        const c = Math.cos(ang(i)), sn = Math.sin(ang(i));
+        const x = cx + (r + 14) * c, y = cy + (r + 14) * sn + (sn > 0.5 ? 10 : (sn < -0.5 ? -2 : 4));
+        labels += `<text class="r-label" x="${x.toFixed(1)}" y="${y.toFixed(1)}" text-anchor="${c > 0.2 ? "start" : (c < -0.2 ? "end" : "middle")}">${esc(d.c)}</text>`;
+      });
+      $("#deb-radar").innerHTML = `<svg viewBox="0 0 420 300" role="img" aria-label="Positions de ${esc(nameOf(a))}${a !== b ? " et de " + esc(nameOf(b)) : ""} sur ${n} débats">${s}${shape(a, "a")}${a !== b ? shape(b, "b") : ""}${labels}</svg>`;
+      $("#deb-legend").innerHTML = `<span><svg width="28" height="10" aria-hidden="true"><line class="lg-a" x1="0" y1="5" x2="28" y2="5"/></svg>${esc(nameOf(a))}</span>` + (a !== b ? `<span><svg width="28" height="10" aria-hidden="true"><line class="lg-b" x1="0" y1="5" x2="28" y2="5"/></svg>${esc(nameOf(b))}</span>` : "");
+      const cell = (d, id) => { const p = posOf(d, id); return !p ? "À documenter" : (p.na ? "Non abordé" : echLabel(p.e)); };
+      $("#deb-table").innerHTML = `<table><thead><tr><th>Débat</th><th>${esc(nameOf(a))}</th>${a !== b ? `<th>${esc(nameOf(b))}</th>` : ""}</tr></thead><tbody>${L.map(d => `<tr><td>${esc(d.q)}</td><td>${esc(cell(d, a))}</td>${a !== b ? `<td>${esc(cell(d, b))}</td>` : ""}</tr>`).join("")}</tbody></table>`;
+    }
+    function renderDebats() {
+      if (!DEB) { document.querySelector('nav.tabs a[href="#debats"]').hidden = true; return; }
+      renderDebChips(); renderDebat(); renderDebMatrice();
+    }
+
     /* ---------------------------------------------------------------- Sondage : fourchettes entre scénarios */
     function renderPoll() {
       const S = DATA.sondage;
@@ -465,7 +573,7 @@
     }
 
     /* ---------------------------------------------------------------- Navigation par onglets */
-    const VIEWS = ["semaine", "candidats", "themes", "sondages", "shift", "calendrier", "methode"];
+    const VIEWS = ["semaine", "candidats", "themes", "debats", "sondages", "shift", "calendrier", "methode"];
     function route() {
       const h = (location.hash || "").replace("#", "");
       const v = VIEWS.indexOf(h) >= 0 ? h : "semaine";
@@ -518,9 +626,24 @@
       if (el) { el.open = true; el.scrollIntoView({ block: "center" }); el.querySelector("summary").focus({ preventScroll: true }); }
     });
     $("#ca").addEventListener("change", renderCompare);
+    if (DEB) {
+      $("#deb-chips").addEventListener("click", e => {
+        const b = e.target.closest("button[data-deb]");
+        if (!b) return;
+        currentDebat = b.dataset.deb; renderDebChips(); renderDebat();
+      });
+      $("#da").addEventListener("change", renderDebRadar);
+      $("#db").addEventListener("change", renderDebRadar);
+    }
+    document.addEventListener("click", e => {
+      const a = e.target.closest("a[data-debat]");
+      if (!a || !DEB) return;
+      currentDebat = a.dataset.debat; renderDebChips(); renderDebat();
+      if (location.hash === "#debats") { e.preventDefault(); $("#debat").scrollIntoView({ block: "start" }); }
+    });
     $("#cb").addEventListener("change", renderCompare);
     $("#cmp-vide").hidden = IDS.length > 0;
 
-    renderSemaine(); renderTiles(); renderCands(); renderChips(); renderTheme(); renderRadars(); renderPoll(); renderShift(); renderCal(); route();
+    renderSemaine(); renderTiles(); renderCands(); renderChips(); renderTheme(); renderRadars(); renderDebats(); renderPoll(); renderShift(); renderCal(); route();
   }
 })();

@@ -32,6 +32,14 @@ MySQL est la source de vérité. Le site public ne lit jamais la base : il lit `
 | `sondage`, `sondage_resultat` | enquêtes d'intentions de vote | résultats en fourchette `valeur_min` / `valeur_max` ; mentions obligatoires (institut, commanditaire, échantillon, marge) |
 | `calendrier_etape` | jalons de la campagne | `statut` : `officiel`, `fait`, `annonce`, `calcule` ; `societe_civile = 1` pour les étapes hors institutions |
 
+### Débats
+
+| Table | Rôle | Points d'attention |
+| --- | --- | --- |
+| `debat` | une mesure débattue | `proposition` à l'infinitif (« pour » = soutenir la mesure) ; `nom_court` sert aux boutons, au radar et à la matrice ; contexte et chiffre sourcés ; liens facultatifs vers une variable pivot et un chantier du Shift Project |
+| `debat_argument` | un argument pour ou contre | `porteur` : qui l'avance ; source obligatoire ; autant d'arguments de chaque côté (alerte sinon) |
+| `debat_position` | position d'un candidat | `echelle` de −2 (contre) à +2 (pour), 0 = nuancé ; `non_aborde = 1` pour une absence vérifiée ; citation et source obligatoires sinon ; publiée seulement pour les candidats du comparateur |
+
 ### The Shift Project
 
 | Table | Rôle | Points d'attention |
@@ -64,6 +72,7 @@ MySQL est la source de vérité. Le site public ne lit jamais la base : il lit `
 | `themes` | `id`, `slug`, `n` nom, `c` nom court, `une`, `pivots`, `vars[]` (`slug`, `q` question, `type` num ou cat, `v` valeurs par candidat, `src`, `shift`, et `unit`/`min`/`max`/`ticks` ou `mods`), `r` scores radar et `mesures` lorsqu'il y a des données |
 | `empreinte` | répartition des propositions par thème, publiée à partir de `empreinte_min` propositions |
 | `sondage` | `rows`, `mentions`, `lecture`, `url`, `notice` |
+| `debats` | `echelle` (5 crans, libellés) et `liste[]` : `id`, `th` thème, `q` mesure, `c` nom court, `ctx`, `ctxSrc`, `chiffre` (`v`, `l`, `src`), `var`, `shift`, `pour[]` et `contre[]` (`t`, `qui`, `src`), `pos` par candidat (`e` cran, `cit`, `src`, ou `na`) |
 | `shift` | `nom`, `qui`, `demande`, `finance`, `financeSrc`, `hatvp`, `dispositifs`, `chantiers`, `etats`, `src` |
 
 Les portraits ne passent pas par la base : `public/photos/<id>.webp` et `public/photos/credits.json` (auteur, licence, page Commons) sont produits par le workflow « Photos des candidats » à partir de `outils/photos/candidats.json`.
