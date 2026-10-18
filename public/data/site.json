@@ -1,7 +1,7 @@
 {
     "meta": {
         "version": 1,
-        "genere_le": "2026-10-18T11:42:56+02:00",
+        "genere_le": "2026-10-18T11:52:31+02:00",
         "maj": "2026-10-18",
         "premier_tour": "2027-04-18",
         "second_tour": "2027-05-02",
@@ -10,7 +10,7 @@
         "demo": false,
         "chiffre_note": "Selon Toute l'Europe au 14 octobre 2026 ; L'Obs en compte 31. En 2022, 12 candidats avaient obtenu leurs 500 parrainages.",
         "empreinte_min": 10,
-        "empreinte": "9a9be6a119d42357c59bcb03679e053486380aefd16793962c412bd9cbdcd25a"
+        "empreinte": "d206d828f6e5a76985dbcd9624c8aa90f7d8619241f1a0101a6758cd29d04ace"
     },
     "semaine": {
         "periode": "Du 11 au 17 octobre 2026",
@@ -1960,74 +1960,74 @@
                 "pos": {}
             },
             {
-                "id": "groupes-de-niveau",
+                "id": "enseignement-superieur-prive",
                 "th": 5,
-                "q": "Généraliser les groupes de niveau au collège",
-                "c": "Groupes de niveau",
-                "ctx": "Annoncés en décembre 2023 dans le cadre du « choc des savoirs », les groupes de besoin en français et en mathématiques ont été instaurés en 6e et 5e. Le ministère y a renoncé pour la 4e et la 3e, et le ministre Édouard Geffray a reconnu un « bilan mitigé ».",
+                "q": "Soumettre les écoles privées à un agrément de l'État pour figurer sur Parcoursup",
+                "c": "Supérieur privé",
+                "ctx": "Un projet de loi crée un agrément de l'État pour les établissements privés, condition pour figurer sur Parcoursup, et un « agrément d'intérêt général » réservé aux établissements à but non lucratif. Adopté par le Sénat le 1er juin 2026, il a été transmis à l'Assemblée nationale.",
                 "ctxSrc": [
-                    "L'Étudiant",
-                    "https://www.letudiant.fr/college/moins-dun-college-sur-cinq-applique-les-groupes-de-besoin-en-francais-et-maths-selon-le-snes-fsu.html"
+                    "Localtis",
+                    "https://www.banquedesterritoires.fr/le-senat-adopte-un-projet-de-loi-pour-mieux-reguler-lenseignement-superieur-prive"
                 ],
                 "chiffre": {
-                    "v": "< 19 %",
-                    "l": "des collèges appliquent strictement les groupes de besoin en 6e et 5e, contre 26 % un an plus tôt (enquête du SNES-FSU, novembre 2025)",
+                    "v": "790 000",
+                    "l": "étudiants dans l'enseignement supérieur privé en 2023, contre 490 000 en 2015 : plus d'un quart des effectifs",
                     "src": [
-                        "L'Étudiant",
-                        "https://www.letudiant.fr/college/moins-dun-college-sur-cinq-applique-les-groupes-de-besoin-en-francais-et-maths-selon-le-snes-fsu.html"
+                        "Localtis",
+                        "https://www.banquedesterritoires.fr/le-senat-adopte-un-projet-de-loi-pour-mieux-reguler-lenseignement-superieur-prive"
                     ]
                 },
                 "var": null,
                 "shift": null,
                 "pour": [
                     {
-                        "t": "« Je crois aux groupes de niveau » : l'hétérogénéité des classes est la principale difficulté des enseignants.",
-                        "qui": "Max Brisson, sénateur Les Républicains",
-                        "src": [
-                            "Public Sénat",
-                            "https://publicsenat.fr/actualites/education/greve-des-enseignants-derriere-les-groupes-de-niveau-lavenir-du-college-unique-en-balance"
-                        ]
-                    },
-                    {
-                        "t": "Relever un niveau en baisse dans les enquêtes PISA, avec des groupes d'une quinzaine d'élèves pour les plus en difficulté et des heures supplémentaires pour eux.",
-                        "qui": "Gouvernement, lors du lancement de la réforme (2024)",
-                        "src": [
-                            "Public Sénat",
-                            "https://publicsenat.fr/actualites/education/greve-des-enseignants-derriere-les-groupes-de-niveau-lavenir-du-college-unique-en-balance"
-                        ]
-                    },
-                    {
-                        "t": "Dans les groupes surtout composés d'élèves à faibles besoins, des enseignants ont trouvé des conditions de travail favorables et la possibilité d'aller plus loin.",
-                        "qui": "Inspection générale de l'éducation (rapport intermédiaire, juin 2025)",
+                        "t": "Le secteur mêle établissements d'excellence et « simples officines commerciales », une « confusion préjudiciable aux étudiants et à leurs familles » : il faut des règles de qualité et de transparence.",
+                        "qui": "Philippe Baptiste, ministre de l'Enseignement supérieur, au Sénat (juin 2026)",
                         "src": [
                             "Localtis",
-                            "https://www.banquedesterritoires.fr/groupes-de-besoins-au-college-un-premier-bilan-negatif"
+                            "https://www.banquedesterritoires.fr/le-senat-adopte-un-projet-de-loi-pour-mieux-reguler-lenseignement-superieur-prive"
+                        ]
+                    },
+                    {
+                        "t": "Il y a urgence à légiférer pour « mieux protéger les étudiantes et étudiants », « contrôler le bon emploi des fonds publics » et garantir la qualité des formations.",
+                        "qui": "Fédérations CFDT de l'éducation (Sgen-CFDT, Fep-CFDT)",
+                        "src": [
+                            "Sgen-CFDT",
+                            "https://sgen-cfdt.fr/contenu/uploads/2026/04/20260402-Communique-de-presse-Enseignement-superieur-prive-il-y-a-urgence-a-legiferer.pdf"
+                        ]
+                    },
+                    {
+                        "t": "Sur Parcoursup ne figureraient que « les formations auxquelles l'État aura donné une confiance » ; la Conférence des grandes écoles soutient le texte et voudrait aller plus loin hors Parcoursup.",
+                        "qui": "Stéphane Piednoir, rapporteur au Sénat, et Conférence des grandes écoles",
+                        "src": [
+                            "Public Sénat",
+                            "https://www.publicsenat.fr/actualites/politique/parcoursup-apprentissage-que-contient-le-projet-de-regulation-de-lenseignement-superieur-prive-examine-ce-lundi-par-le-senat"
                         ]
                     }
                 ],
                 "contre": [
                     {
-                        "t": "Les élèves à forts besoins n'ont « clairement pas bénéficié » de la mesure ; le risque de voir les écarts se creuser est jugé « majeur », et la mobilité entre groupes quasi absente.",
-                        "qui": "Inspection générale de l'éducation (rapport intermédiaire, juin 2025)",
+                        "t": "Un agrément facultatif risque de ne toucher que les écoles déjà encadrées : les officines visées, qui mettent en avant leur absence de Parcoursup, ne le demanderont pas.",
+                        "qui": "Yan Chantrel, sénateur socialiste, et commission de la culture du Sénat",
                         "src": [
                             "Localtis",
-                            "https://www.banquedesterritoires.fr/groupes-de-besoins-au-college-un-premier-bilan-negatif"
+                            "https://www.banquedesterritoires.fr/le-senat-adopte-un-projet-de-loi-pour-mieux-reguler-lenseignement-superieur-prive"
                         ]
                     },
                     {
-                        "t": "Selon la synthèse PISA 2022, la séparation en groupes de niveau n'améliore pas les résultats ; les regroupements par aptitude tendent à « stigmatiser et démotiver » les plus faibles.",
-                        "qui": "OCDE et chercheurs en éducation",
+                        "t": "Réunir public et privé dans une même loi crée un risque d'amalgame ; des catégories comme « partenaire » ou « agréée » pourraient « masquer la qualité des écoles ».",
+                        "qui": "Union des grandes écoles indépendantes (UGEI)",
                         "src": [
                             "EducPros",
-                            "https://www.letudiant.fr/educpros/enquetes/lefficacite-des-groupes-de-niveau-contestee-par-les-chercheurs.html"
+                            "https://www.letudiant.fr/educpros/actualite/l-ugei-prend-la-parole-pour-defendre-la-qualite-de-l-enseignement-superieur-prive.html"
                         ]
                     },
                     {
-                        "t": "Stress, compétition entre élèves, emplois du temps dégradés pour les élèves comme pour les enseignants : « Nous ne trierons pas les élèves ! »",
-                        "qui": "SNES-FSU, syndicat d'enseignants",
+                        "t": "Plusieurs groupes privés doutent de l'intérêt d'entrer sur Parcoursup et contestent le droit de rétractation des étudiants jusqu'à un mois avant la rentrée.",
+                        "qui": "Groupes d'enseignement supérieur privé",
                         "src": [
-                            "L'Étudiant",
-                            "https://www.letudiant.fr/college/moins-dun-college-sur-cinq-applique-les-groupes-de-besoin-en-francais-et-maths-selon-le-snes-fsu.html"
+                            "Public Sénat",
+                            "https://www.publicsenat.fr/actualites/politique/parcoursup-apprentissage-que-contient-le-projet-de-regulation-de-lenseignement-superieur-prive-examine-ce-lundi-par-le-senat"
                         ]
                     }
                 ],

@@ -116,7 +116,7 @@ const DEBATS = {
   "hebergement-souverain": { A: 2, B: 1, C: 0, D: 1, E: 2, F: "na" },
   "budget-culture-1-pourcent": { A: 2, B: 0, C: -2, D: -1, E: 2, F: 1 },
   "revenu-artistes-auteurs": { A: 2, B: 0, C: -2, D: -2, E: 1 },
-  "groupes-de-niveau": { A: -2, B: 1, C: 2, D: 2, E: -1, F: 0 },
+  "enseignement-superieur-prive": { A: 2, B: 1, C: 0, D: -1, E: 2, F: 1 },
 };
 if (demo.debats) {
   for (const d of demo.debats.liste) {
