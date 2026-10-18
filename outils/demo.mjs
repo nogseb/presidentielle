@@ -33,6 +33,10 @@ const VARS = {
     { slug: "ferroviaire", q: "Investissement public annuel dans le ferroviaire", type: "num", unit: " Md€", min: 0, max: 12, ticks: [0, 4, 8, 12], v: { A: 8, B: 5, C: 3, D: 2, E: 10, F: null }, shift: "train" },
     { slug: "voitures-thermiques", q: "Fin de vente des voitures thermiques neuves", type: "cat", mods: ["Maintenir l'échéance de 2035", "Reporter après 2035", "Abandonner l'échéance"], v: { A: "Maintenir l'échéance de 2035", B: "Maintenir l'échéance de 2035", C: "Reporter après 2035", D: "Abandonner l'échéance", E: "Maintenir l'échéance de 2035", F: "Reporter après 2035" }, shift: "ve" },
   ],
+  15: [
+    { slug: "budget-culture", q: "Budget de l'État pour la culture", type: "cat", mods: ["Porter à 1 % du budget de l'État", "Maintenir le niveau actuel", "Réduire"], v: { A: "Porter à 1 % du budget de l'État", B: "Maintenir le niveau actuel", C: "Réduire", D: "Maintenir le niveau actuel", E: "Porter à 1 % du budget de l'État", F: null }, shift: null },
+    { slug: "revenus-artistes", q: "Revenus des artistes-auteurs", type: "cat", mods: ["Créer un revenu de remplacement", "Renforcer les aides ciblées", "Pas de changement"], v: { A: "Créer un revenu de remplacement", B: "Renforcer les aides ciblées", C: "Pas de changement", D: "Pas de changement", E: "Créer un revenu de remplacement", F: "Renforcer les aides ciblées" }, shift: null },
+  ],
   14: [
     { slug: "encadrement-ia", q: "Encadrement de l'intelligence artificielle", type: "cat", mods: ["Aller au-delà du règlement européen", "Appliquer le règlement européen", "Assouplir les règles européennes"], v: { A: "Aller au-delà du règlement européen", B: "Appliquer le règlement européen", C: "Assouplir les règles européennes", D: "Assouplir les règles européennes", E: "Aller au-delà du règlement européen", F: "Appliquer le règlement européen" }, shift: null },
     { slug: "centres-donnees", q: "Nouveaux centres de données", type: "cat", mods: ["Moratoire", "Encadrer leur consommation d'énergie et d'eau", "Aucune restriction"], v: { A: "Encadrer leur consommation d'énergie et d'eau", B: "Encadrer leur consommation d'énergie et d'eau", C: "Aucune restriction", D: "Aucune restriction", E: "Moratoire" }, shift: "datacenters" },
@@ -70,12 +74,12 @@ const ETATS = {
 };
 
 const EMPREINTE = {
-  A: [14, 6, 20, 8, 10, 10, 3, 5, 2, 6, 6, 2, 5, 3],
-  B: [8, 14, 10, 6, 7, 6, 4, 12, 8, 10, 5, 5, 2, 3],
-  C: [6, 16, 8, 4, 5, 4, 5, 13, 10, 11, 2, 7, 3, 6],
-  D: [10, 6, 6, 6, 5, 5, 8, 16, 21, 8, 4, 2, 2, 1],
-  E: [8, 4, 6, 9, 9, 20, 10, 2, 2, 5, 9, 3, 9, 4],
-  F: [11, 9, 9, 11, 11, 8, 4, 7, 5, 7, 4, 5, 4, 5],
+  A: [14, 6, 16, 8, 10, 10, 3, 5, 2, 6, 6, 2, 5, 3, 4],
+  B: [8, 12, 10, 6, 7, 6, 4, 12, 8, 10, 5, 5, 2, 3, 2],
+  C: [6, 15, 8, 4, 5, 4, 5, 13, 10, 11, 2, 7, 3, 6, 1],
+  D: [10, 6, 6, 6, 5, 5, 8, 16, 20, 8, 4, 2, 2, 1, 1],
+  E: [8, 4, 6, 9, 9, 17, 7, 2, 2, 5, 9, 3, 9, 4, 6],
+  F: [10, 9, 9, 10, 10, 8, 4, 7, 5, 7, 4, 5, 4, 5, 3],
 };
 
 const demo = structuredClone(site);
@@ -110,6 +114,9 @@ const DEBATS = {
   "moratoire-centres-donnees": { A: 1, B: -1, C: -2, D: -2, E: 2 },
   "encadrement-ia": { A: 2, B: 0, C: -1, D: -2, E: 1, F: 0 },
   "hebergement-souverain": { A: 2, B: 1, C: 0, D: 1, E: 2, F: "na" },
+  "budget-culture-1-pourcent": { A: 2, B: 0, C: -2, D: -1, E: 2, F: 1 },
+  "revenu-artistes-auteurs": { A: 2, B: 0, C: -2, D: -2, E: 1 },
+  "groupes-de-niveau": { A: -2, B: 1, C: 2, D: 2, E: -1, F: 0 },
 };
 if (demo.debats) {
   for (const d of demo.debats.liste) {

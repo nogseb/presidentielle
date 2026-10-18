@@ -1,6 +1,6 @@
 # Repères 2027
 
-Veille sobre et sourcée de l'élection présidentielle française de 2027 : l'actualité de la semaine en cinq faits, les candidatures, les positions comparées sur 14 thèmes communs et une lecture des programmes au regard des propositions de The Shift Project.
+Veille sobre et sourcée de l'élection présidentielle française de 2027 : l'actualité de la semaine en cinq faits, les candidatures, les positions comparées sur 15 thèmes communs, des débats pour et contre et une lecture des programmes au regard des propositions de The Shift Project.
 
 En ligne : https://nogues.app/presidentielle/ · données fictives de démonstration : https://nogues.app/presidentielle/?demo=1
 

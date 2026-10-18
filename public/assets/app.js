@@ -6,7 +6,9 @@
 
 (function () {
   const $ = s => document.querySelector(s);
-  const esc = s => String(s == null ? "" : s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  // Échappement HTML, plus espaces insécables de la typographie française (guillemets, : ; ! ?)
+  const esc = s => String(s == null ? "" : s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]))
+    .replace(/« /g, "«\u00a0").replace(/ »/g, "\u00a0»").replace(/ ([:;!?])(?=\s|$)/g, "\u202f$1");
   const fr = n => Number(n).toLocaleString("fr-FR", { maximumFractionDigits: 1 });
   const dayNum = iso => { const [y, m, d] = iso.split("-").map(Number); return Date.UTC(y, m - 1, d) / 864e5; };
   const fmt = (iso, o) => new Date(iso + "T12:00:00Z").toLocaleDateString("fr-FR", Object.assign({ timeZone: "UTC" }, o));
@@ -473,7 +475,7 @@
     }
     function renderDebRadar() {
       const a = $("#da").value, b = $("#db").value, L = DEB.liste, n = L.length;
-      const cx = 210, cy = 150, r = 104;
+      const cx = 280, cy = 150, r = 104;          // marge latérale pour les libellés longs
       const ang = i => -Math.PI / 2 + i * 2 * Math.PI / n;
       const rad = e => (e + 3) / 5 * r;              // contre = 1/5 du rayon, pour = rayon complet
       let s = "";
@@ -498,7 +500,7 @@
         const x = cx + (r + 14) * c, y = cy + (r + 14) * sn + (sn > 0.5 ? 10 : (sn < -0.5 ? -2 : 4));
         labels += `<text class="r-label" x="${x.toFixed(1)}" y="${y.toFixed(1)}" text-anchor="${c > 0.2 ? "start" : (c < -0.2 ? "end" : "middle")}">${esc(d.c)}</text>`;
       });
-      $("#deb-radar").innerHTML = `<svg viewBox="0 0 420 300" role="img" aria-label="Positions de ${esc(nameOf(a))}${a !== b ? " et de " + esc(nameOf(b)) : ""} sur ${n} débats">${s}${shape(a, "a")}${a !== b ? shape(b, "b") : ""}${labels}</svg>`;
+      $("#deb-radar").innerHTML = `<svg viewBox="0 0 560 300" role="img" aria-label="Positions de ${esc(nameOf(a))}${a !== b ? " et de " + esc(nameOf(b)) : ""} sur ${n} débats">${s}${shape(a, "a")}${a !== b ? shape(b, "b") : ""}${labels}</svg>`;
       $("#deb-legend").innerHTML = `<span><svg width="28" height="10" aria-hidden="true"><line class="lg-a" x1="0" y1="5" x2="28" y2="5"/></svg>${esc(nameOf(a))}</span>` + (a !== b ? `<span><svg width="28" height="10" aria-hidden="true"><line class="lg-b" x1="0" y1="5" x2="28" y2="5"/></svg>${esc(nameOf(b))}</span>` : "");
       const cell = (d, id) => { const p = posOf(d, id); return !p ? "À documenter" : (p.na ? "Non abordé" : echLabel(p.e)); };
       $("#deb-table").innerHTML = `<table><thead><tr><th>Débat</th><th>${esc(nameOf(a))}</th>${a !== b ? `<th>${esc(nameOf(b))}</th>` : ""}</tr></thead><tbody>${L.map(d => `<tr><td>${esc(d.q)}</td><td>${esc(cell(d, a))}</td>${a !== b ? `<td>${esc(cell(d, b))}</td>` : ""}</tr>`).join("")}</tbody></table>`;

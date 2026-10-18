@@ -1,7 +1,7 @@
 {
     "meta": {
         "version": 1,
-        "genere_le": "2026-10-18T11:22:18+02:00",
+        "genere_le": "2026-10-18T11:42:56+02:00",
         "maj": "2026-10-18",
         "premier_tour": "2027-04-18",
         "second_tour": "2027-05-02",
@@ -10,7 +10,7 @@
         "demo": false,
         "chiffre_note": "Selon Toute l'Europe au 14 octobre 2026 ; L'Obs en compte 31. En 2022, 12 candidats avaient obtenu leurs 500 parrainages.",
         "empreinte_min": 10,
-        "empreinte": "f12a09beeb0df941d13d60b8efc21c5db96b231e77a1cf98880ca25aaa748561"
+        "empreinte": "9a9be6a119d42357c59bcb03679e053486380aefd16793962c412bd9cbdcd25a"
     },
     "semaine": {
         "periode": "Du 11 au 17 octobre 2026",
@@ -1195,6 +1195,19 @@
             ],
             "vars": [],
             "r": "Numérique"
+        },
+        {
+            "id": 15,
+            "slug": "culture",
+            "n": "Culture et soutien aux artistes",
+            "c": "Culture",
+            "une": false,
+            "pivots": [
+                "Budget de l'État pour la culture",
+                "Revenus des artistes-auteurs",
+                "Avenir du pass Culture"
+            ],
+            "vars": []
         }
     ],
     "empreinte": {},
@@ -1793,6 +1806,228 @@
                         "src": [
                             "Localtis",
                             "https://www.banquedesterritoires.fr/secnumcloud-6-gip-assujettis-les-donnees-sensibles-enfin-definies"
+                        ]
+                    }
+                ],
+                "pos": {}
+            },
+            {
+                "id": "budget-culture-1-pourcent",
+                "th": 15,
+                "q": "Porter le budget de la culture à 1 % du budget de l'État",
+                "c": "Budget de la culture",
+                "ctx": "Revendication ancienne du programme socialiste, le seuil symbolique de 1 % du budget de l'État consacré à la culture a été atteint en 1993, sous Jack Lang, ministre de la Culture de 1981 à 1986 puis de 1988 à 1993.",
+                "ctxSrc": [
+                    "Larousse",
+                    "https://www.larousse.fr/archives/journaux_annee/1993/181/environnement"
+                ],
+                "chiffre": {
+                    "v": "0,8 %",
+                    "l": "du budget de l'État revient aujourd'hui au ministère de la Culture, selon la CGT-Culture ; ses crédits baissent en 2026",
+                    "src": [
+                        "Assemblée nationale",
+                        "https://www.assemblee-nationale.fr/dyn/17/questions/QANR5L17QE15903"
+                    ]
+                },
+                "var": "budget-culture",
+                "shift": null,
+                "pour": [
+                    {
+                        "t": "Près d'une collectivité sur deux déclare un budget culturel en baisse (47 %, contre 21 % un an plus tôt) : la culture est « un bien essentiel, à sanctuariser ».",
+                        "qui": "Élus socialistes, d'après le baromètre de l'Observatoire des politiques culturelles",
+                        "src": [
+                            "ActuaLitté",
+                            "https://actualitte.com/article/124967/politique-publique/culture-en-danger-les-elus-socialistes-tirent-la-sonnette-d-alarme"
+                        ]
+                    },
+                    {
+                        "t": "Porter les crédits à au moins 1 % du budget de l'État, car « les ressources privées ne sauraient constituer un substitut à l'engagement de l'État ».",
+                        "qui": "CGT-Culture, relayée par une question écrite à l'Assemblée nationale (juin 2026)",
+                        "src": [
+                            "Assemblée nationale",
+                            "https://www.assemblee-nationale.fr/dyn/17/questions/QANR5L17QE15903"
+                        ]
+                    },
+                    {
+                        "t": "Faute de financements, treize organisations du spectacle vivant subventionné craignent « un chômage massif pour 2026 » ; le fonds pour l'emploi du secteur reçoit 36 millions d'euros pour des besoins estimés à 60.",
+                        "qui": "Syndeac, CGT Spectacle et onze autres organisations",
+                        "src": [
+                            "WEKA",
+                            "https://www.weka.fr/actualite/communication/article/le-secteur-du-spectacle-vivant-public-craint-un-chomage-massif-pour-2026-209809/"
+                        ]
+                    }
+                ],
+                "contre": [
+                    {
+                        "t": "Mieux dépenser avant de dépenser plus : le pass Culture est passé de 93 à 244 millions d'euros entre 2021 et 2024, surtout pour intensifier des pratiques déjà établies ; un « recadrage budgétaire » est « indispensable ».",
+                        "qui": "Cour des comptes",
+                        "src": [
+                            "Europe 1",
+                            "https://www.europe1.fr/culture/le-pass-culture-un-dispositif-cher-aux-effets-limites-pour-la-cour-des-comptes-235710"
+                        ]
+                    },
+                    {
+                        "t": "Comme les autres ministères, la Culture doit participer à l'effort de réduction du déficit public, ce qui justifie une baisse sensible de ses crédits en 2026.",
+                        "qui": "Gouvernement, projet de loi de finances pour 2026",
+                        "src": [
+                            "Sénat",
+                            "https://www.senat.fr/rap/a25-144-22/a25-144-22-syn.pdf"
+                        ]
+                    },
+                    {
+                        "t": "Plutôt que tout attendre de l'État, inventer de « nouveaux modèles » : coopérations entre public et privé, mécénat pluriannuel, incitations fiscales renforcées.",
+                        "qui": "Ministère de la Culture et acteurs du mécénat (rencontre du 29 septembre 2026)",
+                        "src": [
+                            "Carenews",
+                            "https://www.carenews.com/carenews-info/news/face-a-la-baisse-des-financements-publics-acteurs-culturels-et-mecenes"
+                        ]
+                    }
+                ],
+                "pos": {}
+            },
+            {
+                "id": "revenu-artistes-auteurs",
+                "th": 15,
+                "q": "Créer un revenu de remplacement pour les artistes-auteurs",
+                "c": "Revenus des artistes",
+                "ctx": "Inspirée du régime des intermittents du spectacle, une proposition de loi prévoit un revenu de remplacement d'au moins 85 % du Smic pour les artistes-auteurs privés de ressources, financé par une contribution des diffuseurs. Le Sénat l'a rejetée le 18 décembre 2025, par 206 voix contre 116.",
+                "ctxSrc": [
+                    "Livres Hebdo",
+                    "https://www.livreshebdo.fr/article/le-senat-rejette-lassurance-chomage-des-artistes-auteurs"
+                ],
+                "chiffre": {
+                    "v": "350 000",
+                    "l": "artistes-auteurs concernés selon la ministre de la Culture ; coût estimé entre 230 et 800 millions d'euros selon les sources",
+                    "src": [
+                        "Livres Hebdo",
+                        "https://www.livreshebdo.fr/article/le-senat-rejette-lassurance-chomage-des-artistes-auteurs"
+                    ]
+                },
+                "var": "revenus-artistes",
+                "shift": null,
+                "pour": [
+                    {
+                        "t": "Il s'agit de « réparer une injustice sociale » : contrairement aux intermittents du spectacle, les artistes-auteurs n'ont aucun revenu de remplacement entre deux projets.",
+                        "qui": "Monique de Marco, sénatrice, autrice de la proposition de loi",
+                        "src": [
+                            "Livres Hebdo",
+                            "https://www.livreshebdo.fr/article/le-senat-rejette-lassurance-chomage-des-artistes-auteurs"
+                        ]
+                    },
+                    {
+                        "t": "Le rapport Racine (2020) a documenté la paupérisation des créateurs, dont le statut reste « peu protecteur » et les revenus irréguliers.",
+                        "qui": "Mission flash de l'Assemblée nationale sur la continuité de revenus (2025)",
+                        "src": [
+                            "ActuaLitté",
+                            "https://actualitte.com/article/125244/auteurs/l-assemblee-nationale-planche-sur-la-continuite-de-revenus-des-auteurs"
+                        ]
+                    },
+                    {
+                        "t": "La recherche, la préparation et la création « ne sont absolument pas des temps d'inactivité » ; les artistes-auteurs n'ont ni assurance chômage ni prestation en cas d'accident du travail.",
+                        "qui": "Fédération des réseaux et associations d'artistes plasticiens (Fraap)",
+                        "src": [
+                            "Fraap",
+                            "https://fraap.org/IMG/pdf/cp-continuite_-de-revenus.pdf"
+                        ]
+                    }
+                ],
+                "contre": [
+                    {
+                        "t": "Une mesure « démagogique », au coût estimé à 800 millions d'euros à ce stade, qui ferait des créateurs des « fonctionnaires de l'art subventionnés par l'assurance chômage ».",
+                        "qui": "Rachida Dati, alors ministre de la Culture (décembre 2025)",
+                        "src": [
+                            "Livres Hebdo",
+                            "https://www.livreshebdo.fr/article/le-senat-rejette-lassurance-chomage-des-artistes-auteurs"
+                        ]
+                    },
+                    {
+                        "t": "Privilégier d'autres voies : des négociations avec producteurs et diffuseurs, et une mission d'inspection sur les aléas de rémunération liés aux cycles de création.",
+                        "qui": "Gouvernement (décembre 2025)",
+                        "src": [
+                            "Livres Hebdo",
+                            "https://www.livreshebdo.fr/article/le-senat-rejette-lassurance-chomage-des-artistes-auteurs"
+                        ]
+                    },
+                    {
+                        "t": "L'exemple des intermittents invite à la prudence : leur régime représentait plus de 30 % du déficit de l'assurance chômage, et la Cour des comptes demandait d'en maîtriser les dépenses.",
+                        "qui": "Cour des comptes (rapport public 2008)",
+                        "src": [
+                            "Localtis",
+                            "https://www.banquedesterritoires.fr/regime-des-intermittents-la-reforme-reste-faire"
+                        ]
+                    }
+                ],
+                "pos": {}
+            },
+            {
+                "id": "groupes-de-niveau",
+                "th": 5,
+                "q": "Généraliser les groupes de niveau au collège",
+                "c": "Groupes de niveau",
+                "ctx": "Annoncés en décembre 2023 dans le cadre du « choc des savoirs », les groupes de besoin en français et en mathématiques ont été instaurés en 6e et 5e. Le ministère y a renoncé pour la 4e et la 3e, et le ministre Édouard Geffray a reconnu un « bilan mitigé ».",
+                "ctxSrc": [
+                    "L'Étudiant",
+                    "https://www.letudiant.fr/college/moins-dun-college-sur-cinq-applique-les-groupes-de-besoin-en-francais-et-maths-selon-le-snes-fsu.html"
+                ],
+                "chiffre": {
+                    "v": "< 19 %",
+                    "l": "des collèges appliquent strictement les groupes de besoin en 6e et 5e, contre 26 % un an plus tôt (enquête du SNES-FSU, novembre 2025)",
+                    "src": [
+                        "L'Étudiant",
+                        "https://www.letudiant.fr/college/moins-dun-college-sur-cinq-applique-les-groupes-de-besoin-en-francais-et-maths-selon-le-snes-fsu.html"
+                    ]
+                },
+                "var": null,
+                "shift": null,
+                "pour": [
+                    {
+                        "t": "« Je crois aux groupes de niveau » : l'hétérogénéité des classes est la principale difficulté des enseignants.",
+                        "qui": "Max Brisson, sénateur Les Républicains",
+                        "src": [
+                            "Public Sénat",
+                            "https://publicsenat.fr/actualites/education/greve-des-enseignants-derriere-les-groupes-de-niveau-lavenir-du-college-unique-en-balance"
+                        ]
+                    },
+                    {
+                        "t": "Relever un niveau en baisse dans les enquêtes PISA, avec des groupes d'une quinzaine d'élèves pour les plus en difficulté et des heures supplémentaires pour eux.",
+                        "qui": "Gouvernement, lors du lancement de la réforme (2024)",
+                        "src": [
+                            "Public Sénat",
+                            "https://publicsenat.fr/actualites/education/greve-des-enseignants-derriere-les-groupes-de-niveau-lavenir-du-college-unique-en-balance"
+                        ]
+                    },
+                    {
+                        "t": "Dans les groupes surtout composés d'élèves à faibles besoins, des enseignants ont trouvé des conditions de travail favorables et la possibilité d'aller plus loin.",
+                        "qui": "Inspection générale de l'éducation (rapport intermédiaire, juin 2025)",
+                        "src": [
+                            "Localtis",
+                            "https://www.banquedesterritoires.fr/groupes-de-besoins-au-college-un-premier-bilan-negatif"
+                        ]
+                    }
+                ],
+                "contre": [
+                    {
+                        "t": "Les élèves à forts besoins n'ont « clairement pas bénéficié » de la mesure ; le risque de voir les écarts se creuser est jugé « majeur », et la mobilité entre groupes quasi absente.",
+                        "qui": "Inspection générale de l'éducation (rapport intermédiaire, juin 2025)",
+                        "src": [
+                            "Localtis",
+                            "https://www.banquedesterritoires.fr/groupes-de-besoins-au-college-un-premier-bilan-negatif"
+                        ]
+                    },
+                    {
+                        "t": "Selon la synthèse PISA 2022, la séparation en groupes de niveau n'améliore pas les résultats ; les regroupements par aptitude tendent à « stigmatiser et démotiver » les plus faibles.",
+                        "qui": "OCDE et chercheurs en éducation",
+                        "src": [
+                            "EducPros",
+                            "https://www.letudiant.fr/educpros/enquetes/lefficacite-des-groupes-de-niveau-contestee-par-les-chercheurs.html"
+                        ]
+                    },
+                    {
+                        "t": "Stress, compétition entre élèves, emplois du temps dégradés pour les élèves comme pour les enseignants : « Nous ne trierons pas les élèves ! »",
+                        "qui": "SNES-FSU, syndicat d'enseignants",
+                        "src": [
+                            "L'Étudiant",
+                            "https://www.letudiant.fr/college/moins-dun-college-sur-cinq-applique-les-groupes-de-besoin-en-francais-et-maths-selon-le-snes-fsu.html"
                         ]
                     }
                 ],

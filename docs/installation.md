@@ -29,14 +29,14 @@ Depuis l'onglet Bases de données, ouvrir phpMyAdmin pour la nouvelle base, puis
 2. `database/seed/010_referentiels.sql` : paramètres, 14 thèmes, variables pivots, The Shift Project et ses chantiers ;
 3. `database/seed/020_actualite_2026-10-17.sql` : candidatures, calendrier, digest, sondage, sources ;
 4. `database/migrations/002_biographies.sql` puis `database/seed/030_biographies_2026-10-17.sql` : âge et biographie des candidats ;
-5. `database/migrations/003_debats.sql` puis `database/seed/040_debats_2026-10-18.sql` : les cinq premiers débats pour et contre ;
+5. `database/migrations/003_debats.sql` puis `database/seed/040_debats_2026-10-18.sql` et `database/seed/050_culture_education_2026-10-18.sql` : les débats pour et contre et le 15e thème, Culture et soutien aux artistes ;
 6. facultatif : `database/optionnel/journal_triggers.sql`, le journal automatique des modifications. Si phpMyAdmin refuse ce fichier (droit `TRIGGER` absent), ce n'est pas bloquant.
 
 Contrôle rapide dans l'onglet SQL :
 
 ```sql
 SELECT (SELECT COUNT(*) FROM theme) AS themes, (SELECT COUNT(*) FROM candidat) AS candidats;
--- attendu : 14 thèmes, 30 candidats
+-- attendu : 15 thèmes, 30 candidats
 ```
 
 ## 3. Déclarer les secrets dans GitHub

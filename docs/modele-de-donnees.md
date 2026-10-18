@@ -10,7 +10,7 @@ MySQL est la source de vérité. Le site public ne lit jamais la base : il lit `
 | --- | --- | --- |
 | `parametre` | réglages clé/valeur : `phase`, dates des tours, `liste_officielle`, `empreinte_min`, `chiffre_note` | `phase` pilote l'affichage : `declares`, `officiels`, `entre_deux_tours` |
 | `source` | toute référence citée sur le site | `cle` unique et lisible ; `niveau` de 1 (texte officiel) à 5 (presse d'opinion) |
-| `theme` | les 14 thèmes communs | identifiants fixes ; `a_la_une` = Environnement (6), Transports (13), Numérique et IA (14) |
+| `theme` | les 15 thèmes communs | identifiants fixes ; `a_la_une` = Environnement (6), Transports (13), Numérique et IA (14) |
 | `variable` | variables pivots d'un thème, au plus 3 | `numerique` (bornes, unité, graduations) ou `categorielle` ; `chantier_id` relie une variable à un chantier du Shift Project |
 | `modalite` | options d'une variable catégorielle | ordre d'affichage par `ordre` |
 

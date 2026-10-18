@@ -363,6 +363,7 @@ footer ul{margin:0;padding-left:1.1rem;display:grid;gap:3px}
 .mxd-key{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:8px}
 .mxd-key .t5{width:40px;margin-inline:6px}
 .r-dot.b{fill:var(--surface);stroke:var(--ink);stroke-width:2}
+#deb-radar svg{max-width:560px}
 .notice{display:grid;gap:6px;margin:0;padding:14px;border:1px solid var(--line);border-radius:6px;background:var(--surface)}
 .src-cell a{white-space:nowrap}
 noscript p{padding:16px;border:1px solid var(--line);border-radius:6px;background:var(--surface)}

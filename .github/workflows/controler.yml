@@ -63,7 +63,7 @@ jobs:
             const d = JSON.parse(fs.readFileSync(process.env.RUNNER_TEMP + "/data/site.json", "utf8"));
             const ok = (c, m) => { if (!c) { console.error("Échec : " + m); process.exit(1); } };
             ok(d.meta && d.meta.version === 1, "meta.version");
-            ok(Array.isArray(d.themes) && d.themes.length === 14, "14 thèmes");
+            ok(Array.isArray(d.themes) && d.themes.length === 15, "15 thèmes");
             ok(d.themes.filter(t => t.une).length === 3, "3 thèmes à la une");
             ok(Array.isArray(d.candidats) && d.candidats.every(c => c.src), "chaque candidature a une source");
             ok(d.calendrier.length > 0 && d.phases.length === 3, "calendrier et phases");
