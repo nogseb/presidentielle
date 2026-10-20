@@ -1,0 +1,401 @@
+{
+  "version": 1,
+  "edition": "2022",
+  "titre": "Édition 2022",
+  "maj": "2026-10-20",
+  "presentation": "Les douze candidats du premier tour de 2022 et les positions qu'ils défendaient pendant la campagne, relevées dans des comparatifs de presse et de think tanks. Cette édition ne dit rien des candidatures de 2027.",
+  "echelle": [
+    { "v": -2, "rep": "Pas du tout d'accord", "pos": "Contre" },
+    { "v": -1, "rep": "Plutôt pas d'accord", "pos": "Plutôt contre" },
+    { "v": 0, "rep": "Partagé", "pos": "Nuancé" },
+    { "v": 1, "rep": "Plutôt d'accord", "pos": "Plutôt pour" },
+    { "v": 2, "rep": "Tout à fait d'accord", "pos": "Pour" }
+  ],
+  "importance": [
+    { "k": "peu", "l": "Secondaire", "w": 0.5 },
+    { "k": "normal", "l": "Normale", "w": 1 },
+    { "k": "fort", "l": "Essentielle", "w": 2 }
+  ],
+  "candidats": [
+    { "id": "arthaud", "p": "Nathalie", "n": "Arthaud", "parti": "Lutte ouvrière" },
+    { "id": "roussel", "p": "Fabien", "n": "Roussel", "parti": "Parti communiste français" },
+    { "id": "macron", "p": "Emmanuel", "n": "Macron", "parti": "La République en marche" },
+    { "id": "lassalle", "p": "Jean", "n": "Lassalle", "parti": "Résistons !" },
+    { "id": "le-pen", "p": "Marine", "n": "Le Pen", "parti": "Rassemblement national" },
+    { "id": "zemmour", "p": "Éric", "n": "Zemmour", "parti": "Reconquête" },
+    { "id": "melenchon", "p": "Jean-Luc", "n": "Mélenchon", "parti": "La France insoumise" },
+    { "id": "hidalgo", "p": "Anne", "n": "Hidalgo", "parti": "Parti socialiste" },
+    { "id": "jadot", "p": "Yannick", "n": "Jadot", "parti": "Europe Écologie Les Verts" },
+    { "id": "pecresse", "p": "Valérie", "n": "Pécresse", "parti": "Les Républicains" },
+    { "id": "poutou", "p": "Philippe", "n": "Poutou", "parti": "Nouveau Parti anticapitaliste" },
+    { "id": "dupont-aignan", "p": "Nicolas", "n": "Dupont-Aignan", "parti": "Debout la France" }
+  ],
+  "sources": {
+    "lfpt-smic": { "e": "La finance pour tous", "t": "Élections présidentielles : les propositions des candidats sur le montant du Smic", "d": "2022-03-21", "u": "https://www.lafinancepourtous.com/2022/03/21/elections-presidentielles-les-propositions-des-candidats-sur-le-montant-du-smic/" },
+    "moneyvox-isf": { "e": "MoneyVox", "t": "Impôt : quel candidat à la présidentielle veut le retour de l'ISF ?", "d": "2022-04-08", "u": "https://www.moneyvox.fr/actu/87996/impot-quel-candidat-a-la-presidentielle-veut-le-retour-de-isf" },
+    "lfpt-retraites": { "e": "La finance pour tous", "t": "Élections présidentielles : les propositions des candidats sur la retraite", "d": "2022-03-25", "u": "https://www.lafinancepourtous.com/2022/03/25/elections-presidentielles-les-propositions-des-candidats-sur-la-retraite/" },
+    "ps-emploi": { "e": "Public Sénat", "t": "Emploi : retrouvez les principales propositions des candidats à la présidentielle", "d": "2022-03-22", "u": "https://www.publicsenat.fr/actualites/politique/emploi-retrouvez-les-principales-propositions-des-candidats-a-la-presidentielle" },
+    "lcp-sante": { "e": "LCP", "t": "Présidentielle : quelle réforme de la santé pour les candidats ?", "d": "2022-03-25", "u": "https://lcp.fr/actualites/presidentielle-quelle-reforme-de-la-sante-pour-les-candidats-107247" },
+    "ps-findevie": { "e": "Public Sénat", "t": "Fin de vie : « Cette idée de convention citoyenne, c'est du temps perdu »", "d": "2022-03-18", "u": "https://www.publicsenat.fr/actualites/politique/fin-de-vie-cette-idee-de-convention-citoyenne-c-est-du-temps-perdu-regrette" },
+    "diplomeo-sup": { "e": "Diplomeo", "t": "Quelles mesures des candidats pour l'enseignement supérieur ?", "d": "2022-03", "u": "https://diplomeo.com/actualite-mesures_candidats_presidentielles_enseignement_superieur" },
+    "europe1-education": { "e": "Europe 1 avec l'AFP", "t": "Éducation : les propositions des candidats à la présidentielle", "d": "2022-03", "u": "https://www.europe1.fr/politique/education-les-propositions-des-candidats-a-la-presidentielle-4101124" },
+    "im-jadot-parcoursup": { "e": "Institut Montaigne", "t": "Remplacer Parcoursup par un système transparent et créer 60 000 places dans le supérieur", "d": null, "u": "https://www.institutmontaigne.org/presidentielle-2022/yannick-jadot/remplacer-parcoursup-par-un-systeme-transparent-et-creer-60-000-places-dans-le-superieur/" },
+    "futura-nucleaire": { "e": "Futura", "t": "Élection présidentielle 2022 et nucléaire : qui est pour, qui est contre ?", "d": "2022-04-08", "u": "https://www.futura-sciences.com/planete/actualites/environnement-election-presidentielle-2022-nucleaire-pour-97585/" },
+    "reporterre-energie": { "e": "Reporterre", "t": "Nucléaire, renouvelables… les candidats divisés sur l'énergie", "d": "2022-04", "u": "https://reporterre.net/Nucleaire-renouvelables-les-candidats-divises-sur-l-energie" },
+    "lcp-energie": { "e": "LCP", "t": "Présidentielle : quelle énergie des candidats pour le climat ?", "d": "2022-03-24", "u": "https://lcp.fr/actualites/presidentielle-quelle-energie-des-candidats-pour-le-climat-107173" },
+    "outside-environnement": { "e": "Outside", "t": "Décryptage du programme environnemental des candidats à la présidentielle", "d": "2022-04-05", "u": "https://outside.fr/environnement-concretement-que-proposent-les-12-candidats-a-la-presidentielle-2022" },
+    "reussir-glyphosate": { "e": "Réussir", "t": "Arrêt du glyphosate : le sujet qui divise les candidats à l'élection présidentielle 2022", "d": "2022-02-16", "u": "https://www.reussir.fr/arret-du-glyphosate-le-sujet-qui-divise-les-candidats-lelection-presidentielle-2022" },
+    "lcp-securite": { "e": "LCP", "t": "Présidentielle : des philosophies très différentes en matière de sécurité et de justice", "d": "2022-03-22", "u": "https://lcp.fr/actualites/presidentielle-des-philosophies-tres-differentes-en-matiere-de-securite-et-de-justice" },
+    "im-pecresse-prisons": { "e": "Institut Montaigne", "t": "Ouvrir 20 000 places de prison supplémentaires et rénover les prisons déjà bâties", "d": null, "u": "https://www.institutmontaigne.org/presidentielle-2022/valerie-pecresse/ouvrir-20-000-places-de-prison-supplementaires-et-renover-les-prisons-deja-baties" },
+    "futura-cannabis": { "e": "Futura", "t": "Présidentielle 2022 : la légalisation du cannabis favorise-t-elle la consommation chez les jeunes ?", "d": "2022-04-25", "u": "https://www.futura-sciences.com/sante/actualites/cannabis-legalisation-cannabis-peut-elle-favoriser-consommation-chez-jeunes-97788/" },
+    "im-pecresse-cannabis": { "e": "Institut Montaigne", "t": "Maintenir l'interdiction de vendre et de consommer du cannabis", "d": "2022-02-14", "u": "https://www.institutmontaigne.org/presidentielle-2022/valerie-pecresse/maintenir-linterdiction-de-vendre-et-de-consommer-du-cannabis" },
+    "ps-immigration": { "e": "Public Sénat", "t": "Présidentielle : que proposent les candidats sur l'immigration ?", "d": "2022-04-01", "u": "https://www.publicsenat.fr/actualites/politique/presidentielle-que-proposent-les-candidats-sur-l-immigration-201088" },
+    "im-pecresse-droit-du-sol": { "e": "Institut Montaigne", "t": "Cesser le droit du sol automatique", "d": null, "u": "https://www.institutmontaigne.org/presidentielle-2022/valerie-pecresse/cesser-le-droit-du-sol-automatique" },
+    "thelocal-etrangers": { "e": "The Local France", "t": "French election: What are the candidates' policies for foreigners in France?", "d": "2022-03-24", "u": "https://www.thelocal.fr/20220324/french-elections-what-are-the-candidates-policies-for-foreigners-in-france" },
+    "lcp-immigration": { "e": "LCP", "t": "Présidentielle : l'immigration, figure imposée, mais pas thème central de la campagne", "d": "2022-03-28", "u": "https://lcp.fr/actualites/presidentielle-l-immigration-figure-imposee-mais-pas-theme-central-de-la-campagne-107256" },
+    "im-immigration": { "e": "Institut Montaigne", "t": "Présidentielle 2022 : les propositions des candidats sur l'immigration", "d": null, "u": "https://www.institutmontaigne.org/presidentielle-2022/immigration" },
+    "ps-otan": { "e": "Public Sénat", "t": "Otan : les propositions des candidats à la présidentielle", "d": "2022-03-25", "u": "https://www.publicsenat.fr/actualites/politique/otan-les-propositions-des-candidats-a-la-presidentielle-200136" },
+    "terra-nova-europe": { "e": "Terra Nova, La Grande Conversation", "t": "French Presidential candidates and « Europe »: real convergence or optical illusion?", "d": "2022-04", "u": "https://www.lagrandeconversation.com/en/politics/french-presidential-candidates-and-europe-real-convergence-or-optical-illusion/" },
+    "lcp-institutions": { "e": "LCP", "t": "Présidentielle : dix idées en débat pour renouveler les institutions", "d": "2022-04-01", "u": "https://lcp.fr/actualites/presidentielle-dix-idees-en-debat-pour-renouveler-les-institutions-107987" },
+    "maddyness-medef": { "e": "Maddyness", "t": "Présidentielle : les 5 mesures économiques phares des candidats invités par le Medef", "d": "2022-02-22", "u": "https://www.maddyness.com/2022/02/22/presidentielle-mesures-economiques-candidats-medef/" },
+    "im-macron-cvae": { "e": "Institut Montaigne", "t": "Supprimer la CVAE", "d": null, "u": "https://www.institutmontaigne.org/presidentielle-2022/emmanuel-macron/supprimer-la-cvae/" },
+    "lesvoitures-autoroutes": { "e": "Lesvoitures.fr", "t": "Autoroutes : la France et le syndrome de la nationalisation", "d": "2022-02-03", "u": "https://lesvoitures.fr/nationalisation-autoroutes-presidentielle-2022/" },
+    "siecle-digital": { "e": "Siècle Digital", "t": "Quelle place pour le numérique dans le programme des candidats à la présidentielle ?", "d": "2022-03-22", "u": "https://siecledigital.fr/2022/03/22/quelle-place-pour-le-numerique-dans-le-programme-des-candidats-a-la-presidentielle/" },
+    "ps-culture": { "e": "Public Sénat", "t": "Culture : que proposent les candidats à la présidentielle ?", "d": "2022-04-06", "u": "https://www.publicsenat.fr/actualites/politique/culture-que-proposent-les-candidats-a-la-presidentielle-201583" },
+    "ifrap-audiovisuel": { "e": "Fondation iFRAP", "t": "Présidentielle : suppression de la redevance et privatisation de chaînes publiques ou redevance universelle ?", "d": "2022-03-09", "u": "https://www.ifrap.org/etat-et-collectivites/presidentielle-suppression-de-la-redevance-et-privatisation-de-chaines-publiques-ou-redevance-universelle" },
+    "im-melenchon-culture": { "e": "Institut Montaigne", "t": "Porter le budget consacré à l'art, à la culture et à la création à 1 % du PIB par an", "d": null, "u": "https://www.institutmontaigne.org/presidentielle-2022/jean-luc-melenchon/porter-le-budget-consacre-a-lart-a-la-culture-et-a-la-creation-a-1-du-pib-par-an" }
+  },
+  "questions": [
+    {
+      "id": "smic-1400", "th": 1, "court": true,
+      "q": "Porter le SMIC à au moins 1 400 € net par mois.",
+      "pos": {
+        "arthaud": { "e": 2, "x": "SMIC à 2 000 € net", "src": "lfpt-smic" },
+        "roussel": { "e": 2, "x": "SMIC à 1 500 € net", "src": "lfpt-smic" },
+        "macron": { "na": true, "x": "Pas de proposition sur le montant du SMIC selon la source", "src": "lfpt-smic" },
+        "lassalle": { "e": 2, "x": "SMIC à 1 400 € net", "src": "lfpt-smic" },
+        "le-pen": { "e": -1, "x": "Ne pas augmenter directement le SMIC, alléger les prélèvements sur les bas salaires", "src": "lfpt-smic" },
+        "zemmour": { "e": -1, "x": "Ne pas augmenter directement le SMIC, alléger les prélèvements sur les bas salaires", "src": "lfpt-smic" },
+        "melenchon": { "e": 2, "x": "SMIC à 1 400 € net", "src": "lfpt-smic" },
+        "hidalgo": { "e": 2, "x": "Hausse du SMIC, à environ 1 450 € net", "src": "lfpt-smic" },
+        "jadot": { "e": 2, "x": "SMIC à 1 500 € net", "src": "lfpt-smic" },
+        "pecresse": { "na": true, "x": "Pas de proposition sur le montant du SMIC selon la source", "src": "lfpt-smic" },
+        "poutou": { "e": 2, "x": "SMIC à 1 800 € net", "src": "lfpt-smic" },
+        "dupont-aignan": { "e": -1, "x": "Ne pas augmenter directement le SMIC, alléger les prélèvements sur les bas salaires", "src": "lfpt-smic" }
+      }
+    },
+    {
+      "id": "impot-fortune", "th": 2, "court": true,
+      "q": "Rétablir un impôt sur la fortune, sous la forme de l'ISF ou d'un impôt équivalent.",
+      "pos": {
+        "arthaud": { "e": 2, "x": "Exproprier les grandes fortunes", "src": "moneyvox-isf" },
+        "roussel": { "e": 2, "x": "Rétablir l'ISF et en tripler le montant", "src": "moneyvox-isf" },
+        "lassalle": { "e": 2, "x": "Rétablir l'ISF tel qu'il existait avant 2018", "src": "moneyvox-isf" },
+        "le-pen": { "e": 1, "x": "Créer un impôt sur la fortune financière, hors résidence principale", "src": "moneyvox-isf" },
+        "zemmour": { "e": -2, "x": "Ne pas rétablir l'ISF, exonérer la résidence principale de l'IFI", "src": "moneyvox-isf" },
+        "melenchon": { "e": 2, "x": "Rétablir un ISF renforcé", "src": "moneyvox-isf" },
+        "hidalgo": { "e": 2, "x": "Créer un ISF climat et biodiversité", "src": "moneyvox-isf" },
+        "jadot": { "e": 2, "x": "Remplacer l'IFI par un impôt sur l'ensemble du patrimoine au-delà de 2 millions d'euros", "src": "moneyvox-isf" },
+        "pecresse": { "e": -2, "x": "Ne pas rétablir l'ISF, exonérer la moitié de la résidence principale de l'IFI", "src": "moneyvox-isf" },
+        "poutou": { "e": 2, "x": "Rétablir un impôt sur la fortune fortement progressif", "src": "moneyvox-isf" },
+        "dupont-aignan": { "e": 1, "x": "Imposer les très gros patrimoines, hors résidence principale et investissements dans les PME", "src": "moneyvox-isf" }
+      }
+    },
+    {
+      "id": "retraite-60", "th": 3, "court": true,
+      "q": "Ramener l'âge légal de départ à la retraite de 62 à 60 ans.",
+      "pos": {
+        "arthaud": { "e": 2, "x": "60 ans", "src": "lfpt-retraites" },
+        "roussel": { "e": 2, "x": "60 ans", "src": "lfpt-retraites" },
+        "macron": { "e": -2, "x": "65 ans, atteints progressivement d'ici 2032", "src": "lfpt-retraites" },
+        "lassalle": { "e": -1, "x": "Maintenir 62 ans", "src": "lfpt-retraites" },
+        "le-pen": { "e": 1, "x": "60 ans ou 62 ans selon l'âge d'entrée dans la vie active", "src": "lfpt-retraites" },
+        "zemmour": { "e": -2, "x": "64 ans d'ici 2030", "src": "lfpt-retraites" },
+        "melenchon": { "e": 2, "x": "60 ans", "src": "lfpt-retraites" },
+        "hidalgo": { "e": -1, "x": "Maintenir 62 ans", "src": "lfpt-retraites" },
+        "jadot": { "e": -1, "x": "Maintenir 62 ans", "src": "lfpt-retraites" },
+        "pecresse": { "e": -2, "x": "65 ans d'ici 2030", "src": "lfpt-retraites" },
+        "poutou": { "e": 2, "x": "60 ans, 55 ans pour les travaux pénibles", "src": "lfpt-retraites" },
+        "dupont-aignan": { "e": -1, "x": "Maintenir 62 ans", "src": "lfpt-retraites" }
+      }
+    },
+    {
+      "id": "semaine-32h", "th": 3,
+      "q": "Réduire la durée légale du travail à 32 heures par semaine.",
+      "pos": {
+        "arthaud": { "e": 1, "x": "Baisser le temps de travail hebdomadaire, sans durée chiffrée", "src": "ps-emploi" },
+        "roussel": { "e": 2, "x": "Instaurer la semaine de 32 heures", "src": "ps-emploi" },
+        "melenchon": { "e": 1, "x": "Garder 35 heures, passer à 32 heures dans les métiers pénibles ou de nuit", "src": "ps-emploi" },
+        "hidalgo": { "e": 0, "x": "Encourager la réduction du temps de travail sans modifier la durée légale", "src": "ps-emploi" },
+        "jadot": { "e": 1, "x": "Favorable à une réduction du temps de travail, renvoyée à la négociation", "src": "ps-emploi" },
+        "pecresse": { "e": -2, "x": "Mettre fin aux 35 heures, durée négociée par branche", "src": "ps-emploi" },
+        "poutou": { "e": 2, "x": "Semaine de quatre jours à 32 heures, puis 28 heures", "src": "ps-emploi" }
+      }
+    },
+    {
+      "id": "installation-medecins", "th": 4, "court": true,
+      "q": "Réguler l'installation des médecins pour qu'ils exercent dans les zones qui en manquent.",
+      "pos": {
+        "arthaud": { "e": 2, "x": "Conventionnement sélectif, installations selon les besoins de la population", "src": "lcp-sante" },
+        "roussel": { "e": 2, "x": "Conventionnement sélectif dans les zones denses", "src": "lcp-sante" },
+        "macron": { "e": -1, "x": "Incitations : stages d'internes dans les villes moyennes et à la campagne", "src": "lcp-sante" },
+        "le-pen": { "e": -1, "x": "Incitations financières modulées selon le lieu d'installation", "src": "lcp-sante" },
+        "hidalgo": { "e": 1, "x": "Une année de médecin-assistant en zone sous-dotée en fin d'internat", "src": "lcp-sante" },
+        "jadot": { "e": 2, "x": "Exercice en zone sous-dotée en fin d'internat et les deux premières années, conventionnement sélectif", "src": "lcp-sante" },
+        "pecresse": { "e": 1, "x": "Une année de docteur junior dans les zones qui manquent de médecins", "src": "lcp-sante" },
+        "dupont-aignan": { "e": -1, "x": "Bourses pour les étudiants qui s'engagent à exercer cinq ans en zone sous-dotée", "src": "lcp-sante" }
+      }
+    },
+    {
+      "id": "aide-a-mourir", "th": 4,
+      "q": "Légaliser l'aide active à mourir (euthanasie ou suicide assisté).",
+      "pos": {
+        "macron": { "e": 0, "x": "Confier la question à une convention citoyenne, sans position arrêtée", "src": "ps-findevie" },
+        "le-pen": { "e": -2, "x": "Opposée à une évolution du cadre légal, priorité aux soins palliatifs", "src": "ps-findevie" },
+        "melenchon": { "e": 2, "x": "Favorable à la légalisation", "src": "ps-findevie" },
+        "hidalgo": { "e": 2, "x": "Favorable à la légalisation", "src": "ps-findevie" },
+        "jadot": { "e": 2, "x": "Favorable à la légalisation", "src": "ps-findevie" },
+        "pecresse": { "e": -1, "x": "Réticences sur le suicide assisté", "src": "ps-findevie" }
+      }
+    },
+    {
+      "id": "salaire-enseignants", "th": 5, "court": true,
+      "q": "Augmenter le salaire de tous les enseignants, sans le lier à de nouvelles missions.",
+      "pos": {
+        "roussel": { "e": 2, "x": "Hausse de 30 %", "src": "europe1-education" },
+        "macron": { "e": -1, "x": "Hausse conditionnée à de nouvelles missions", "src": "europe1-education" },
+        "lassalle": { "e": 2, "x": "Revalorisation des salaires, de 1 500 à 2 400 euros", "src": "europe1-education" },
+        "le-pen": { "e": 2, "x": "Revalorisation annuelle des salaires", "src": "europe1-education" },
+        "hidalgo": { "e": 2, "x": "Revaloriser les salaires des enseignants", "src": "europe1-education" },
+        "jadot": { "e": 2, "x": "Hausse de 20 %", "src": "europe1-education" }
+      }
+    },
+    {
+      "id": "parcoursup", "th": 5,
+      "q": "Supprimer Parcoursup.",
+      "pos": {
+        "roussel": { "e": 2, "x": "Supprimer Parcoursup", "src": "diplomeo-sup" },
+        "melenchon": { "e": 2, "x": "Abroger Parcoursup", "src": "europe1-education" },
+        "hidalgo": { "e": 2, "x": "Supprimer la plateforme Parcoursup", "src": "europe1-education" },
+        "jadot": { "e": 2, "x": "Remplacer Parcoursup par un système transparent", "src": "im-jadot-parcoursup" }
+      }
+    },
+    {
+      "id": "nouveaux-reacteurs", "th": 6, "court": true,
+      "q": "Construire de nouveaux réacteurs nucléaires.",
+      "pos": {
+        "arthaud": { "e": 0, "x": "Position nuancée, sans engagement sur de nouveaux réacteurs", "src": "futura-nucleaire" },
+        "roussel": { "e": 2, "x": "Au moins six EPR", "src": "futura-nucleaire" },
+        "macron": { "e": 2, "x": "Six EPR2, et des études pour huit de plus", "src": "futura-nucleaire" },
+        "lassalle": { "e": 2, "x": "Réacteurs de quatrième génération", "src": "futura-nucleaire" },
+        "le-pen": { "e": 2, "x": "Construire de nouveaux réacteurs", "src": "futura-nucleaire" },
+        "zemmour": { "e": 2, "x": "Quatorze EPR2", "src": "futura-nucleaire" },
+        "melenchon": { "e": -2, "x": "Sortir du nucléaire", "src": "futura-nucleaire" },
+        "hidalgo": { "e": -2, "x": "Pas de nouveaux réacteurs", "src": "futura-nucleaire" },
+        "jadot": { "e": -2, "x": "Sortir du nucléaire", "src": "futura-nucleaire" },
+        "pecresse": { "e": 2, "x": "Construire de nouveaux réacteurs", "src": "futura-nucleaire" },
+        "poutou": { "e": -2, "x": "Sortir du nucléaire", "src": "futura-nucleaire" },
+        "dupont-aignan": { "e": 1, "x": "Maintenir au moins 70 % d'électricité d'origine nucléaire", "src": "futura-nucleaire" }
+      }
+    },
+    {
+      "id": "stop-eolien", "th": 6,
+      "q": "Arrêter les nouveaux projets d'éoliennes.",
+      "pos": {
+        "macron": { "e": -2, "x": "Doubler le parc éolien terrestre d'ici 2050", "src": "reporterre-energie" },
+        "lassalle": { "e": 2, "x": "Stopper l'éolien", "src": "outside-environnement" },
+        "le-pen": { "e": 2, "x": "Geler les projets et démanteler les parcs en fin de vie", "src": "reporterre-energie" },
+        "zemmour": { "e": 2, "x": "Contre tout nouveau projet d'éoliennes", "src": "lcp-energie" },
+        "melenchon": { "e": -2, "x": "Doubler le parc éolien terrestre d'ici 2050", "src": "reporterre-energie" },
+        "jadot": { "e": -2, "x": "3 000 mâts supplémentaires d'ici la fin du quinquennat", "src": "reporterre-energie" },
+        "pecresse": { "e": 0, "x": "Conditionner les projets à l'accord des habitants", "src": "lcp-energie" },
+        "dupont-aignan": { "e": 2, "x": "Ne plus implanter d'éoliennes", "src": "outside-environnement" }
+      }
+    },
+    {
+      "id": "glyphosate", "th": 7, "court": true,
+      "q": "Interdire le glyphosate au cours du quinquennat.",
+      "pos": {
+        "roussel": { "e": 1, "x": "Sortir du glyphosate, puis à terme des pesticides (représentant du candidat)", "src": "reussir-glyphosate" },
+        "macron": { "e": -1, "x": "Pas d'interdiction nationale au-delà des règles européennes (représentant du candidat)", "src": "reussir-glyphosate" },
+        "le-pen": { "e": -2, "x": "Ne plus interdire de produits phytosanitaires", "src": "outside-environnement" },
+        "zemmour": { "e": -1, "x": "Pas d'interdiction sans solution de remplacement (représentant du candidat)", "src": "reussir-glyphosate" },
+        "melenchon": { "e": 2, "x": "Arrêter le glyphosate tout de suite (représentant du candidat)", "src": "reussir-glyphosate" },
+        "hidalgo": { "e": 2, "x": "S'affranchir du glyphosate le plus vite possible (représentant de la candidate)", "src": "reussir-glyphosate" },
+        "jadot": { "e": 2, "x": "Interdire le glyphosate et les néonicotinoïdes", "src": "outside-environnement" },
+        "pecresse": { "e": -2, "x": "Refuser une stratégie sans pesticides", "src": "outside-environnement" },
+        "dupont-aignan": { "e": 0, "x": "Réduire le glyphosate, sans calendrier (représentant du candidat)", "src": "reussir-glyphosate" }
+      }
+    },
+    {
+      "id": "elevage-intensif", "th": 7,
+      "q": "Interdire les fermes-usines et sortir de l'élevage intensif.",
+      "pos": {
+        "arthaud": { "e": 2, "x": "Combattre l'élevage et l'abattage intensifs", "src": "outside-environnement" },
+        "roussel": { "e": 1, "x": "Empêcher le développement des élevages industriels", "src": "outside-environnement" },
+        "melenchon": { "e": 2, "x": "Interdire les fermes-usines d'élevage intensif", "src": "outside-environnement" },
+        "jadot": { "e": 2, "x": "Sortir de l'élevage industriel", "src": "outside-environnement" },
+        "poutou": { "e": 2, "x": "En finir avec l'élevage industriel", "src": "outside-environnement" }
+      }
+    },
+    {
+      "id": "places-prison", "th": 8, "court": true,
+      "q": "Construire au moins 10 000 places de prison supplémentaires.",
+      "pos": {
+        "macron": { "e": 2, "x": "15 000 places supplémentaires d'ici 2027", "src": "lcp-securite" },
+        "le-pen": { "e": 2, "x": "85 000 places en 2027", "src": "lcp-securite" },
+        "zemmour": { "e": 2, "x": "10 000 places supplémentaires", "src": "lcp-securite" },
+        "melenchon": { "e": -2, "x": "Opposé au « tout carcéral », pas d'extension du parc", "src": "lcp-securite" },
+        "hidalgo": { "e": -1, "x": "Opposée au « tout carcéral »", "src": "lcp-securite" },
+        "jadot": { "e": -1, "x": "Opposé au « tout carcéral »", "src": "lcp-securite" },
+        "pecresse": { "e": 2, "x": "20 000 places supplémentaires et rénovation des prisons existantes", "src": "im-pecresse-prisons" }
+      }
+    },
+    {
+      "id": "cannabis", "th": 8,
+      "q": "Légaliser le cannabis récréatif.",
+      "pos": {
+        "lassalle": { "e": 2, "x": "Légaliser en encadrant strictement la vente", "src": "futura-cannabis" },
+        "melenchon": { "e": 2, "x": "Légaliser, avec un monopole d'État sur la production et la vente", "src": "futura-cannabis" },
+        "hidalgo": { "e": 0, "x": "Organiser une conférence de consensus sur la légalisation", "src": "futura-cannabis" },
+        "jadot": { "e": 2, "x": "Légaliser, production et vente encadrées par l'État", "src": "futura-cannabis" },
+        "pecresse": { "e": -2, "x": "Maintenir l'interdiction de vendre et de consommer du cannabis", "src": "im-pecresse-cannabis" },
+        "poutou": { "e": 2, "x": "Légaliser le cannabis et dépénaliser l'usage des drogues", "src": "futura-cannabis" }
+      }
+    },
+    {
+      "id": "droit-du-sol", "th": 9, "court": true,
+      "q": "Supprimer le droit du sol.",
+      "pos": {
+        "le-pen": { "e": 2, "x": "Supprimer le droit du sol", "src": "ps-immigration" },
+        "zemmour": { "e": 2, "x": "Supprimer le droit du sol", "src": "ps-immigration" },
+        "melenchon": { "e": -2, "x": "Garantir le droit du sol", "src": "thelocal-etrangers" },
+        "pecresse": { "e": 1, "x": "Mettre fin au droit du sol automatique", "src": "im-pecresse-droit-du-sol" },
+        "dupont-aignan": { "e": 2, "x": "Supprimer le droit du sol", "src": "ps-immigration" }
+      }
+    },
+    {
+      "id": "regularisation", "th": 9,
+      "q": "Régulariser les travailleurs sans papiers.",
+      "pos": {
+        "le-pen": { "e": -2, "x": "Interdire la régularisation des étrangers en situation irrégulière", "src": "im-immigration" },
+        "zemmour": { "e": -2, "x": "Interdire la régularisation des personnes entrées illégalement", "src": "im-immigration" },
+        "melenchon": { "e": 2, "x": "Régulariser automatiquement les travailleurs sans papiers", "src": "lcp-immigration" },
+        "jadot": { "e": 1, "x": "Régulariser automatiquement certaines personnes en situation irrégulière", "src": "lcp-immigration" }
+      }
+    },
+    {
+      "id": "otan", "th": 10, "court": true,
+      "q": "Quitter le commandement intégré de l'OTAN.",
+      "pos": {
+        "roussel": { "e": 0, "x": "Pas dans l'immédiat", "src": "ps-otan" },
+        "macron": { "e": -2, "x": "Rester dans le commandement intégré", "src": "ps-otan" },
+        "lassalle": { "e": 2, "x": "Quitter le commandement intégré", "src": "ps-otan" },
+        "le-pen": { "e": 2, "x": "Quitter le commandement intégré, après la fin de la guerre en Ukraine", "src": "ps-otan" },
+        "zemmour": { "e": 2, "x": "Quitter le commandement intégré", "src": "ps-otan" },
+        "melenchon": { "e": 2, "x": "Quitter l'OTAN", "src": "ps-otan" },
+        "jadot": { "e": -2, "x": "Rester dans le commandement intégré", "src": "ps-otan" },
+        "pecresse": { "e": -2, "x": "Rester dans le commandement intégré", "src": "ps-otan" },
+        "poutou": { "e": 2, "x": "Quitter l'OTAN", "src": "ps-otan" },
+        "dupont-aignan": { "e": 2, "x": "Quitter le commandement intégré", "src": "ps-otan" }
+      }
+    },
+    {
+      "id": "primaute-droit-national", "th": 10,
+      "q": "Faire primer le droit français sur le droit européen.",
+      "pos": {
+        "macron": { "e": -2, "x": "Ne remet pas en cause la primauté du droit européen", "src": "terra-nova-europe" },
+        "le-pen": { "e": 2, "x": "Affirmer la primauté du droit constitutionnel français sur le droit européen", "src": "terra-nova-europe" },
+        "zemmour": { "e": 2, "x": "Faire prévaloir le droit français sur le droit européen", "src": "terra-nova-europe" },
+        "melenchon": { "e": 1, "x": "N'appliquer que les règles européennes compatibles avec son programme", "src": "terra-nova-europe" },
+        "hidalgo": { "e": -2, "x": "Ne remet pas en cause la primauté du droit européen", "src": "terra-nova-europe" },
+        "jadot": { "e": -2, "x": "Ne remet pas en cause la primauté du droit européen", "src": "terra-nova-europe" },
+        "pecresse": { "e": 1, "x": "Remettre en cause la primauté du droit européen en matière d'immigration", "src": "terra-nova-europe" }
+      }
+    },
+    {
+      "id": "proportionnelle", "th": 11, "court": true,
+      "q": "Élire les députés à la proportionnelle.",
+      "pos": {
+        "arthaud": { "e": 2, "x": "Proportionnelle intégrale", "src": "lcp-institutions" },
+        "roussel": { "e": 2, "x": "Proportionnelle intégrale", "src": "lcp-institutions" },
+        "macron": { "e": 1, "x": "Favorable à titre personnel, mesure absente de son programme", "src": "lcp-institutions" },
+        "lassalle": { "e": -2, "x": "Conserver le mode de scrutin actuel", "src": "lcp-institutions" },
+        "le-pen": { "e": 2, "x": "Proportionnelle intégrale", "src": "lcp-institutions" },
+        "zemmour": { "e": -2, "x": "Conserver le mode de scrutin actuel", "src": "lcp-institutions" },
+        "melenchon": { "e": 2, "x": "Proportionnelle intégrale", "src": "lcp-institutions" },
+        "hidalgo": { "e": 1, "x": "Une dose de proportionnelle", "src": "lcp-institutions" },
+        "jadot": { "e": 2, "x": "Proportionnelle intégrale", "src": "lcp-institutions" },
+        "pecresse": { "e": -2, "x": "Conserver le mode de scrutin actuel", "src": "lcp-institutions" },
+        "poutou": { "e": 2, "x": "Proportionnelle intégrale", "src": "lcp-institutions" },
+        "dupont-aignan": { "e": 1, "x": "Une dose de proportionnelle", "src": "lcp-institutions" }
+      }
+    },
+    {
+      "id": "impots-production", "th": 12, "court": true,
+      "q": "Baisser à nouveau les impôts de production des entreprises.",
+      "pos": {
+        "macron": { "e": 2, "x": "Supprimer la CVAE", "src": "im-macron-cvae" },
+        "le-pen": { "e": 1, "x": "Baisse non chiffrée, en commençant par la CFE", "src": "maddyness-medef" },
+        "zemmour": { "e": 2, "x": "Baisse de 30 milliards d'euros", "src": "maddyness-medef" },
+        "hidalgo": { "e": 0, "x": "Ne pas revenir sur la baisse déjà votée", "src": "maddyness-medef" },
+        "jadot": { "e": -2, "x": "Rétablir les impôts de production", "src": "maddyness-medef" },
+        "pecresse": { "e": 2, "x": "Baisse de 10 milliards d'euros, en commençant par la C3S", "src": "maddyness-medef" }
+      }
+    },
+    {
+      "id": "autoroutes", "th": 13, "court": true,
+      "q": "Renationaliser les autoroutes.",
+      "pos": {
+        "roussel": { "e": 2, "x": "Renationaliser les autoroutes", "src": "lesvoitures-autoroutes" },
+        "le-pen": { "e": 2, "x": "Nationaliser les autoroutes pour baisser les péages de 10 à 15 %", "src": "lesvoitures-autoroutes" },
+        "melenchon": { "e": 1, "x": "Mettre fin aux péages, qualifiés de « vol organisé »", "src": "lesvoitures-autoroutes" }
+      }
+    },
+    {
+      "id": "taxe-numerique", "th": 14, "court": true,
+      "q": "Taxer davantage les grandes entreprises du numérique.",
+      "pos": {
+        "roussel": { "e": 2, "x": "Nouvelles taxes sur le secteur numérique", "src": "siecle-digital" },
+        "le-pen": { "e": 2, "x": "Nouvelles taxes sur le secteur numérique", "src": "siecle-digital" },
+        "hidalgo": { "e": 2, "x": "Nouvelles taxes sur le secteur numérique", "src": "siecle-digital" },
+        "jadot": { "e": 2, "x": "Nouvelles taxes sur le secteur numérique, loi de démantèlement des GAFAM", "src": "siecle-digital" },
+        "dupont-aignan": { "e": 2, "x": "Nouvelles taxes sur le secteur numérique", "src": "siecle-digital" }
+      }
+    },
+    {
+      "id": "redevance", "th": 15, "court": true,
+      "q": "Supprimer la redevance audiovisuelle.",
+      "pos": {
+        "roussel": { "e": -2, "x": "Défendre une télévision et une radio publiques, opposé à la suppression", "src": "ifrap-audiovisuel" },
+        "macron": { "e": 2, "x": "Supprimer la redevance", "src": "ps-culture" },
+        "le-pen": { "e": 2, "x": "Supprimer la redevance", "src": "ps-culture" },
+        "zemmour": { "e": 2, "x": "Supprimer la redevance", "src": "ifrap-audiovisuel" },
+        "hidalgo": { "e": -2, "x": "Conforter la contribution à l'audiovisuel public", "src": "ps-culture" }
+      }
+    },
+    {
+      "id": "privatisation-audiovisuel", "th": 15,
+      "q": "Privatiser une partie de l'audiovisuel public.",
+      "pos": {
+        "le-pen": { "e": 2, "x": "Privatiser les chaînes publiques, hors Arte et outre-mer", "src": "ps-culture" },
+        "zemmour": { "e": 2, "x": "Privatiser les chaînes généralistes et d'information du service public", "src": "ps-culture" },
+        "hidalgo": { "e": -2, "x": "Défendre le service public, opposée à la privatisation", "src": "ifrap-audiovisuel" },
+        "pecresse": { "e": 0, "x": "Sujet « pas tabou », sans proposition", "src": "ifrap-audiovisuel" }
+      }
+    },
+    {
+      "id": "budget-culture", "th": 15,
+      "q": "Augmenter fortement le budget public de la culture.",
+      "pos": {
+        "roussel": { "e": 2, "x": "Ministère de la Culture doté de 1 % du PIB", "src": "ps-culture" },
+        "le-pen": { "e": 1, "x": "Un milliard d'euros par an pour le patrimoine", "src": "ps-culture" },
+        "zemmour": { "e": 1, "x": "Deux milliards d'euros sur cinq ans pour le patrimoine", "src": "ps-culture" },
+        "melenchon": { "e": 2, "x": "Porter le budget de l'art, de la culture et de la création à 1 % du PIB", "src": "im-melenchon-culture" },
+        "jadot": { "e": 2, "x": "Un milliard d'euros supplémentaires par an", "src": "ps-culture" },
+        "pecresse": { "e": 1, "x": "Éducation artistique de 100 à 300 millions d'euros par an, 2,5 milliards sur cinq ans pour le patrimoine", "src": "ps-culture" },
+        "dupont-aignan": { "e": 2, "x": "1 % du budget de l'État pour l'action culturelle", "src": "ps-culture" }
+      }
+    }
+  ]
+}

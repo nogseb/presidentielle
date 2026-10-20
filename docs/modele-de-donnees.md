@@ -75,6 +75,21 @@ MySQL est la source de vérité. Le site public ne lit jamais la base : il lit `
 | `debats` | `echelle` (5 crans, libellés) et `liste[]` : `id`, `th` thème, `q` mesure, `c` nom court, `ctx`, `ctxSrc`, `chiffre` (`v`, `l`, `src`), `var`, `shift`, `pour[]` et `contre[]` (`t`, `qui`, `src`), `pos` par candidat (`e` cran, `cit`, `src`, ou `na`) |
 | `shift` | `nom`, `qui`, `demande`, `finance`, `financeSrc`, `hatvp`, `dispositifs`, `chantiers`, `etats`, `src` |
 
+## Contrat JSON du quiz (`data/quiz-2022.json`, version 1)
+
+Fichier versionné dans le dépôt, hors base, contrôlé par `outils/quiz/verifier.mjs` à chaque push. Chargé par la page à la première ouverture de l'onglet Quiz ; les réponses des visiteurs ne quittent pas leur navigateur.
+
+| Clé | Contenu |
+| --- | --- |
+| `version`, `edition`, `titre`, `maj`, `presentation` | identification de l'édition (2022 : candidats du premier tour de 2022) |
+| `echelle` | 5 crans de −2 à 2 : `rep` libellé de réponse du visiteur, `pos` libellé de la position d'un candidat |
+| `importance` | `k`, `l` libellé, `w` poids (0,5 ; 1 ; 2) |
+| `candidats` | `id`, `p` prénom, `n` nom, `parti`, dans l'ordre officiel du premier tour |
+| `sources` | par clé : `e` éditeur, `t` titre exact, `d` date (AAAA-MM-JJ ou AAAA-MM), `u` URL |
+| `questions[]` | `id`, `th` thème (1 à 15), `q` affirmation à l'infinitif, `court` (une par thème, version courte), `pos` par candidat : `e` cran, `x` position relevée, `src` clé de source ; ou `na: true` (absence de proposition constatée par la source) |
+
+Contrôles : une affirmation au moins par thème, exactement une en version courte par thème, trois positions documentées au moins par affirmation, toute position sourcée, aucune source inutilisée.
+
 Les portraits ne passent pas par la base : `public/photos/<id>.webp` et `public/photos/credits.json` (auteur, licence, page Commons) sont produits par le workflow « Photos des candidats » à partir de `outils/photos/candidats.json`.
 
 Toute évolution incompatible du contrat incrémente `meta.version` ; `public/assets/app.js` et `outils/demo.mjs` sont à mettre à jour dans le même commit.

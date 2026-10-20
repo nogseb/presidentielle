@@ -1,6 +1,6 @@
 # Repères 2027
 
-Veille sobre et sourcée de l'élection présidentielle française de 2027 : l'actualité de la semaine en cinq faits, les candidatures, les positions comparées sur 15 thèmes communs, des débats pour et contre et une lecture des programmes au regard des propositions de The Shift Project.
+Veille sobre et sourcée de l'élection présidentielle française de 2027 : l'actualité de la semaine en cinq faits, les candidatures, les positions comparées sur 15 thèmes communs, des débats pour et contre, un quiz de proximité et une lecture des programmes au regard des propositions de The Shift Project.
 
 En ligne : https://nogues.app/presidentielle/ · données fictives de démonstration : https://nogues.app/presidentielle/?demo=1
 
@@ -14,6 +14,7 @@ phpMyAdmin (saisie)  →  MySQL OVHcloud  →  api/publier.php  →  data/site.j
 - La base n'est jamais interrogée par les visiteurs : le site est une page statique qui lit un JSON. Rapide, sans risque d'injection, et consultable même si la base est indisponible.
 - Rien n'est publié sans validation ni source. L'export écarte les lignes non conformes et le signale.
 - GitHub ne se connecte jamais à la base : le déploiement dépose la configuration sur le serveur, hors du dossier public, puis demande au serveur de régénérer les données.
+- Le quiz fait exception pour sa première édition : ses affirmations et les positions des candidats de 2022 sont dans `public/data/quiz-2022.json`, versionné dans le dépôt. Les réponses des visiteurs restent dans leur navigateur.
 
 ## Arborescence
 
@@ -22,7 +23,7 @@ phpMyAdmin (saisie)  →  MySQL OVHcloud  →  api/publier.php  →  data/site.j
 | `public/` | le site : `index.html`, `assets/`, `data/`, `api/publier.php` | `www/presidentielle` |
 | `app/` | code privé : connexion à la base, export, configuration | `presidentielle-app`, hors de `www` |
 | `database/` | schéma MySQL, données de référence, actualité au 17 octobre 2026 | à importer dans phpMyAdmin |
-| `outils/` | générateur des données de démonstration | non déployé |
+| `outils/` | générateur des données de démonstration, contrôle du quiz (`outils/quiz/verifier.mjs`), photos | non déployé |
 | `docs/` | installation, saisie, modèle de données | non déployé |
 | `.github/workflows/` | déploiement, publication des données, contrôle | GitHub Actions |
 
@@ -30,7 +31,7 @@ phpMyAdmin (saisie)  →  MySQL OVHcloud  →  api/publier.php  →  data/site.j
 
 | Workflow | Déclenchement | Rôle |
 | --- | --- | --- |
-| Contrôler | chaque push et pull request | syntaxe PHP et JS, import du schéma dans un MySQL 8.0 vierge, export et vérification de `site.json` |
+| Contrôler | chaque push et pull request | syntaxe PHP et JS, données du quiz, import du schéma dans un MySQL 8.0 vierge, export et vérification de `site.json` |
 | Publier Repères 2027 sur OVHcloud | push sur `main` touchant `public/` ou `app/`, ou manuel | envoi SFTP, écriture de la configuration privée, régénération des données |
 | Publier les données | manuel, et toutes les heures de 7 h à 23 h | régénère `site.json` après une saisie, sans redéployer le code |
 | Photos des candidats | modification de `outils/photos/candidats.json`, ou manuel | vignettes et crédits depuis Wikimedia Commons, puis redéploiement |

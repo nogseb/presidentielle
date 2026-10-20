@@ -155,6 +155,14 @@ WHERE debat_id = (SELECT id FROM debat WHERE slug = 'moratoire-centres-donnees')
 
 Une ligne dans `debat` (mesure à l'infinitif, contexte de deux phrases, un chiffre), puis trois lignes `pour` et trois lignes `contre` dans `debat_argument`, chacune avec son porteur et sa source. Voir `database/seed/040_debats_2026-10-18.sql` pour le modèle.
 
+### Faire évoluer le quiz
+
+Le quiz ne passe pas par phpMyAdmin : il lit `public/data/quiz-2022.json`, modifiable directement dans GitHub (crayon « Edit this file »). Le workflow Contrôler vérifie le fichier ; le déploiement le publie.
+
+- **Corriger une position** : modifier `e` (de −2 à 2), `x` (la position telle que la source la décrit) et `src` (clé d'une entrée de `sources`).
+- **Ajouter une affirmation** : un objet dans `questions`, avec un `id` unique, le thème `th`, l'affirmation à l'infinitif terminée par un point, et au moins trois positions sourcées. `court: true` est réservé à une seule affirmation par thème.
+- **Édition 2027** : à mesure que les programmes paraissent, créer `quiz-2027.json` sur le même modèle, avec les candidats ouverts au comparateur. Les affirmations peuvent reprendre les débats (`debat.proposition`) et les variables pivots, et les positions être tirées de `debat_position` : l'export pourra alors produire ce fichier depuis MySQL, comme `site.json`.
+
 ### Passer en phase 2 (liste officielle)
 
 ```sql

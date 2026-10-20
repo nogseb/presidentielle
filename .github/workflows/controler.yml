@@ -36,6 +36,9 @@ jobs:
           node --check public/assets/app.js
           node --check outils/demo.mjs
 
+      - name: Données du quiz
+        run: node outils/quiz/verifier.mjs public/data/quiz-2022.json
+
       - name: Importer le schéma et les données dans MySQL 8.0
         run: |
           set -e

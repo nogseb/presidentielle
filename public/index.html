@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Repères 2027</title>
-<meta name="description" content="La course à l'Élysée en lecture rapide : l'actualité de la semaine, les candidatures déclarées et les propositions comparées sur 15 thèmes, avec une source datée pour chaque information.">
+<meta name="description" content="La course à l'Élysée en lecture rapide : l'actualité de la semaine, les candidatures déclarées, les propositions comparées sur 15 thèmes, des débats et un quiz, avec une source datée pour chaque information.">
 <link rel="canonical" href="https://nogues.app/presidentielle/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Repères 2027">
@@ -30,6 +30,7 @@
       <a href="#candidats">Candidats</a>
       <a href="#themes">Thèmes</a>
       <a href="#debats">Débats</a>
+      <a href="#quiz">Quiz</a>
       <a href="#sondages">Sondages</a>
       <a href="#shift">The Shift Project</a>
       <a href="#calendrier">Calendrier</a>
@@ -66,6 +67,14 @@
     <div class="block">
       <div class="head-row"><h2>Thèmes à la une</h2><span class="small"><span class="pst-s" aria-hidden="true">S</span> sujet traité par The Shift Project</span></div>
       <div class="une" id="une"></div>
+    </div>
+    <div class="panel qz-home">
+      <div>
+        <p class="eyebrow" style="margin:0 0 6px">Quiz</p>
+        <h2>De quelles candidatures êtes-vous proche ?</h2>
+        <p class="small" style="margin-top:6px">15 ou 25 affirmations, un résultat par thème. Première édition avec les candidats de 2022 ; vos réponses restent dans votre navigateur.</p>
+      </div>
+      <a class="btn" href="#quiz">Faire le quiz</a>
     </div>
     <div class="block">
       <h2>Où en est la course</h2>
@@ -163,6 +172,30 @@
     </div>
   </section>
 
+  <section class="view" id="v-quiz" aria-labelledby="t-quiz" hidden>
+    <div>
+      <p class="eyebrow" id="qz-eyebrow">Quiz</p>
+      <h1 id="t-quiz">De quelles candidatures êtes-vous proche ?</h1>
+      <p class="lede">Donnez votre avis sur des mesures précises, thème par thème. Le quiz compare vos réponses aux positions documentées des candidats et montre, sur un radar, vos points d'accord avec chacun.</p>
+    </div>
+    <div class="notice" id="qz-erreur" hidden><b>Le quiz n'a pas pu être chargé.</b><span>Réessayez dans quelques instants. Les données sont consultables dans <a href="data/quiz-2022.json">data/quiz-2022.json</a>.</span></div>
+    <p class="loading" id="qz-chargement">Chargement du quiz…</p>
+    <div class="block" id="qz-accueil" hidden>
+      <div class="panel qz-edition">
+        <p class="eyebrow" style="margin:0" id="qz-ed-titre">Édition 2022</p>
+        <p id="qz-ed-texte"></p>
+      </div>
+      <ul class="rules">
+        <li><b>Rien n'est enregistré ni transmis</b> : le calcul se fait dans votre navigateur. Fermer ou recharger la page efface vos réponses.</li>
+        <li><b>Un repère, pas une consigne de vote</b> : le résultat dépend des affirmations retenues et des positions documentées. Chaque position renvoie à sa source.</li>
+        <li><b>Vous pouvez passer</b> une affirmation (« Sans avis ») et indiquer l'importance que vous accordez à chacune.</li>
+      </ul>
+      <div class="qz-start" id="qz-start"></div>
+    </div>
+    <div class="block" id="qz-question" hidden></div>
+    <div class="block" id="qz-resultats" hidden></div>
+  </section>
+
   <section class="view" id="v-sondages" aria-labelledby="t-sond" hidden>
     <div>
       <p class="eyebrow">Intentions de vote · premier tour</p>
@@ -252,13 +285,14 @@
       <ul class="rules">
         <li><b>Trois thèmes à la une</b> : environnement, climat et énergie ; transports et mobilités ; numérique, innovation technologique et IA. Ils ouvrent l'accueil et le comparateur.</li>
         <li><b>Débats pour et contre</b> : chaque débat porte sur une mesure précise. Il présente autant d'arguments pour que contre, de longueur comparable, chacun attribué à l'institution ou à l'organisation qui l'avance et renvoyant à sa source. Les candidats sont placés sur une échelle commune en cinq crans, d'après une citation sourcée.</li>
+        <li><b>Quiz</b> : chaque affirmation reprend une mesure débattue, formulée à l'infinitif. Votre réponse et la position de chaque candidat sont placées sur la même échelle en cinq crans ; l'accord vaut 100 % à cran égal et baisse de 25 points par cran d'écart, pondéré par l'importance choisie (×0,5, ×1 ou ×2). Le pourcentage ne porte que sur les affirmations où la position du candidat est documentée ; un candidat n'est classé qu'à partir de cinq affirmations comparables et d'un tiers de vos réponses. Le classement mesure la proximité avec vos réponses, pas la valeur des candidats. La première édition porte sur les douze candidats de 2022, d'après des comparatifs de presse et de think tanks ; l'édition 2027 suivra la publication des programmes.</li>
         <li><b>Portraits et biographies</b> : la photo est celle de l'article Wikipédia du candidat, sous licence libre sur Wikimedia Commons, créditée sur chaque fiche. La biographie tient en deux phrases au même gabarit pour tous (fonction actuelle, puis un ou deux jalons), sans appréciation, rédigée d'après une source citée et relue.</li>
         <li><b>Une grille de lecture The Shift Project</b> : une section dédiée et une pastille « S » sur les sujets qui recoupent son Plan robuste. Les correspondances restent factuelles, sourcées et identiques pour tous les candidats.</li>
       </ul>
     </div>
     <div class="block">
       <h2>Données ouvertes</h2>
-      <p style="max-width:64ch">Toutes les données affichées proviennent d'un seul fichier, <a href="data/site.json">data/site.json</a>, réutilisable sous Licence Ouverte Etalab 2.0. Il est régénéré à chaque validation ; seules les informations relues et sourcées y figurent. Les photos restent sous leur licence d'origine (<a href="photos/credits.json">crédits</a>).</p>
+      <p style="max-width:64ch">Toutes les données affichées proviennent d'un seul fichier, <a href="data/site.json">data/site.json</a>, réutilisable sous Licence Ouverte Etalab 2.0. Il est régénéré à chaque validation ; seules les informations relues et sourcées y figurent. Les affirmations et positions du quiz sont dans <a href="data/quiz-2022.json">data/quiz-2022.json</a>, sous la même licence. Les photos restent sous leur licence d'origine (<a href="photos/credits.json">crédits</a>).</p>
     </div>
   </section>
 

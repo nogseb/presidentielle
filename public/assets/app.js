@@ -574,12 +574,254 @@
       $("#cal").innerHTML = DATA.calendrier.map(c => `<li class="${c.d < TODAY ? "past" : ""}"><span class="when">${esc(c.l)}</span><span class="what">${esc(c.t)}${c.soc ? '<span class="soc">Société civile</span>' : ""}${c.src ? ` <span class="small">(${link(c.src)})</span>` : ""}</span><span class="s"><span class="st st-${c.s}">${lab[c.s]}</span></span></li>`).join("");
     }
 
+    /* ---------------------------------------------------------------- Quiz
+     * Données : data/quiz-2022.json, chargé à la première ouverture de l'onglet.
+     * Les réponses restent en mémoire, dans cette page : rien n'est enregistré ni envoyé. */
+    const QZ = { D: null, promesse: null, version: "court", liste: [], i: 0, rep: {}, imp: {}, sel: [] };
+    const QZ_MIN = 5;                                   // réponses minimales pour un résultat
+    const qzEch = v => QZ.D.echelle.find(e => e.v === v) || {};
+    const qzCand = id => QZ.D.candidats.find(c => c.id === id);
+    const qzNom = c => c.p + " " + c.n;
+    const qzSrc = k => { const s = QZ.D.sources[k]; return s ? [s.e + (s.d ? ", " + qzDate(s.d) : ""), s.u, s.t] : null; };
+    const qzDate = d => d.length === 7 ? fmt(d + "-15", { month: "long", year: "numeric" }) : fmt(d, { day: "numeric", month: "long", year: "numeric" });
+    const qzLien = k => { const s = qzSrc(k); return s ? `<a href="${esc(s[1])}" target="_blank" rel="noopener" title="${esc(s[2])}">${esc(s[0])}</a>` : ""; };
+    const qzTheme = th => { const t = themeById(th); return t ? (t.r || t.c) : "Thème " + th; };
+    const qzRepondues = () => QZ.liste.filter(q => QZ.rep[q.id] !== undefined && QZ.rep[q.id] !== null);
+
+    function quizCharger() {
+      if (QZ.promesse) return QZ.promesse;
+      QZ.promesse = fetch("data/quiz-2022.json", { cache: "no-cache" })
+        .then(r => { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
+        .then(d => { QZ.D = d; $("#qz-chargement").hidden = true; renderQuizAccueil(); })
+        .catch(err => { console.error(err); $("#qz-chargement").hidden = true; $("#qz-erreur").hidden = false; });
+      return QZ.promesse;
+    }
+    function quizVue(v) {
+      $("#qz-accueil").hidden = v !== "accueil";
+      $("#qz-question").hidden = v !== "question";
+      $("#qz-resultats").hidden = v !== "resultats";
+      $("#v-quiz .lede").hidden = v !== "accueil";
+    }
+    function quizListe(version) {
+      const qs = QZ.D.questions.filter(q => version === "complet" || q.court);
+      return qs.slice().sort((a, b) => a.th - b.th || (b.court ? 1 : 0) - (a.court ? 1 : 0));
+    }
+    function renderQuizAccueil() {
+      const D = QZ.D;
+      $("#qz-eyebrow").textContent = "Quiz · " + D.titre.toLowerCase();
+      $("#qz-ed-titre").textContent = D.titre + " · " + D.candidats.length + " candidats";
+      $("#qz-ed-texte").textContent = D.presentation;
+      const nC = D.questions.filter(q => q.court).length, nT = D.questions.length;
+      $("#qz-start").innerHTML = `
+        <button type="button" class="btn" data-qz="court">Version courte<span>${nC} affirmations, une par thème · 3 minutes environ</span></button>
+        <button type="button" class="btn sec" data-qz="complet">Version complète<span>${nT} affirmations · 5 minutes environ</span></button>`;
+      quizVue("accueil");
+    }
+    function quizDemarrer(version, garder) {
+      QZ.version = version;
+      QZ.liste = quizListe(version);
+      if (!garder) { QZ.rep = {}; QZ.imp = {}; }
+      const k = QZ.liste.findIndex(q => QZ.rep[q.id] === undefined);
+      QZ.i = k >= 0 ? k : 0;
+      renderQuizQuestion(true);
+    }
+    function renderQuizQuestion(focus) {
+      const q = QZ.liste[QZ.i], n = QZ.liste.length;
+      const r = QZ.rep[q.id], imp = QZ.imp[q.id] || "normal";
+      const faites = QZ.liste.filter(x => QZ.rep[x.id] !== undefined).length;
+      const pip = v => `<span class="pip" aria-hidden="true">${[-2, -1, 0, 1, 2].map(k => `<i class="${k === v ? "on" : ""}"></i>`).join("")}</span>`;
+      const nb = qzRepondues().length;
+      $("#qz-question").innerHTML = `
+        <div class="qz-top">
+          <p class="eyebrow">Affirmation ${QZ.i + 1} sur ${n} · ${esc(themeById(q.th) ? themeById(q.th).n : "")}</p>
+          <div class="qz-prog" role="progressbar" aria-label="Progression" aria-valuemin="0" aria-valuemax="${n}" aria-valuenow="${faites}"><i style="width:${(faites / n * 100).toFixed(1)}%"></i></div>
+        </div>
+        <h2 class="qz-q" id="qz-q" tabindex="-1">${esc(q.q)}</h2>
+        <div class="qz-imp"><span class="small" id="qz-imp-l">Importance pour vous</span>
+          <div class="seg" role="group" aria-labelledby="qz-imp-l">${QZ.D.importance.map(x => `<button type="button" data-imp="${x.k}" aria-pressed="${x.k === imp}">${esc(x.l)}</button>`).join("")}</div>
+        </div>
+        <fieldset class="qz-rep"><legend class="vh">Votre avis sur : ${esc(q.q)}</legend>
+          ${QZ.D.echelle.map(e => `<button type="button" data-rep="${e.v}" aria-pressed="${r === e.v}">${pip(e.v)}${esc(e.rep)}</button>`).join("")}
+          <button type="button" class="btn lien qz-sans" data-rep="sans" aria-pressed="${r === null}">Sans avis, passer</button>
+        </fieldset>
+        <div class="qz-nav">
+          <button type="button" class="btn sec" data-nav="prec"${QZ.i === 0 ? " disabled" : ""}>Précédente</button>
+          ${QZ.i < n - 1 && r !== undefined ? `<button type="button" class="btn sec" data-nav="suiv">Suivante</button>` : ""}
+          <button type="button" class="btn fin" data-nav="fin"${nb < QZ_MIN ? ` disabled title="Au moins ${QZ_MIN} réponses"` : ""}>Voir mes résultats</button>
+        </div>
+        <p class="small" aria-live="polite">${faites === n && nb < QZ_MIN ? `<b>Vous avez donné ${nb} avis sur ${n}.</b> Le résultat demande au moins ${QZ_MIN} réponses : revenez sur des affirmations passées avec « Précédente ».` : `Le résultat s'affiche à partir de ${QZ_MIN} réponses. Vous pouvez revenir sur chaque affirmation.`}</p>`;
+      quizVue("question");
+      if (focus) { const h = $("#qz-q"); if (h) h.focus({ preventScroll: true }); window.scrollTo(0, 0); }
+    }
+    // Pendant le remplissage, on passe à la prochaine affirmation sans réponse ;
+    // en relecture (tout est déjà répondu), on avance une à une jusqu'aux résultats.
+    function quizRepondre(v) {
+      const q = QZ.liste[QZ.i], n = QZ.liste.length;
+      const relecture = QZ.liste.every(x => QZ.rep[x.id] !== undefined);
+      QZ.rep[q.id] = v;
+      const libre = k => QZ.rep[QZ.liste[k].id] === undefined;
+      let suite = -1;
+      if (relecture) suite = QZ.i < n - 1 ? QZ.i + 1 : -1;
+      else {
+        for (let k = QZ.i + 1; k < n && suite < 0; k++) if (libre(k)) suite = k;
+        for (let k = 0; k < QZ.i && suite < 0; k++) if (libre(k)) suite = k;
+      }
+      if (suite >= 0) { QZ.i = suite; renderQuizQuestion(true); }
+      else if (qzRepondues().length >= QZ_MIN) renderQuizResultats();
+      else renderQuizQuestion(false);
+    }
+
+    /* Calcul : accord = 1 − |réponse − position| / 4, moyenne pondérée par l'importance,
+       sur les seules affirmations où la position du candidat est documentée. */
+    function quizScores() {
+      const W = {}; QZ.D.importance.forEach(x => { W[x.k] = x.w; });
+      const reps = qzRepondues();
+      const seuil = Math.max(QZ_MIN, Math.ceil(reps.length / 3));
+      const res = QZ.D.candidats.map(c => {
+        let sw = 0, sa = 0, n = 0; const th = {};
+        reps.forEach(q => {
+          const p = q.pos[c.id];
+          if (!p || p.na) return;
+          const w = W[QZ.imp[q.id] || "normal"], a = 1 - Math.abs(QZ.rep[q.id] - p.e) / 4;
+          sw += w; sa += w * a; n++;
+          const t = th[q.th] || (th[q.th] = { sw: 0, sa: 0, n: 0 });
+          t.sw += w; t.sa += w * a; t.n++;
+        });
+        const parTheme = {}; Object.keys(th).forEach(k => { parTheme[k] = Math.round(th[k].sa / th[k].sw * 100); });
+        return { c, n, score: sw ? Math.round(sa / sw * 100) : null, th: parTheme, ok: n >= seuil };
+      });
+      const classes = res.filter(r => r.ok).sort((a, b) => b.score - a.score || b.n - a.n || a.c.n.localeCompare(b.c.n, "fr"));
+      const autres = res.filter(r => !r.ok).sort((a, b) => b.n - a.n || a.c.n.localeCompare(b.c.n, "fr"));
+      return { reps, seuil, classes, autres };
+    }
+    const qzListeNoms = arr => arr.length < 2 ? arr.join("") : arr.slice(0, -1).join(", ") + " et " + arr[arr.length - 1];
+    const qzListeCourte = arr => arr.length > 5 ? arr.slice(0, 4).join(", ") + " et " + (arr.length - 4) + " autres thèmes" : qzListeNoms(arr);
+    function renderQuizResultats() {
+      const S = quizScores();
+      const R = S.classes;
+      if (!QZ.sel.length || QZ.sel.some(id => !R.find(r => r.c.id === id))) QZ.sel = R.slice(0, 3).map(r => r.c.id);
+      let synth;
+      if (!R.length) {
+        synth = `<p>Trop peu de positions documentées recoupent vos réponses pour conclure. Répondez à davantage d'affirmations, ou passez à la version complète.</p>`;
+      } else {
+        const top = R.slice(0, 3);
+        const de = r => `${/^[aeiouyéèêâîh]/i.test(r.c.p) ? "d'" : "de "}<b>${esc(qzNom(r.c))}</b> (${r.score} %)`;
+        synth = `<p>Parmi les ${QZ.D.candidats.length} candidats de 2022, vos réponses sont les plus proches des positions ${de(top[0])}${top.length > 1 ? `, puis ${qzListeNoms(top.slice(1).map(de))}` : ""}.</p>`;
+        if (R.length > 1 && R[0].score - R[1].score < 5) synth += `<p class="small">L'écart entre les deux premiers est faible : une ou deux réponses suffisent à inverser l'ordre.</p>`;
+        const t0 = top[0], accords = [], desaccords = [];
+        Object.keys(t0.th).forEach(k => { if (t0.th[k] >= 75) accords.push(qzTheme(Number(k))); else if (t0.th[k] <= 25) desaccords.push(qzTheme(Number(k))); });
+        if (accords.length || desaccords.length) synth += `<p class="small">Avec ${esc(qzNom(t0.c))} : ${accords.length ? `accord net sur ${esc(qzListeCourte(accords))}` : ""}${accords.length && desaccords.length ? " ; " : ""}${desaccords.length ? `désaccord sur ${esc(qzListeCourte(desaccords))}` : ""}. Calcul fait sur ${t0.n} de vos ${S.reps.length} réponses.</p>`;
+      }
+      const rank = R.map((r, k) => `<li><span class="rg">${k + 1}</span><span class="nm2">${esc(qzNom(r.c))} <span>· ${esc(r.c.parti)}</span></span><span class="pc">${r.score} %</span><span class="bar" aria-hidden="true"><i style="width:${r.score}%"></i></span><span class="cov">Sur ${r.n} affirmation${r.n > 1 ? "s" : ""} comparable${r.n > 1 ? "s" : ""}</span></li>`).join("");
+      const autres = S.autres.length ? `<p class="small">Positions trop peu documentées sur vos réponses pour conclure (au moins ${S.seuil} affirmations comparables requises) : ${S.autres.map(r => `${esc(qzNom(r.c))} (${r.n})`).join(", ")}.</p>` : "";
+      $("#qz-resultats").innerHTML = `
+        <div class="qz-top"><p class="eyebrow">Vos résultats · ${S.reps.length} réponse${S.reps.length > 1 ? "s" : ""} · ${esc(QZ.D.titre.toLowerCase())}</p></div>
+        <div class="panel qz-synth">${synth}</div>
+        ${R.length ? `<div class="block"><h2>Accord avec chaque candidat</h2><ol class="qz-rank">${rank}</ol>${autres}</div>` : autres}
+        ${R.length ? `<div class="block">
+          <div><h2>Thème par thème</h2><p class="small" style="margin-top:6px">Chaque axe est un thème ; plus le point est loin du centre, plus vos réponses rejoignent celles du candidat. Un axe sans point : pas d'affirmation comparable sur ce thème. Trois candidats au plus.</p></div>
+          <div class="qz-who" id="qz-who" role="group" aria-label="Candidats affichés sur le radar"></div>
+          <figure id="qz-radar" style="margin:0"></figure>
+          <div class="legend qz-legend" id="qz-legend"></div>
+          <details class="data"><summary>Voir le tableau</summary><div class="tbl" id="qz-table"></div></details>
+        </div>` : ""}
+        <div class="block"><h2>Vos réponses et les positions relevées</h2><div class="qz-det">${quizDetail(S)}</div></div>
+        <blockquote>Ce résultat n'est pas une consigne de vote. Il dépend des affirmations retenues, de leur formulation et des positions documentées pendant la campagne de 2022 ; il ne dit rien des candidatures de 2027. Méthode de calcul : voir la page <a href="#methode">Méthode</a>.</blockquote>
+        <div class="qz-actions">
+          <button type="button" class="btn sec" data-nav="revoir">Revoir mes réponses</button>
+          ${QZ.version === "court" ? `<button type="button" class="btn sec" data-nav="complet">Continuer avec la version complète</button>` : ""}
+          <button type="button" class="btn lien" data-nav="zero">Recommencer</button>
+        </div>`;
+      quizVue("resultats");
+      if (R.length) renderQuizRadar(S);
+      window.scrollTo(0, 0);
+    }
+    function quizDetail(S) {
+      return S.reps.map(q => {
+        const r = QZ.rep[q.id], imp = QZ.D.importance.find(x => x.k === (QZ.imp[q.id] || "normal"));
+        const lignes = QZ.D.candidats.map(c => {
+          const p = q.pos[c.id];
+          const sel = QZ.sel.indexOf(c.id) >= 0 ? " sel" : "";
+          if (!p) return `<tr class="na${sel}"><td>${esc(qzNom(c))}</td><td class="ec">—</td><td>Position non documentée</td><td></td></tr>`;
+          if (p.na) return `<tr class="na${sel}"><td>${esc(qzNom(c))}</td><td class="ec">Non abordé</td><td>${esc(p.x)}</td><td class="src-cell">${qzLien(p.src)}</td></tr>`;
+          return `<tr class="${sel.trim()}"><td>${esc(qzNom(c))}</td><td class="ec">${esc(qzEch(p.e).pos)}</td><td>${esc(p.x)}</td><td class="src-cell">${qzLien(p.src)}</td></tr>`;
+        }).join("");
+        return `<details><summary><b>${esc(q.q)}</b><span>${esc(qzTheme(q.th))} · votre réponse : ${esc(qzEch(r).rep)}${imp && imp.k !== "normal" ? ` · importance ${esc(imp.l.toLowerCase())}` : ""}</span></summary>
+          <div class="tbl"><table><thead><tr><th>Candidat</th><th>Position</th><th>Relevé</th><th>Source</th></tr></thead><tbody>${lignes}</tbody></table></div></details>`;
+      }).join("");
+    }
+    const QZ_STYLES = ["a", "b", "c"];
+    function qzTrait(k) { return `<svg width="28" height="10" aria-hidden="true"><line class="lg-${QZ_STYLES[k]}" x1="0" y1="5" x2="28" y2="5"/></svg>`; }
+    function renderQuizRadar(S) {
+      const R = S.classes;
+      $("#qz-who").innerHTML = R.map(r => { const k = QZ.sel.indexOf(r.c.id); return `<button type="button" data-qzc="${esc(r.c.id)}" aria-pressed="${k >= 0}">${k >= 0 ? qzTrait(k) : ""}${esc(r.c.n)}</button>`; }).join("");
+      const T = DATA.themes, n = T.length;
+      const cx = 220, cy = 172, r = 118;          // viewBox 440 × 340 : libellés lisibles sur mobile
+      const ang = i => -Math.PI / 2 + i * 2 * Math.PI / n;
+      const pt = (i, v) => [cx + v / 100 * r * Math.cos(ang(i)), cy + v / 100 * r * Math.sin(ang(i))];
+      let s = "";
+      [25, 50, 75, 100].forEach(lv => { s += `<polygon class="r-ring" points="${T.map((_, i) => pt(i, lv).map(x => x.toFixed(1)).join(",")).join(" ")}"/>`; });
+      T.forEach((_, i) => { const p = pt(i, 100); s += `<line class="r-spoke" x1="${cx}" y1="${cy}" x2="${p[0].toFixed(1)}" y2="${p[1].toFixed(1)}"/>`; });
+      const mid = -Math.PI / 2 + Math.PI / n;
+      s += [50, 100].map(lv => `<text class="r-tick" x="${(cx + lv / 100 * r * Math.cos(mid) + 3).toFixed(1)}" y="${(cy + lv / 100 * r * Math.sin(mid) + 3).toFixed(1)}">${lv} %</text>`).join("");
+      QZ.sel.forEach((id, k) => {
+        const res = R.find(x => x.c.id === id);
+        if (!res) return;
+        const cls = QZ_STYLES[k];
+        const pts = T.map((t, i) => res.th[t.id] === undefined ? null : pt(i, res.th[t.id]).concat([t, res.th[t.id]]));
+        if (pts.every(Boolean)) s += `<polygon class="r-shape ${cls}" points="${pts.map(p => p[0].toFixed(1) + "," + p[1].toFixed(1)).join(" ")}"/>`;
+        else pts.forEach((p, i) => { const q = pts[(i + 1) % n]; if (p && q) s += `<line class="r-shape ${cls}" x1="${p[0].toFixed(1)}" y1="${p[1].toFixed(1)}" x2="${q[0].toFixed(1)}" y2="${q[1].toFixed(1)}"/>`; });
+        pts.forEach(p => { if (p) s += `<g tabindex="0" data-tip="${esc(qzNom(res.c) + " · " + p[2].n + " : " + p[3] + " % d'accord")}"><circle class="r-hit" cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="9"/><circle class="r-dot ${cls === "a" ? "" : cls}" cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="3.5"/></g>`; });
+      });
+      T.forEach((t, i) => {
+        const c = Math.cos(ang(i)), sn = Math.sin(ang(i));
+        const x = cx + (r + 14) * c, y = cy + (r + 14) * sn + (sn > 0.5 ? 10 : (sn < -0.5 ? -2 : 4));
+        const vide = !S.reps.some(q => q.th === t.id);
+        s += `<text class="r-label${vide ? " vide" : ""}" x="${x.toFixed(1)}" y="${y.toFixed(1)}" text-anchor="${c > 0.2 ? "start" : (c < -0.2 ? "end" : "middle")}">${esc(t.r || t.c)}</text>`;
+      });
+      const noms = QZ.sel.map(id => qzNom(qzCand(id)));
+      $("#qz-radar").innerHTML = `<svg viewBox="0 0 440 340" role="img" aria-label="${esc("Accord par thème avec " + qzListeNoms(noms))}">${s}</svg>`;
+      $("#qz-legend").innerHTML = QZ.sel.map((id, k) => `<span>${qzTrait(k)}${esc(qzNom(qzCand(id)))}</span>`).join("");
+      const themesRep = T.filter(t => S.reps.some(q => q.th === t.id));
+      $("#qz-table").innerHTML = `<table><thead><tr><th>Thème</th><th>Affirmations</th>${QZ.sel.map(id => `<th>${esc(qzCand(id).n)}</th>`).join("")}</tr></thead><tbody>${themesRep.map(t => `<tr><td>${esc(t.n)}</td><td class="num">${S.reps.filter(q => q.th === t.id).length}</td>${QZ.sel.map(id => { const v = R.find(x => x.c.id === id).th[t.id]; return `<td class="num">${v === undefined ? "—" : v + " %"}</td>`; }).join("")}</tr>`).join("")}</tbody></table>`;
+    }
+
+    $("#qz-start").addEventListener("click", e => { const b = e.target.closest("button[data-qz]"); if (b) quizDemarrer(b.dataset.qz, false); });
+    $("#qz-question").addEventListener("click", e => {
+      const b = e.target.closest("button");
+      if (!b || b.disabled) return;
+      const q = QZ.liste[QZ.i];
+      if (b.dataset.imp) { QZ.imp[q.id] = b.dataset.imp; b.parentNode.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", x === b)); return; }
+      if (b.dataset.rep) { quizRepondre(b.dataset.rep === "sans" ? null : Number(b.dataset.rep)); return; }
+      if (b.dataset.nav === "prec" && QZ.i > 0) { QZ.i--; renderQuizQuestion(true); }
+      else if (b.dataset.nav === "suiv") { QZ.i++; renderQuizQuestion(true); }
+      else if (b.dataset.nav === "fin") renderQuizResultats();
+    });
+    $("#qz-resultats").addEventListener("click", e => {
+      const c = e.target.closest("button[data-qzc]");
+      if (c) {
+        const id = c.dataset.qzc, k = QZ.sel.indexOf(id);
+        if (k >= 0) { if (QZ.sel.length > 1) QZ.sel.splice(k, 1); }
+        else { QZ.sel.push(id); if (QZ.sel.length > 3) QZ.sel.shift(); }
+        const S = quizScores();
+        renderQuizRadar(S);
+        $("#qz-resultats .qz-det").innerHTML = quizDetail(S);
+        return;
+      }
+      const b = e.target.closest("button[data-nav]");
+      if (!b) return;
+      if (b.dataset.nav === "revoir") { QZ.i = 0; renderQuizQuestion(true); }
+      else if (b.dataset.nav === "complet") quizDemarrer("complet", true);
+      else if (b.dataset.nav === "zero") { QZ.rep = {}; QZ.imp = {}; QZ.sel = []; renderQuizAccueil(); window.scrollTo(0, 0); }
+    });
+
     /* ---------------------------------------------------------------- Navigation par onglets */
-    const VIEWS = ["semaine", "candidats", "themes", "debats", "sondages", "shift", "calendrier", "methode"];
+    const VIEWS = ["semaine", "candidats", "themes", "debats", "quiz", "sondages", "shift", "calendrier", "methode"];
     function route() {
       const h = (location.hash || "").replace("#", "");
       const v = VIEWS.indexOf(h) >= 0 ? h : "semaine";
       VIEWS.forEach(id => { $("#v-" + id).hidden = id !== v; });
+      if (v === "quiz") quizCharger();
       document.querySelectorAll("nav.tabs a").forEach(a => {
         if (a.getAttribute("href") === "#" + v) { a.setAttribute("aria-current", "page"); a.scrollIntoView({ block: "nearest", inline: "nearest" }); }
         else a.removeAttribute("aria-current");
