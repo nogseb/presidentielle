@@ -58,23 +58,24 @@
           <p class="eyebrow" style="margin:0 0 6px">Le radar de la semaine</p>
           <h2 class="rad-h" id="t-radar">Huit axes. <span class="hl" id="rad-n"></span></h2>
         </div>
-        <p class="rad-intro">Chaque point est un fait de la semaine ou une échéance à venir, placé sur l'axe de son domaine et sur l'anneau de sa portée. Choisissez un axe pour filtrer.</p>
+        <p class="rad-intro">Chaque point est un fait de la semaine ou une échéance à venir, placé sur l'axe de son domaine et sur l'anneau de sa portée. Le menu « Filtrer par axe » isole un domaine.</p>
       </div>
-      <div class="rad-grid">
-        <figure class="panel rad-fig">
-          <div class="rad-box" id="rad-box"></div>
-          <figcaption class="rad-cap">
-            <span class="rad-keys"><span><i class="rd" aria-hidden="true"></i>Fait de la semaine</span><span><i class="rd rd-e" aria-hidden="true"></i>Échéance à venir</span></span>
-            <span>Centre : change la course · milieu : engage un candidat · bord : à suivre</span>
-          </figcaption>
-        </figure>
-        <div class="panel rad-panel">
-          <p class="eyebrow" style="margin:0">Filtrer par axe</p>
-          <div class="rad-axes" id="rad-axes" role="group" aria-label="Axes du radar"></div>
-          <p class="small">Un axe vide signale qu'aucun fait sourcé de la semaine ni aucune échéance proche ne relève de ce domaine, pas une absence d'actualité. <a href="#methode">Règle de classement</a></p>
-          <button type="button" class="btn sec" id="rad-tous" hidden>Afficher tous les axes</button>
+      <figure class="panel rad-fig" id="rad-fig">
+        <div class="rad-bar">
+          <span class="rad-actif" id="rad-actif" hidden></span>
+          <button type="button" class="rad-burger" id="rad-burger" aria-expanded="false" aria-controls="rad-menu"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>Filtrer par axe</span></button>
+          <div class="rad-menu" id="rad-menu" hidden>
+            <div class="rad-axes" id="rad-axes" role="group" aria-label="Axes du radar"></div>
+            <p class="small">Un axe vide signale qu'aucun fait sourcé de la semaine ni aucune échéance proche ne relève de ce domaine, pas une absence d'actualité. <a href="#methode">Règle de classement</a></p>
+            <button type="button" class="btn sec" id="rad-tous" hidden>Afficher tous les axes</button>
+          </div>
         </div>
-      </div>
+        <div class="rad-box" id="rad-box"></div>
+        <figcaption class="rad-cap">
+          <span class="rad-keys"><span><i class="rd" aria-hidden="true"></i>Fait de la semaine</span><span><i class="rd rd-e" aria-hidden="true"></i>Échéance à venir</span></span>
+          <span>Centre : change la course · milieu : engage un candidat · bord : à suivre</span>
+        </figcaption>
+      </figure>
     </section>
     <div class="block" style="gap:0">
       <div class="head-row facts-head"><h2>Les faits de la semaine</h2><span class="small" id="facts-n" aria-live="polite"></span></div>

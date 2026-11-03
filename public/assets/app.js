@@ -156,13 +156,16 @@
       }).join("");
     }
 
+    // Grand écran : disque élargi avec le nom des axes autour ; mobile : disque carré, numéros seuls
+    const RAD_LARGE = window.matchMedia ? matchMedia("(min-width: 640px)") : { matches: false };
+    const radPt = (r, deg) => { const a = deg * Math.PI / 180; return [r * Math.sin(a), -r * Math.cos(a)]; };
+    let radXY = null;
+
     function renderRadar() {
       if (!SIG.length) { $("#radar").hidden = true; return; }
       $("#radar").hidden = false;
       const n = SIG.length;
       $("#rad-n").textContent = (NOMBRES[n] || n) + (n > 1 ? " signaux." : " signal.");
-      const pt = (r, deg) => { const a = deg * Math.PI / 180; return [r * Math.sin(a), -r * Math.cos(a)]; };
-      const f2 = v => v.toFixed(2);
       // Position : secteur de l'axe, bande de l'anneau. Plusieurs points d'une même case partent
       // en diagonale, puis s'écartent les uns des autres sans sortir de leur case.
       const P = [];
@@ -178,7 +181,7 @@
       }
       const ECART = 26;
       for (let it = 0; it < 120; it++) {
-        P.forEach(p => { [p.x, p.y] = pt(p.ra, p.de); });
+        P.forEach(p => { [p.x, p.y] = radPt(p.ra, p.de); });
         for (let i = 0; i < P.length; i++) for (let j = i + 1; j < P.length; j++) {
           const p = P[i], q = P[j];
           let dx = q.x - p.x, dy = q.y - p.y, dd = Math.hypot(dx, dy);
@@ -194,21 +197,38 @@
           p.de = p.d0 + Math.min(40, Math.max(5, rel));
         });
       }
-      const pos = {};
-      P.forEach(p => { const [x, y] = pt(p.ra, p.de); pos[p.id] = [(x + 200) / 4, (y + 200) / 4]; });
-      let svg = `<svg class="rad-svg" viewBox="-200 -200 400 400" aria-hidden="true"><path class="rad-sect" id="rad-sect" d=""/>`
-        + `<circle class="rad-core" r="70"/>` + [70, 118].map(r => `<circle class="rad-ring" r="${r}"/>`).join("") + `<circle class="rad-ring rad-out" r="162"/>`;
-      for (let k = 0; k < 8; k++) {
-        const [x, y] = pt(162, k * 45), [lx, ly] = pt(176, k * 45 + 22.5);
-        svg += `<line class="rad-ring" x1="0" y1="0" x2="${f2(x)}" y2="${f2(y)}"/><text class="rad-lab" data-axe="${k + 1}" x="${f2(lx)}" y="${f2(ly)}" text-anchor="middle" dominant-baseline="central">${axeNum(k + 1)}</text>`;
-      }
-      svg += `</svg><div class="rad-sweep" aria-hidden="true"></div><span class="rad-c" aria-hidden="true"></span>`;
-      svg += SIG.map(s => `<button type="button" class="rad-dot ${s.k}" data-cible="${s.id}" data-axe="${s.axe}" style="left:${f2(pos[s.id][0])}%;top:${f2(pos[s.id][1])}%" aria-label="${esc((s.k === "f" ? "Fait du " : "Échéance : ") + s.date + " · " + axeNom(s.axe) + " · " + RAD_POR[s.por] + " · " + s.t)}" data-tip="${esc(s.date + " · " + s.t)}"></button>`).join("");
-      $("#rad-box").innerHTML = svg;
+      radXY = {};
+      P.forEach(p => { radXY[p.id] = radPt(p.ra, p.de); });
       $("#rad-axes").innerHTML = RAD_AXES.map((x, i) => {
         const c = SIG.filter(s => s.axe === i + 1).length;
         return `<button type="button" class="ax" data-axe="${i + 1}" aria-pressed="false"${c ? "" : " disabled"}><span class="ax-n">${axeNum(i + 1)}</span><span class="ax-l"><b>${esc(x.l)}</b><span class="ax-d">${esc(x.d)}</span></span><span class="ax-c">${c}<span class="vh"> ${c > 1 ? "signaux" : "signal"}</span></span></button>`;
       }).join("");
+      dessinerRadar();
+    }
+
+    function dessinerRadar() {
+      if (!radXY) return;
+      const large = RAD_LARGE.matches;
+      const X = large ? 260 : 200, W = 2 * X;               // viewBox : largeur 2X, hauteur 400
+      const pc = (x, y) => [((x + X) / W * 100).toFixed(2), ((y + 200) / 4).toFixed(2)];
+      const f2 = v => v.toFixed(2);
+      const box = $("#rad-box");
+      box.style.aspectRatio = `${W} / 400`;
+      box.classList.toggle("large", large);
+      let h = `<svg class="rad-svg" viewBox="${-X} -200 ${W} 400" aria-hidden="true"><circle class="rad-disc" r="162"/><circle class="rad-core" r="70"/>`
+        + [70, 118, 162].map(r => `<circle class="rad-ring" r="${r}"/>`).join("");
+      for (let k = 0; k < 8; k++) { const [x, y] = radPt(162, k * 45); h += `<line class="rad-ring" x1="0" y1="0" x2="${f2(x)}" y2="${f2(y)}"/>`; }
+      h += `<path class="rad-voile" id="rad-voile" d=""/></svg>`;
+      const cote = ["haut", "droite", "droite", "bas", "bas", "gauche", "gauche", "haut"];
+      RAD_AXES.forEach((x, k) => {
+        const [lx, ly] = radPt(large ? 170 : 180, k * 45 + 22.5), [l, t] = pc(lx, ly);
+        const vide = !SIG.some(s => s.axe === k + 1);
+        h += `<span class="rad-lab ${large ? cote[k] : "centre"}${vide ? " vide" : ""}" data-axe="${k + 1}" style="left:${l}%;top:${t}%" aria-hidden="true"><b>${axeNum(k + 1)}</b>${large ? esc(x.l) : ""}</span>`;
+      });
+      const [sl] = pc(-162, 0);
+      h += `<div class="rad-sweep" aria-hidden="true" style="left:${sl}%;width:${f2(324 / W * 100)}%;top:9.5%;height:81%"></div><span class="rad-c" aria-hidden="true"></span>`;
+      h += SIG.map(s => { const [l, t] = pc(radXY[s.id][0], radXY[s.id][1]); return `<button type="button" class="rad-dot ${s.k}" data-cible="${s.id}" data-axe="${s.axe}" style="left:${l}%;top:${t}%" aria-label="${esc((s.k === "f" ? "Fait du " : "Échéance : ") + s.date + " · " + axeNom(s.axe) + " · " + RAD_POR[s.por] + " · " + s.t)}" data-tip="${esc(s.date + " · " + s.t)}"></button>`; }).join("");
+      box.innerHTML = h;
       radarFiltre();
     }
 
@@ -217,14 +237,18 @@
       document.querySelectorAll("#rad-box .rad-dot").forEach(b => b.classList.toggle("off", !on(b.dataset.axe)));
       document.querySelectorAll("#rad-box .rad-lab").forEach(t => t.classList.toggle("on", radAxe !== null && on(t.dataset.axe)));
       document.querySelectorAll("#rad-axes .ax").forEach(b => b.setAttribute("aria-pressed", String(radAxe !== null && on(b.dataset.axe))));
-      const sect = $("#rad-sect");
-      if (sect) {
-        if (radAxe === null) sect.setAttribute("d", "");
+      // Axe choisi : les sept autres secteurs passent sous un voile
+      const voile = $("#rad-voile");
+      if (voile) {
+        if (radAxe === null) voile.setAttribute("d", "");
         else {
-          const a0 = (radAxe - 1) * 45 * Math.PI / 180, a1 = radAxe * 45 * Math.PI / 180;
-          sect.setAttribute("d", `M0 0L${(162 * Math.sin(a0)).toFixed(2)} ${(-162 * Math.cos(a0)).toFixed(2)}A162 162 0 0 1 ${(162 * Math.sin(a1)).toFixed(2)} ${(-162 * Math.cos(a1)).toFixed(2)}Z`);
+          const [x0, y0] = radPt(162, (radAxe - 1) * 45), [x1, y1] = radPt(162, radAxe * 45);
+          voile.setAttribute("d", `M0 0L${x1.toFixed(2)} ${y1.toFixed(2)}A162 162 0 1 1 ${x0.toFixed(2)} ${y0.toFixed(2)}Z`);
         }
       }
+      const actif = $("#rad-actif");
+      actif.hidden = radAxe === null;
+      if (radAxe !== null) actif.innerHTML = `<span>Axe ${esc(axeNom(radAxe))}</span><button type="button" id="rad-retirer" aria-label="Retirer le filtre : axe ${esc(axeNom(radAxe))}"><svg viewBox="0 0 12 12" width="12" height="12" aria-hidden="true"><path d="M2 2l8 8M10 2l-8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>`;
       let vis = 0;
       document.querySelectorAll("#facts .fact").forEach(li => { li.hidden = !on(li.dataset.axe); if (!li.hidden) vis++; });
       document.querySelectorAll("#next .next").forEach(li => li.classList.toggle("off", !on(li.dataset.axe)));
@@ -240,14 +264,29 @@
       $("#rad-tous").hidden = radAxe === null;
     }
 
+    /* Menu « Filtrer par axe » : s'ouvre sous le bouton, se ferme au choix d'un axe, à Échap ou au clic ailleurs */
+    const radBurger = $("#rad-burger"), radMenu = $("#rad-menu");
+    function radMenuOuvrir(ouvrir, rendreFocus) {
+      radMenu.hidden = !ouvrir;
+      radBurger.setAttribute("aria-expanded", String(ouvrir));
+      if (ouvrir) { const b = radMenu.querySelector('.ax[aria-pressed="true"]') || radMenu.querySelector(".ax:not(:disabled)"); if (b) b.focus(); }
+      else if (rendreFocus) radBurger.focus();
+    }
+    radBurger.addEventListener("click", () => radMenuOuvrir(radMenu.hidden));
+    document.addEventListener("click", e => { if (!radMenu.hidden && !e.target.closest("#rad-menu, #rad-burger")) radMenuOuvrir(false); });
+    document.addEventListener("keydown", e => { if (e.key === "Escape" && !radMenu.hidden) radMenuOuvrir(false, true); });
     $("#rad-axes").addEventListener("click", e => {
       const b = e.target.closest("button[data-axe]");
       if (!b || b.disabled) return;
       const a = Number(b.dataset.axe);
       radAxe = radAxe === a ? null : a;
       radarFiltre();
+      radMenuOuvrir(false, true);
     });
-    $("#rad-tous").addEventListener("click", () => { radAxe = null; radarFiltre(); $("#rad-axes .ax:not(:disabled)").focus(); });
+    $("#rad-tous").addEventListener("click", () => { radAxe = null; radarFiltre(); radMenuOuvrir(false, true); });
+    $("#rad-actif").addEventListener("click", e => { if (e.target.closest("#rad-retirer")) { radAxe = null; radarFiltre(); radBurger.focus(); } });
+    if (RAD_LARGE.addEventListener) RAD_LARGE.addEventListener("change", dessinerRadar);
+    else if (RAD_LARGE.addListener) RAD_LARGE.addListener(dessinerRadar);
     $("#rad-box").addEventListener("click", e => {
       const b = e.target.closest("button[data-cible]");
       if (!b) return;
