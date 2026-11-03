@@ -38,13 +38,13 @@ jobs:
         if: always()
         continue-on-error: true
         run: |
-          masque() { sed -e "s/$SSH_HOST/[hôte]/g" -e "s/$SSH_USER/[utilisateur]/g" | grep -v -i 'password' | tail -n 6; }
+          masque() { sed -E -e "s/$SSH_HOST/[hôte]/g" -e "s/$SSH_USER/[utilisateur]/g" -e 's/[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/[ip]/g' | grep -v -i 'password' | tail -n 6; }
           echo "sftp -> pwd :" > diag.out
           printf 'pwd\nbye\n' | sshpass -e sftp -o StrictHostKeyChecking=accept-new -o BatchMode=no -o ConnectTimeout=20 "$SSH_USER@$SSH_HOST" 2>&1 | masque >> diag.out
           echo "ssh -> echo (verbeux, filtré) :" >> diag.out
           sshpass -e ssh -v -o StrictHostKeyChecking=accept-new -o ConnectTimeout=20 "$SSH_USER@$SSH_HOST" 'echo connexion-ok; uname -s' 2>&1 \
             | grep -E 'connexion-ok|Linux|Authenticated|Sending command|Exit status|exit-status|service|shell|denied|refused|closed|Received disconnect|subsystem' \
-            | sed -e "s/$SSH_HOST/[hôte]/g" -e "s/$SSH_USER/[utilisateur]/g" | tail -n 12 >> diag.out
+            | sed -E -e "s/$SSH_HOST/[hôte]/g" -e "s/$SSH_USER/[utilisateur]/g" -e 's/[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/[ip]/g' | tail -n 12 >> diag.out
           echo "port 22 :" >> diag.out
           (timeout 10 bash -c "</dev/tcp/$SSH_HOST/22" && echo ouvert || echo ferme) >> diag.out
 
