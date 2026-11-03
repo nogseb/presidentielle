@@ -10,3 +10,7 @@ node_modules/
 Thumbs.db
 build/
 __pycache__/
+
+# Fichiers de veille déposés et journal des imports (serveur uniquement)
+app/veille/
+app/journal/

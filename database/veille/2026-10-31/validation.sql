@@ -1,11 +1,11 @@
 -- =====================================================================
 -- Repères 2027 · veille du 2026-10-25 au 2026-10-31 · validation
 -- Version consolidée (Claude, ChatGPT, Gemini), préparée le 3 novembre 2026.
--- À exécuter dans l'onglet SQL de phpMyAdmin APRÈS import de saisie.sql
--- et relecture du rapport. Supprimer les blocs refusés avant d'exécuter
--- (les blocs 3 et 10 sont à arbitrer).
--- Les blocs 3 à 7, 9 et 10 modifient des tables sans état de validation :
--- ils sont publiés dès la régénération suivante (Actions → Publier les données).
+-- Importée par le workflow « Importer une veille » (étape validation) ou dans
+-- l'onglet SQL de phpMyAdmin, APRÈS import de saisie.sql
+-- et relecture du rapport. Blocs 3 et 10 retirés après arbitrage.
+-- Les blocs 4 à 7 et 9 modifient des tables sans état de validation :
+-- ils sont publiés dès la régénération suivante.
 -- =====================================================================
 
 SET NAMES utf8mb4;
@@ -21,11 +21,7 @@ UPDATE digest SET publie = 1 WHERE id = @dg;
 -- Bloc 2 · rapport 3.1 : sondage Ipsos bva-CESI pour Le Parisien (devient l'enquête de référence)
 UPDATE sondage SET etat = 'valide' WHERE id = @sd;
 
--- Bloc 3 · rapport 3.2 : Éric Zemmour, candidature officialisée le 17 septembre 2026 (À ARBITRER)
-UPDATE candidat SET designation = 'declaration', mention = NULL,
-       note = 'Candidature officialisée sur BFMTV le 17 septembre 2026 (LCP).',
-       source_id = (SELECT id FROM source WHERE cle = 'lcp-2026-09-17-zemmour')
-WHERE slug = 'zemmour';
+-- Bloc 3 · Zemmour : retiré le 3 novembre 2026 (décision de Sébastien Noguès)
 
 -- Bloc 4 · rapport 3.3 : Marine Tondelier, objet du vote des adhérents du 13 décembre
 UPDATE candidat
@@ -72,8 +68,7 @@ UPDATE candidat
 SET note = 'Placé sous le statut de témoin assisté le 29 octobre 2026 dans une enquête portant sur Le Havre Seine Métropole (LCP, 30 octobre 2026).'
 WHERE slug = 'philippe';
 
--- Bloc 10 · rapport 3.8 : badge « Volet judiciaire » pour Édouard Philippe (À ARBITRER, voir rapport)
-UPDATE candidat SET volet_judiciaire = 1 WHERE slug = 'philippe';
+-- Bloc 10 · badge « Volet judiciaire » pour Édouard Philippe : retiré le 3 novembre 2026 (décision de Sébastien Noguès)
 
 -- Contrôle : digest publié avec 5 faits validés, sondage et position validés
 SELECT

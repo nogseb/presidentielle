@@ -38,13 +38,13 @@ Choix éditoriaux :
 | N° | Objet | En ligne aujourd'hui | Proposition | Source | Bloc de `validation.sql` | Proposé par |
 | --- | --- | --- | --- | --- | --- | --- |
 | 3.1 | Sondage de référence | Enquête électorale Ipsos bva (3-9 septembre, 13 060 inscrits) | Ipsos bva-CESI pour Le Parisien (21-22 octobre, 1 500 inscrits, quatre hypothèses, 12 candidats en fourchette) | Ipsos, 24 oct. ; rapport complet (cesi.fr) | 2 | Claude ; Gemini |
-| 3.2 | Éric Zemmour | « Annonce », badge « Déclaration formelle attendue » | « Déclaration », badge retiré | LCP, 17 sept. | 3, à arbitrer | Claude |
+| 3.2 | Éric Zemmour | « Annonce », badge « Déclaration formelle attendue » | Inchangé : bloc retiré après arbitrage | LCP, 17 sept. | 3, retiré | Claude |
 | 3.3 | Marine Tondelier | Vote des militants le 13 décembre | Objet du vote précisé : sa candidature ou le soutien à un candidat extérieur au parti | LCP, 23 oct. | 4 | Claude |
 | 3.4 | Marine Le Pen | Condamnée en appel, pourvoi en cours, éligible à ce stade | Note complétée : peine, absence d'exécution provisoire, calendrier de la cassation, débat entre juristes | Public Sénat, 2 nov. | 5 | Claude |
 | 3.5 | The Shift Project | Livre « annoncé », octobre 2026 | Paru le 14 octobre 2026 ; dispositif mis à jour | Odile Jacob | 6 | Claude ; ChatGPT |
 | 3.6 | Dates des tours | Source : Weka (niveau 3) | Source officielle : Service-Public.fr, 2 juillet 2026 (niveau 1) | Service-Public.fr | 7 | Gemini (date corrigée) |
 | 3.7 | Débat « nouveaux réacteurs » | Aucune position | Gabriel Attal : pour (+2), « l'accélération du programme de 14 réacteurs EPR2 » | attalpresident.fr, 28 oct. | 8 | ChatGPT |
-| 3.8 | Édouard Philippe | Pas de note | Note de procédure (bloc 9) ; badge « Volet judiciaire » (bloc 10, à arbitrer) | LCP, 30 oct. | 9 et 10 | consolidation |
+| 3.8 | Édouard Philippe | Pas de note | Note de procédure (bloc 9) ; pas de badge « Volet judiciaire » (bloc 10 retiré après arbitrage) | LCP, 30 oct. | 9 (10 retiré) | consolidation |
 
 Fourchettes du sondage 3.1 : Le Pen 32-33,5 ; Mélenchon 17 ; Glucksmann 13-15,5 ; Philippe 13-15 ; Retailleau 5,5-11,5 ; Attal 4-9,5 ; Lisnard 6,5 ; Zemmour 4-4,5 ; Tondelier 3,5 ; Roussel 2-2,5 ; Dupont-Aignan 1,5-2 ; Arthaud 0,5.
 
@@ -74,13 +74,13 @@ Hors période : semaine du 18 au 24 octobre sans digest (enquête Ipsos-Le Paris
 
 - **Meeting de Marine Le Pen, Orléans, 25 octobre.** ChatGPT cite un article de Public Sénat et des titres de franceinfo et France 24 l'évoquent (gouvernement « d'union nationale », « pluraliste », dirigé par Jordan Bardella), mais aucun texte complet n'a pu être lu ici. Si l'article de Public Sénat se confirme, il peut remplacer le fait 4 pour l'équilibre du digest.
 - **Notice Cluster17 de la Commission des sondages** (n° 10339 selon ChatGPT) : non consultable ici ; les scores des petits candidats et de l'hypothèse 3 reposent sur elle seule.
-- **Zemmour (3.2)** : LCP titre « officialise sa candidature » (17 septembre) ; Toute l'Europe (14 octobre) attend encore une déclaration formelle.
+- **Zemmour (3.2)** : LCP titre « officialise sa candidature » (17 septembre) ; Toute l'Europe (14 octobre) attend encore une déclaration formelle. Statut inchangé après arbitrage, à revoir à la prochaine veille.
 - **Notice de la Commission des sondages pour l'enquête Ipsos-Le Parisien** : non trouvée.
 - **Candidatures signalées par des agrégateurs** (Gilles Platret, Sylvain Durif) et **décision de Bruno Le Maire** annoncée pour octobre : rien de confirmé par un média de référence.
 
 ## 6. Arbitrages suggérés
 
-- **Badge « Volet judiciaire » pour Édouard Philippe (bloc 10).** Aujourd'hui, seule Marine Le Pen le porte, après une condamnation. Le statut de témoin assisté est moins incriminant qu'une mise en examen. Recommandation : garder la note (bloc 9) et retirer le bloc 10, puis fixer une règle publique (badge à partir de la mise en examen ou d'une condamnation) appliquée à tous.
+- **Badge « Volet judiciaire » pour Édouard Philippe (bloc 10) : retiré après arbitrage.** Seule Marine Le Pen le porte, après une condamnation ; le statut de témoin assisté est moins incriminant qu'une mise en examen. Reste à fixer une règle publique (badge à partir de la mise en examen ou d'une condamnation) appliquée à tous.
 - **Ouvrir le comparateur complet.** Remplissent a priori le critère du groupe parlementaire : Le Pen, Mélenchon, Glucksmann, Attal, Philippe, Retailleau, Tondelier, Roussel. Le critère des 2 % demande d'abord une règle pour moyenner des enquêtes à plusieurs hypothèses (remarque de ChatGPT, retenue).
 - **Prompt de veille.** Ajouter trois consignes tirées de cette comparaison : vérifier la date de publication d'une source officielle avant d'en faire un fait de la semaine ; signaler quand une annonce reprend une annonce antérieure ; livrer les fichiers SQL (deux des trois veilles ne l'ont pas fait).
 
@@ -115,7 +115,10 @@ Hors période : semaine du 18 au 24 octobre sans digest (enquête Ipsos-Le Paris
 
 ## Mode d'emploi
 
-1. phpMyAdmin → base → onglet **Importer** → `saisie.sql`. Le contrôle final affiche 13 sources, 5 faits, 12 résultats de sondage et 1 position.
-2. Relire ce rapport ; dans `validation.sql`, supprimer les blocs refusés (blocs 3 et 10 à arbitrer).
-3. Onglet **SQL** → coller et exécuter `validation.sql`. Le contrôle final affiche « digest_publie 1 », « faits_valides 5 », « sondage valide ».
-4. GitHub → Actions → **Publier les données** → Run workflow (ou attendre la régénération horaire).
+Arbitrage du 3 novembre 2026 : blocs 3 (Zemmour) et 10 (badge de Philippe) retirés de `validation.sql`.
+
+1. GitHub → Actions → **Importer une veille** → Run workflow : semaine `2026-10-31`, étape `saisie`. La trace `import-saisie.json` affiche 13 sources, 5 faits, 12 résultats de sondage et 1 position.
+2. Relire ce rapport ; retirer de `validation.sql` les blocs refusés.
+3. Même workflow, étape `validation` : les lignes passent à l'état validé et le site est régénéré. Les traces `import-validation.json` et `publication.json` sont versionnées dans ce dossier.
+
+Sans le workflow : importer `saisie.sql` puis exécuter `validation.sql` dans phpMyAdmin, et lancer « Publier les données ».

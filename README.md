@@ -34,6 +34,7 @@ phpMyAdmin (saisie)  →  MySQL OVHcloud  →  api/publier.php  →  data/site.j
 | Contrôler | chaque push et pull request | syntaxe PHP et JS, données du quiz, import du schéma dans un MySQL 8.0 vierge, export et vérification de `site.json` |
 | Publier Repères 2027 sur OVHcloud | push sur `main` touchant `public/` ou `app/`, ou manuel | envoi SFTP, écriture de la configuration privée, régénération des données |
 | Publier les données | manuel, et toutes les heures de 7 h à 23 h | régénère `site.json` après une saisie, sans redéployer le code |
+| Importer une veille | manuel (semaine, étape saisie ou validation) | dépose `database/veille/<semaine>/<étape>.sql` hors de `www`, l'exécute en une transaction via `api/importer.php`, régénère le site après la validation, versionne la trace |
 | Photos des candidats | modification de `outils/photos/candidats.json`, ou manuel | vignettes et crédits depuis Wikimedia Commons, puis redéploiement |
 
 ## Documentation

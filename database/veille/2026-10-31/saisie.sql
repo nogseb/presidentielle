@@ -1,7 +1,8 @@
 -- =====================================================================
 -- Repères 2027 · veille du 2026-10-25 au 2026-10-31 · saisie (état a_valider)
 -- Version consolidée (Claude, ChatGPT, Gemini), préparée le 3 novembre 2026.
--- À importer dans phpMyAdmin (onglet Importer). Rien n'est publié tant que
+-- Importée par le workflow « Importer une veille » (étape saisie) ou dans
+-- phpMyAdmin (onglet Importer). Rien n'est publié tant que
 -- validation.sql n'est pas exécuté.
 -- Réimportable : les sources et le digest ne sont pas dupliqués, les faits
 -- non validés de la semaine sont remplacés, le sondage n'est créé qu'une fois.

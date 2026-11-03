@@ -155,6 +155,16 @@ WHERE debat_id = (SELECT id FROM debat WHERE slug = 'moratoire-centres-donnees')
 
 Une ligne dans `debat` (mesure à l'infinitif, contexte de deux phrases, un chiffre), puis trois lignes `pour` et trois lignes `contre` dans `debat_argument`, chacune avec son porteur et sa source. Voir `database/seed/040_debats_2026-10-18.sql` pour le modèle.
 
+### Importer une veille sans phpMyAdmin
+
+Chaque veille hebdomadaire est livrée dans `database/veille/<AAAA-MM-JJ>/` : `rapport.md`, `saisie.sql`, `validation.sql`. Une fois le dossier sur `main` :
+
+1. Actions → **Importer une veille** → Run workflow : semaine, étape `saisie`. Les contenus entrent en base à l'état `a_valider` ; rien n'est publié. La trace `import-saisie.json` reprend le contrôle final du fichier.
+2. Relire `rapport.md` ; supprimer de `validation.sql` (crayon « Edit this file ») les blocs refusés.
+3. Même workflow, étape `validation` : passage à l'état `valide`, régénération du site, traces `import-validation.json` et `publication.json`.
+
+Le serveur n'exécute que le fichier déposé par le workflow, en une seule transaction (en cas d'erreur, aucune modification) ; les instructions de structure (`CREATE`, `ALTER`, `DROP`…) sont refusées ; chaque tentative est consignée dans `presidentielle-app/journal/imports.log`. Le jeton est celui de la publication (`PUBLIER_JETON`).
+
 ### Faire évoluer le quiz
 
 Le quiz ne passe pas par phpMyAdmin : il lit `public/data/quiz-2022.json`, modifiable directement dans GitHub (crayon « Edit this file »). Le workflow Contrôler vérifie le fichier ; le déploiement le publie.

@@ -1,0 +1,116 @@
+# Repères 2027 · importe une veille hebdomadaire dans la base MySQL d'OVHcloud.
+#
+# Onglet Actions → « Importer une veille » → Run workflow, avec :
+#   semaine : date de fin de la semaine, nom du dossier database/veille/AAAA-MM-JJ
+#   etape   : « saisie » (contenus à l'état a_valider, rien n'est publié)
+#             puis « validation » (après relecture du rapport ; régénère le site)
+#
+# Le workflow dépose le fichier <etape>.sql dans le dossier privé de l'application
+# (hors www), puis appelle api/importer.php avec le jeton PUBLIER_JETON. Le serveur
+# exécute ce seul fichier en une transaction : en cas d'erreur, rien n'est modifié.
+# La réponse est versionnée dans database/veille/<semaine>/import-<etape>.json.
+#
+# Secrets : OVH_SFTP_HOST, OVH_SFTP_USER, OVH_SFTP_PASSWORD, PUBLIER_JETON.
+# Variables facultatives : OVH_APP_DIR (presidentielle-app), SITE_URL.
+
+name: Importer une veille
+
+on:
+  workflow_dispatch:
+    inputs:
+      semaine:
+        description: "Semaine (date de fin, AAAA-MM-JJ), ex. 2026-10-31"
+        required: true
+        type: string
+      etape:
+        description: "Étape"
+        required: true
+        type: choice
+        options: [saisie, validation]
+
+concurrency:
+  group: importer-veille
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  importer:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    if: github.ref == 'refs/heads/main'
+    env:
+      SEMAINE: ${{ inputs.semaine }}
+      ETAPE: ${{ inputs.etape }}
+      SFTP_HOST: ${{ secrets.OVH_SFTP_HOST }}
+      SFTP_USER: ${{ secrets.OVH_SFTP_USER }}
+      LFTP_PASSWORD: ${{ secrets.OVH_SFTP_PASSWORD }}
+      PUBLIER_JETON: ${{ secrets.PUBLIER_JETON }}
+      APP_DIR: ${{ vars.OVH_APP_DIR || 'presidentielle-app' }}
+      SITE_URL: ${{ vars.SITE_URL || 'https://nogues.app/presidentielle' }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Vérifier la demande
+        run: |
+          case "$SEMAINE" in
+            [0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]) ;;
+            *) echo "::error::Semaine invalide (« $SEMAINE ») : AAAA-MM-JJ attendu."; exit 1 ;;
+          esac
+          f="database/veille/$SEMAINE/$ETAPE.sql"
+          [ -f "$f" ] || { echo "::error::Fichier absent de main : $f"; exit 1; }
+          [ -n "$SFTP_HOST" ] && [ -n "$SFTP_USER" ] && [ -n "$LFTP_PASSWORD" ] || { echo "::error::Secrets SFTP absents."; exit 1; }
+          [ "${#PUBLIER_JETON}" -ge 32 ] || { echo "::error::Secret PUBLIER_JETON absent ou trop court."; exit 1; }
+          case "${APP_DIR%/}" in ""|"."|"/"|www|www/*|/*|*..*) echo "::error::OVH_APP_DIR invalide."; exit 1 ;; esac
+          if [ "$ETAPE" = "validation" ] && [ ! -f "database/veille/$SEMAINE/import-saisie.json" ]; then
+            echo "::warning::Aucune trace d'import de la saisie dans le dépôt : vérifiez qu'elle a bien été importée."
+          fi
+
+      - name: Installer lftp
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
+
+      - name: Déposer le fichier dans le dossier privé
+        run: |
+          APP_DIR="${APP_DIR%/}"
+          lftp --env-password -u "$SFTP_USER" "sftp://$SFTP_HOST" -e "
+            set sftp:auto-confirm yes;
+            set net:timeout 20; set net:max-retries 3; set net:reconnect-interval-base 5;
+            mkdir -p -f '$APP_DIR/veille/$SEMAINE';
+            put -O '$APP_DIR/veille/$SEMAINE' 'database/veille/$SEMAINE/$ETAPE.sql';
+            chmod 600 '$APP_DIR/veille/$SEMAINE/$ETAPE.sql';
+            bye"
+
+      - name: Importer dans la base
+        id: import
+        run: |
+          code=$(curl -sS -o import.json -w '%{http_code}' -X POST \
+            -H "X-Publication-Jeton: $PUBLIER_JETON" \
+            --data-urlencode "semaine=$SEMAINE" --data-urlencode "etape=$ETAPE" \
+            "$SITE_URL/api/importer.php" || echo "000")
+          echo "code=$code" >> "$GITHUB_OUTPUT"
+          { echo "### Import $ETAPE · semaine $SEMAINE (HTTP $code)"; echo '```json'; cat import.json 2>/dev/null; echo; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Régénérer le site
+        if: inputs.etape == 'validation' && steps.import.outputs.code == '200'
+        run: |
+          code=$(curl -sS -o publication.json -w '%{http_code}' -X POST \
+            -H "X-Publication-Jeton: $PUBLIER_JETON" -H "X-Declencheur: manuel" \
+            "$SITE_URL/api/publier.php" || echo "000")
+          { echo "### Publication (HTTP $code)"; echo '```json'; cat publication.json 2>/dev/null; echo; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+          [ "$code" = "200" ] || { echo "::error::Publication : HTTP $code"; exit 1; }
+
+      - name: Versionner la trace de l'import
+        if: always() && steps.import.outputs.code != ''
+        run: |
+          d="database/veille/$SEMAINE"
+          [ -f import.json ] && cp import.json "$d/import-$ETAPE.json"
+          [ -f publication.json ] && cp publication.json "$d/publication.json"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$d"/import-*.json "$d"/publication.json 2>/dev/null || true
+          git diff --cached --quiet || { git commit -q -m "Trace de l'import $ETAPE, semaine $SEMAINE [skip ci]" && git push -q origin HEAD:main; }
+
+      - name: Résultat
+        run: |
+          [ "${{ steps.import.outputs.code }}" = "200" ] || { echo "::error::Import refusé ou annulé (HTTP ${{ steps.import.outputs.code }}). Aucune modification si annulé : voir import-$ETAPE.json."; exit 1; }

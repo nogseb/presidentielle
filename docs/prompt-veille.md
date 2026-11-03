@@ -161,6 +161,7 @@ Biographie : deux phrases (fonction actuelle, puis un ou deux jalons), sans appr
 ### 7.5 Remise
 
 - **Avec accès en écriture au dépôt** : crée la branche `veille/AAAA-MM-JJ` (date de fin de période), place les trois fichiers dans `database/veille/AAAA-MM-JJ/`, ajoute pour chaque nouveau candidat une ligne `"slug": {"article": "Prénom Nom"}` dans `outils/photos/candidats.json`, puis ouvre une pull request intitulée « Veille du … au … » avec la synthèse en description. Ne fusionne jamais, ne pousse jamais sur `main`.
+- **Import** : Sébastien lance ensuite le workflow « Importer une veille » (étape `saisie`, puis `validation` après relecture). Tu ne le lances pas toi-même sans son accord explicite.
 - **Sans accès au dépôt** : livre les trois fichiers en pièces jointes, ou à défaut leur contenu intégral dans trois blocs distincts.
 
 ## 8. Ce que tu ne fais jamais
