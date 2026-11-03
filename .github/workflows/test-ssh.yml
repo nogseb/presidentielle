@@ -1,0 +1,89 @@
+# Repères 2027 · test de l'accès SSH à l'hébergement OVHcloud (lecture seule)
+#
+# Vérifie si GitHub peut lancer des commandes sur l'hébergement en SSH, avec les
+# identifiants SFTP déjà enregistrés, et lire la base MySQL depuis l'hébergement.
+# Aucune écriture : ni fichier sur le site, ni ligne dans la base.
+# Le mot de passe de la base passe par un fichier temporaire (droits 600) supprimé
+# aussitôt, jamais par la ligne de commande.
+# Résultat : fichier diagnostic/ssh.txt sur la branche « diagnostic » (sans secret).
+
+name: Tester l'accès SSH
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      SSHPASS: ${{ secrets.OVH_SFTP_PASSWORD }}
+      SSH_USER: ${{ secrets.OVH_SFTP_USER }}
+      SSH_HOST: ${{ secrets.OVH_SFTP_HOST }}
+      DB_HOST: ${{ secrets.OVH_DB_HOST }}
+      DB_NAME: ${{ secrets.OVH_DB_NAME }}
+      DB_USER: ${{ secrets.OVH_DB_USER }}
+      DB_PASSWORD: ${{ secrets.OVH_DB_PASSWORD }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Installer sshpass
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq sshpass
+
+      - name: 1 · Connexion SSH
+        id: ssh
+        continue-on-error: true
+        run: |
+          sshpass -e ssh -o StrictHostKeyChecking=accept-new -o ConnectTimeout=20 \
+            "$SSH_USER@$SSH_HOST" 'echo connexion-ok' > ssh.out 2>/dev/null
+          grep -q connexion-ok ssh.out
+
+      - name: 2 · Client mysql sur l'hébergement
+        id: client
+        if: steps.ssh.outcome == 'success'
+        continue-on-error: true
+        run: |
+          sshpass -e ssh -o StrictHostKeyChecking=accept-new "$SSH_USER@$SSH_HOST" \
+            'mysql --version' > client.out 2>/dev/null
+          test -s client.out
+
+      - name: 3 · Lecture de la base, sans modification
+        id: base
+        if: steps.client.outcome == 'success'
+        continue-on-error: true
+        run: |
+          printf '[client]\nhost=%s\nuser=%s\npassword=%s\n' "$DB_HOST" "$DB_USER" "$DB_PASSWORD" \
+          | sshpass -e ssh -o StrictHostKeyChecking=accept-new "$SSH_USER@$SSH_HOST" \
+            "umask 077; f=\$(mktemp); cat > \"\$f\"; mysql --defaults-extra-file=\"\$f\" -N -B '$DB_NAME' -e \"
+              SELECT CONCAT('schema_version ', MAX(version)) FROM schema_version;
+              SELECT CONCAT('digest ', debut, ' au ', fin, ' publie=', publie) FROM digest ORDER BY debut DESC LIMIT 3;
+              SELECT CONCAT('candidats ', COUNT(*)) FROM candidat;
+              SELECT CONCAT('faits_valides ', COUNT(*)) FROM evenement WHERE etat = 'valide';
+              SELECT CONCAT('sondages_valides ', COUNT(*)) FROM sondage WHERE etat = 'valide';
+              SELECT CONCAT('debats_valides ', COUNT(*)) FROM debat WHERE etat = 'valide';\"; rc=\$?; rm -f \"\$f\"; exit \$rc" \
+            > base.out 2>/dev/null
+          test -s base.out
+
+      - name: 4 · Rapport sur la branche diagnostic
+        if: always()
+        run: |
+          {
+            echo "Test SSH du $(date -u '+%Y-%m-%d %H:%M') UTC (run ${{ github.run_id }})"
+            echo "1 connexion SSH            : ${{ steps.ssh.outcome }}"
+            echo "2 client mysql             : ${{ steps.client.outcome }}"
+            echo "3 lecture de la base       : ${{ steps.base.outcome }}"
+            echo
+            [ -s client.out ] && { echo "Client :"; head -1 client.out; echo; }
+            [ -s base.out ] && { echo "Base de production :"; cat base.out; }
+          } > rapport.txt
+          cat rapport.txt >> "$GITHUB_STEP_SUMMARY"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch -q origin diagnostic 2>/dev/null && git checkout -q -B diagnostic origin/diagnostic || git checkout -q --orphan diagnostic
+          git rm -rq --cached . 2>/dev/null || true
+          mkdir -p diagnostic && cp rapport.txt diagnostic/ssh.txt
+          git add diagnostic/ssh.txt
+          git commit -q -m "Diagnostic SSH (run ${{ github.run_id }})" && git push -q origin diagnostic
