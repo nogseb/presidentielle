@@ -41,6 +41,7 @@ phpMyAdmin (saisie)  →  MySQL OVHcloud  →  api/publier.php  →  data/site.j
 - [Installation sur OVHcloud](docs/installation.md) : base, secrets GitHub, premier déploiement.
 - [Saisir et valider des données](docs/saisie.md) : requêtes prêtes à copier dans phpMyAdmin.
 - [Modèle de données](docs/modele-de-donnees.md) : tables et contrat JSON.
+- [Prompt de veille hebdomadaire](docs/prompt-veille.md) : consigne pour l'assistant IA qui prépare la mise à jour de la semaine (fichiers SQL à valider).
 
 ## Travailler en local
 
