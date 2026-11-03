@@ -37,6 +37,32 @@ const EXPORT_TYPES_EVENEMENT = [
     'autre'          => 'Autre',
 ];
 
+/*
+ * Radar de la semaine : huit axes (domaines) et trois anneaux (portée).
+ * Axes : 1 Candidatures · 2 Règles et calendrier · 3 Programmes · 4 Opinion ·
+ *        5 Débats de fond · 6 Justice et financement · 7 Médias et numérique · 8 Société civile.
+ * Portée : course (change le champ des candidatures ou les règles) · engagement (engage un
+ *          candidat) · signal (à suivre).
+ * Les colonnes evenement.axe / portee et calendrier_etape.axe / portee (migration 004) priment ;
+ * à défaut, la règle ci-dessous s'applique selon le type du fait.
+ */
+const EXPORT_RADAR_TYPE = [
+    'candidature'    => [1, 'course'],
+    'retrait'        => [1, 'course'],
+    'ralliement'     => [1, 'course'],
+    'primaire'       => [1, 'signal'],
+    'decompte'       => [1, 'signal'],
+    'institutions'   => [2, 'signal'],
+    'calendrier'     => [2, 'signal'],
+    'programme'      => [3, 'engagement'],
+    'sondage'        => [4, 'signal'],
+    'debat'          => [5, 'engagement'],
+    'justice'        => [6, 'signal'],
+    'societe_civile' => [8, 'signal'],
+    'autre'          => [1, 'signal'],
+];
+const EXPORT_PORTEES = ['course', 'engagement', 'signal'];
+
 final class ExportSite
 {
     /** @var PDO */
@@ -534,11 +560,46 @@ final class ExportSite
             $dispositifs[] = ['when' => $d['periode'], 't' => $d['titre'], 'd' => $d['description'], 'src' => $liens];
         }
 
+        // Chapitres du livre de l'organisation (migration 004). À défaut, la grille reste groupée par domaine.
+        $chapitres = [];
+        $numeroChapitre = [];
+        $livre = null;
+        try {
+            $stmt = $this->db->prepare('SELECT * FROM livre_chapitre WHERE organisation_id = ? ORDER BY numero');
+            $stmt->execute([$oid]);
+            foreach ($stmt->fetchAll() as $lc) {
+                $numeroChapitre[(int) $lc['id']] = (int) $lc['numero'];
+                $chapitres[] = [
+                    'n'   => (int) $lc['numero'],
+                    't'   => $lc['titre'],
+                    'p'   => $lc['page'] !== null ? (int) $lc['page'] : null,
+                    'pa'  => (int) $lc['partie'],
+                    'pat' => $lc['partie_titre'],
+                    'th'  => $lc['theme_id'] !== null ? (int) $lc['theme_id'] : null,
+                ];
+                if (!$livre && $lc['source_id']) {
+                    $s = $this->db->prepare('SELECT titre, editeur, date_publication FROM source WHERE id = ?');
+                    $s->execute([$lc['source_id']]);
+                    if ($l = $s->fetch()) {
+                        $livre = ['t' => $l['titre'], 'ed' => $l['editeur'], 'd' => $l['date_publication'], 'src' => $this->src((int) $lc['source_id'])];
+                    }
+                }
+            }
+        } catch (PDOException $e) {
+            $this->alerte('Chapitres du livre absents : importer database/migrations/004_radar_chapitres.sql et le seed 070.');
+        }
+
         $chantiers = [];
         $stmt = $this->db->prepare('SELECT * FROM chantier WHERE organisation_id = ? ORDER BY ordre, id');
         $stmt->execute([$oid]);
         foreach ($stmt as $c) {
-            $chantiers[] = ['id' => $c['slug'], 'l' => $c['libelle'], 'dom' => $c['domaine'], 'th' => (int) $c['theme_id']];
+            $ch = ['id' => $c['slug'], 'l' => $c['libelle'], 'dom' => $c['domaine'], 'th' => (int) $c['theme_id']];
+            if (!empty($c['chapitre_id']) && isset($numeroChapitre[(int) $c['chapitre_id']])) {
+                $ch['chap'] = $numeroChapitre[(int) $c['chapitre_id']];
+            } elseif ($chapitres) {
+                $this->alerte("Chantier {$c['slug']} sans chapitre du livre : affiché dans « Autres chantiers ».");
+            }
+            $chantiers[] = $ch;
         }
 
         $dansComparateur = array_flip($ids);
@@ -577,6 +638,8 @@ final class ExportSite
             'financeSrc'  => $financement,
             'hatvp'       => $org['hatvp_url'],
             'dispositifs' => $dispositifs,
+            'livre'       => $livre,
+            'chapitres'   => $chapitres,
             'chantiers'   => $chantiers,
             'etats'       => (object) array_map(function ($e) { return (object) $e; }, $etats),
             'src'         => (object) array_map(function ($e) { return (object) $e; }, $sources),
@@ -615,9 +678,13 @@ final class ExportSite
                 $this->alerte("Plus de cinq faits dans le digest du {$dg['debut']} : fait du {$e['date_evenement']} non publié.");
                 continue;
             }
+            [$axe, $portee] = $this->radar($e, EXPORT_RADAR_TYPE[$e['type']] ?? [1, 'signal']);
             $faits[] = [
                 'd'   => $e['date_evenement'],
+                'ty'  => $e['type'],
                 'tag' => EXPORT_TYPES_EVENEMENT[$e['type']] ?? 'Autre',
+                'axe' => $axe,
+                'por' => $portee,
                 't'   => $e['titre'],
                 'src' => $liens,
             ];
@@ -642,15 +709,34 @@ final class ExportSite
             if ($c['intitule_court']) {
                 $etape['court'] = $c['intitule_court'];
             }
-            if ((int) $c['societe_civile'] === 1) {
+            $soc = (int) $c['societe_civile'] === 1;
+            if ($soc) {
                 $etape['soc'] = true;
             }
+            [$etape['axe'], $etape['por']] = $this->radar($c, $soc ? [8, 'signal'] : [2, 'course']);
             if ($c['source_id'] && ($s = $this->src((int) $c['source_id']))) {
                 $etape['src'] = $s;
             }
             $etapes[] = $etape;
         }
         return $etapes;
+    }
+
+    /**
+     * Axe et portée d'un fait ou d'une échéance : valeurs saisies si présentes
+     * (migration 004), sinon règle par défaut.
+     *
+     * @param array{0:int,1:string} $defaut
+     * @return array{0:int,1:string}
+     */
+    private function radar(array $ligne, array $defaut): array
+    {
+        $axe = isset($ligne['axe']) ? (int) $ligne['axe'] : 0;
+        $portee = $ligne['portee'] ?? '';
+        return [
+            $axe >= 1 && $axe <= 8 ? $axe : $defaut[0],
+            in_array($portee, EXPORT_PORTEES, true) ? $portee : $defaut[1],
+        ];
     }
 
     private function phases(): array

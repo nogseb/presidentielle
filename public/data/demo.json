@@ -1,8 +1,8 @@
 {
   "meta": {
     "version": 1,
-    "genere_le": "2026-10-18T11:52:31+02:00",
-    "maj": "2026-10-18",
+    "genere_le": "2026-11-04T00:12:43+01:00",
+    "maj": "2026-11-04",
     "premier_tour": "2027-04-18",
     "second_tour": "2027-05-02",
     "liste_officielle": "2027-03-26",
@@ -12,68 +12,83 @@
     "empreinte_min": 10
   },
   "semaine": {
-    "periode": "Du 11 au 17 octobre 2026",
+    "periode": "Du 25 au 31 octobre 2026",
     "faits": [
       {
-        "d": "2026-10-16",
-        "tag": "Institutions",
-        "t": "Des parlementaires RN et UDR saisissent le Conseil constitutionnel pour demander la démission de son président, Richard Ferrand.",
-        "src": [
-          [
-            "Public Sénat",
-            "https://www.publicsenat.fr/actualites/politique/marine-le-pen-demande-la-demission-de-richard-ferrand-le-president-du-conseil-constitutionnel-est-il-vraiment-sorti-de-sa-reserve"
-          ]
-        ]
-      },
-      {
-        "d": "2026-10-15",
-        "tag": "Décompte",
-        "t": "L'Obs recense 31 candidatures déclarées ; Toute l'Europe en compte 30. L'écart tient à la date et à la règle de décompte.",
-        "src": [
-          [
-            "L'Obs",
-            "https://www.nouvelobs.com/politique/20261015.OBS119225/presidentielle-2027-quels-sont-les-31-candidats-actuellement-declares.html"
-          ],
-          [
-            "Toute l'Europe",
-            "https://www.touteleurope.eu/vie-politique-des-etats-membres/presidentielle-2027-qui-sont-les-candidats-deja-declares/"
-          ]
-        ]
-      },
-      {
-        "d": "2026-10-14",
-        "tag": "Candidature",
-        "t": "Natacha Polony annonce sa candidature sur France Inter.",
-        "src": [
-          [
-            "Public Sénat",
-            "https://www.publicsenat.fr/actualites/politique/election-presidentielle-2027-qui-sont-les-candidats-declares-ou-presque"
-          ]
-        ]
-      },
-      {
-        "d": "2026-10-12",
-        "tag": "Programme",
-        "t": "Bruno Retailleau présente un plan de 197 milliards d'euros d'économies et vise un déficit public sous 3 % du PIB en 2031.",
-        "src": [
-          [
-            "Public Sénat",
-            "https://www.publicsenat.fr/actualites/economie/presidentielle-2027-bruno-retailleau-sengage-sur-un-plan-deconomies-de-pres-de-200-milliards-deuros-sil-est-elu"
-          ]
-        ]
-      },
-      {
-        "d": "2026-10-11",
-        "tag": "Primaire",
-        "t": "Raphaël Glucksmann remporte dès le premier tour la primaire sociale-démocrate (PS, Place publique, GRS), avec plus de 66 % des voix.",
+        "d": "2026-10-29",
+        "ty": "justice",
+        "tag": "Justice",
+        "axe": 6,
+        "por": "signal",
+        "t": "Entendu par deux juges d'instruction financiers à Paris, Édouard Philippe est placé sous le statut de témoin assisté dans une enquête pour détournement de fonds publics, favoritisme et harcèlement moral portant sur Le Havre Seine Métropole, qu'il préside.",
         "src": [
           [
             "LCP",
-            "https://lcp.fr/actualites/primaire-socialiste-vainqueur-des-le-1er-tour-raphael-glucksmann-sera-le-candidat-de-la"
+            "https://lcp.fr/actualites/soupcons-de-detournement-de-fonds-publics-edouard-philippe-place-sous-le-statut-de"
           ],
           [
-            "Toute l'Europe",
-            "https://www.touteleurope.eu/vie-politique-des-etats-membres/presidentielle-2027-qui-sont-les-candidats-deja-declares/"
+            "Le Club des juristes",
+            "https://www.leclubdesjuristes.com/en-bref/placement-dedouard-philippe-sous-le-statut-de-temoin-assiste-dans-une-enquete-pour-detournement-de-fonds-publics-18148/"
+          ]
+        ]
+      },
+      {
+        "d": "2026-10-28",
+        "ty": "calendrier",
+        "tag": "Calendrier",
+        "axe": 2,
+        "por": "signal",
+        "t": "Le gouvernement exclut de modifier les dates du scrutin, fixées aux 18 avril et 2 mai 2027, après des demandes en ce sens, dont celle de Bruno Retailleau.",
+        "src": [
+          [
+            "LCP",
+            "https://lcp.fr/actualites/presidentielle-2027-pour-le-gouvernement-il-n-y-a-pas-de-raison-de-changer-les-dates-de"
+          ]
+        ]
+      },
+      {
+        "d": "2026-10-28",
+        "ty": "primaire",
+        "tag": "Primaire",
+        "axe": 1,
+        "por": "signal",
+        "t": "Gabriel Attal propose sur TF1 une « grande primaire des démocrates », qu'il présente comme un moyen d'éviter un second tour RN-LFI ; les équipes d'Édouard Philippe et de Bruno Retailleau la rejettent le lendemain.",
+        "src": [
+          [
+            "LCP",
+            "https://lcp.fr/actualites/presidentielle-2027-gabriel-attal-veut-une-grande-primaire-des-democrates-pour-eviter-un"
+          ],
+          [
+            "Public Sénat",
+            "https://www.publicsenat.fr/actualites/politique/apres-la-proposition-de-primaire-de-gabriel-attal-rejetee-par-le-camp-philippe-et-retailleau-le-blocage-perdure"
+          ]
+        ]
+      },
+      {
+        "d": "2026-10-28",
+        "ty": "programme",
+        "tag": "Programme",
+        "axe": 3,
+        "por": "engagement",
+        "t": "Gabriel Attal présente son projet économique : 150 milliards d'euros d'économies sur cinq ans, une règle d'or budgétaire inscrite dans la Constitution et l'accélération du programme de 14 réacteurs EPR2.",
+        "src": [
+          [
+            "attalpresident.fr",
+            "https://attalpresident.fr/actualites/gabriel-attal-vision-economique-liberer-innover-independance-france"
+          ]
+        ]
+      },
+      {
+        "d": "2026-10-26",
+        "ty": "sondage",
+        "tag": "Sondage",
+        "axe": 4,
+        "por": "signal",
+        "t": "Sondage Cluster17 pour POLITICO (terrain du 19 au 22 octobre) : Marine Le Pen de 30,5 à 33 % selon les hypothèses, Jean-Luc Mélenchon de 18,5 à 19,5 %, Édouard Philippe 16 % dans l'hypothèse principale.",
+        "src": [
+          [
+            "Cluster17",
+            "https://cluster17.com/presidentielle-2027-marine-le-pen-conforte-son-avance-jean-luc-melenchon-devance-desormais-edouard-philippe-philippe/"
           ]
         ]
       }
@@ -105,9 +120,11 @@
       "l": "1er juillet 2026",
       "t": "Dates du scrutin arrêtées en Conseil des ministres",
       "s": "fait",
+      "axe": 2,
+      "por": "course",
       "src": [
-        "Weka",
-        "https://www.weka.fr/actualite/elus/article_juridique/parrainages-des-candidats-a-l-election-presidentielle-2027-quel-role-pour-les-elus-216318/"
+        "Service-Public.fr",
+        "https://www.service-public.gouv.fr/particuliers/actualites/A15053"
       ]
     },
     {
@@ -115,31 +132,37 @@
       "l": "11 octobre 2026",
       "t": "Primaire sociale-démocrate : Raphaël Glucksmann désigné",
       "s": "fait",
+      "axe": 1,
+      "por": "course",
       "src": [
         "LCP",
         "https://lcp.fr/actualites/primaire-socialiste-vainqueur-des-le-1er-tour-raphael-glucksmann-sera-le-candidat-de-la"
       ]
     },
     {
-      "d": "2026-10-31",
-      "l": "Octobre 2026",
-      "t": "Livre de synthèse du Plan robuste pour l'économie française (The Shift Project)",
-      "s": "annonce",
+      "d": "2026-10-14",
+      "l": "14 octobre 2026",
+      "t": "Parution de « Réussir à l'ère des crises », livre du Plan robuste (The Shift Project, Odile Jacob)",
+      "s": "fait",
       "soc": true,
+      "axe": 8,
+      "por": "signal",
       "src": [
-        "The Shift Project",
-        "https://theshiftproject.org/publications/plan-robuste-economie/"
+        "Odile Jacob",
+        "https://www.odilejacob.fr/catalogue/sciences-humaines/economie-et-finance/reussir-a-l-ere-des-crises_9782415016722.php"
       ]
     },
     {
       "d": "2026-12-13",
       "l": "13 décembre 2026",
-      "t": "Vote des militants écologistes sur la candidature de Marine Tondelier",
+      "t": "Vote des adhérents écologistes : candidature de Marine Tondelier ou soutien à un candidat extérieur au parti",
       "s": "annonce",
-      "court": "Vote des militants écologistes",
+      "court": "Vote des adhérents écologistes",
+      "axe": 1,
+      "por": "course",
       "src": [
-        "Public Sénat",
-        "https://www.publicsenat.fr/actualites/politique/election-presidentielle-2027-qui-sont-les-candidats-declares-ou-presque"
+        "LCP",
+        "https://lcp.fr/actualites/presidentielle-une-dynamique-melenchon-chez-les-ecologistes-au-risque-de-fracturer-le"
       ]
     },
     {
@@ -149,6 +172,8 @@
       "s": "calcule",
       "lc": "Début févr.",
       "court": "Ouverture des parrainages",
+      "axe": 2,
+      "por": "course",
       "src": [
         "Weka",
         "https://www.weka.fr/actualite/elus/article_juridique/parrainages-des-candidats-a-l-election-presidentielle-2027-quel-role-pour-les-elus-216318/"
@@ -160,6 +185,8 @@
       "t": "Fin des travaux de l'assemblée citoyenne « Un commun accord » lancée par Jean-Marc Jancovici",
       "s": "annonce",
       "soc": true,
+      "axe": 8,
+      "por": "signal",
       "src": [
         "Carenews, 26 août 2026",
         "https://www.carenews.com/carenews-info/news/jean-marc-jancovici-lance-une-assemblee-citoyenne-en-perspective-de-2027"
@@ -171,6 +198,8 @@
       "t": "Clôture du dépôt des parrainages",
       "s": "calcule",
       "court": "Clôture des parrainages",
+      "axe": 2,
+      "por": "course",
       "src": [
         "Toute l'Europe",
         "https://www.touteleurope.eu/vie-politique-des-etats-membres/presidentielle-2027-qui-sont-les-candidats-deja-declares/"
@@ -182,6 +211,8 @@
       "t": "Liste officielle des candidats, ordonnée par tirage au sort",
       "s": "calcule",
       "court": "Liste officielle",
+      "axe": 2,
+      "por": "course",
       "src": [
         "Weka",
         "https://www.weka.fr/actualite/elus/article_juridique/parrainages-des-candidats-a-l-election-presidentielle-2027-quel-role-pour-les-elus-216318/"
@@ -191,22 +222,28 @@
       "d": "2027-04-05",
       "l": "Lundi 5 avril 2027",
       "t": "Ouverture de la campagne officielle",
-      "s": "calcule"
+      "s": "calcule",
+      "axe": 2,
+      "por": "course"
     },
     {
       "d": "2027-04-16",
       "l": "Vendredi 16 avril 2027, 0 h",
       "t": "Gel des sondages sur ce site (la loi l'impose la veille et le jour du scrutin ; plusieurs outre-mer votent le samedi)",
-      "s": "calcule"
+      "s": "calcule",
+      "axe": 4,
+      "por": "course"
     },
     {
       "d": "2027-04-18",
       "l": "Dimanche 18 avril 2027",
       "t": "Premier tour (samedi 17 avril dans plusieurs outre-mer)",
       "s": "officiel",
+      "axe": 2,
+      "por": "course",
       "src": [
-        "Weka",
-        "https://www.weka.fr/actualite/elus/article_juridique/parrainages-des-candidats-a-l-election-presidentielle-2027-quel-role-pour-les-elus-216318/"
+        "Service-Public.fr",
+        "https://www.service-public.gouv.fr/particuliers/actualites/A15053"
       ]
     },
     {
@@ -214,9 +251,11 @@
       "l": "Dimanche 2 mai 2027",
       "t": "Second tour (samedi 1er mai dans plusieurs outre-mer)",
       "s": "officiel",
+      "axe": 2,
+      "por": "course",
       "src": [
-        "Weka",
-        "https://www.weka.fr/actualite/elus/article_juridique/parrainages-des-candidats-a-l-election-presidentielle-2027-quel-role-pour-les-elus-216318/"
+        "Service-Public.fr",
+        "https://www.service-public.gouv.fr/particuliers/actualites/A15053"
       ]
     }
   ],
@@ -627,7 +666,7 @@
       "f": [
         "Volet judiciaire"
       ],
-      "note": "Condamnée en appel le 7 juillet 2026, pourvoi en cassation en cours ; éligible à ce stade selon Toute l'Europe.",
+      "note": "Condamnée en appel le 7 juillet 2026 : 45 mois d'inéligibilité dont 30 avec sursis, sans exécution provisoire. Pourvoi en cassation ; la Cour de cassation a indiqué pouvoir statuer avant début 2027. Son éligibilité d'ici là fait débat entre juristes (Public Sénat, 2 novembre 2026).",
       "prog": null,
       "nb": 0,
       "cmp": false,
@@ -803,7 +842,7 @@
       "dk": "declaration",
       "b": [],
       "f": [],
-      "note": null,
+      "note": "Placé sous le statut de témoin assisté le 29 octobre 2026 dans une enquête portant sur Le Havre Seine Métropole (LCP, 30 octobre 2026).",
       "prog": null,
       "nb": 0,
       "cmp": false,
@@ -965,7 +1004,7 @@
       "f": [
         "Candidature à confirmer"
       ],
-      "note": "Vote des militants prévu le 13 décembre 2026 (Public Sénat).",
+      "note": "Vote des adhérents le 13 décembre 2026 : candidature de Marine Tondelier ou soutien à un candidat extérieur au parti (LCP, 23 octobre 2026).",
       "prog": null,
       "nb": 0,
       "cmp": false,
@@ -2202,39 +2241,69 @@
   "sondage": {
     "rows": [
       {
+        "n": "Nathalie Arthaud",
+        "lo": 0.5,
+        "hi": 0.5
+      },
+      {
         "n": "Gabriel Attal",
-        "lo": 6,
-        "hi": 15.5
+        "lo": 4,
+        "hi": 9.5
+      },
+      {
+        "n": "Nicolas Dupont-Aignan",
+        "lo": 1.5,
+        "hi": 2
       },
       {
         "n": "Raphaël Glucksmann",
-        "lo": 11.5,
-        "hi": 13.5
+        "lo": 13,
+        "hi": 15.5
       },
       {
         "n": "Marine Le Pen",
-        "lo": 33,
-        "hi": 35
+        "lo": 32,
+        "hi": 33.5
+      },
+      {
+        "n": "David Lisnard",
+        "lo": 6.5,
+        "hi": 6.5
       },
       {
         "n": "Jean-Luc Mélenchon",
-        "lo": 15.5,
+        "lo": 17,
         "hi": 17
       },
       {
         "n": "Édouard Philippe",
-        "lo": 14,
-        "hi": 21
+        "lo": 13,
+        "hi": 15
       },
       {
         "n": "Bruno Retailleau",
-        "lo": 7,
-        "hi": 10.5
+        "lo": 5.5,
+        "hi": 11.5
+      },
+      {
+        "n": "Fabien Roussel",
+        "lo": 2,
+        "hi": 2.5
+      },
+      {
+        "n": "Marine Tondelier",
+        "lo": 3.5,
+        "hi": 3.5
+      },
+      {
+        "n": "Éric Zemmour",
+        "lo": 4,
+        "hi": 4.5
       }
     ],
-    "mentions": "Ipsos bva-CESI École d'ingénieurs pour le CEVIPOF, la Fondation Jean-Jaurès, l'Institut Montaigne et Le Monde, réalisée du 3 au 9 septembre 2026 auprès de 13 060 personnes inscrites sur les listes électorales. En pourcentage des suffrages exprimés. Enquête antérieure à la primaire du 11 octobre.",
-    "lecture": "Chaque barre va du score le plus bas au plus haut obtenu selon les hypothèses de candidatures testées. Ce n'est pas une marge d'erreur.",
-    "url": "https://www.ipsos.com/fr-fr/presidentielle-2027-le-point-7-mois-du-scrutin",
+    "mentions": "Ipsos bva-CESI École d'ingénieurs pour Le Parisien, réalisée du 21 au 22 octobre 2026 auprès de 1 500 personnes inscrites sur les listes électorales. En pourcentage des suffrages exprimés. Enquête postérieure à la primaire du 11 octobre. Gabriel Attal, David Lisnard et Bruno Retailleau ne sont pas testés dans toutes les hypothèses ; base de 1 048 à 1 069 répondants selon l'hypothèse.",
+    "lecture": "Chaque barre va du score le plus bas au plus haut obtenu selon les quatre hypothèses de candidatures testées. Ce n'est pas une marge d'erreur.",
+    "url": "https://www.ipsos.com/fr-fr/presidentielle-2027-melenchon-progresse-le-pen-reste-en-tete",
     "notice": null
   },
   "shift": {
@@ -2249,7 +2318,7 @@
     "hatvp": null,
     "dispositifs": [
       {
-        "when": "14 avril 2026 · livre de synthèse annoncé pour octobre 2026",
+        "when": "14 avril 2026 · livre paru le 14 octobre 2026 (Odile Jacob)",
         "t": "Plan robuste pour l'économie française",
         "d": "Premier volet, « Réussir la transition dans l'incertitude » : 20 chantiers et 5 leviers (énergies bas-carbone, électrification, sobriété, émissions hors combustion, puits de carbone). Objectif affiché : éclairer le débat à un an de la présidentielle.",
         "src": [
@@ -2260,6 +2329,10 @@
           [
             "Communiqué",
             "https://theshiftproject.org/app/uploads/2026/04/Communique-de-presse-Transition-Robuste-avril26.pdf"
+          ],
+          [
+            "Odile Jacob",
+            "https://www.odilejacob.fr/catalogue/sciences-humaines/economie-et-finance/reussir-a-l-ere-des-crises_9782415016722.php"
           ]
         ]
       },
@@ -2286,120 +2359,278 @@
         ]
       }
     ],
+    "livre": {
+      "t": "Réussir à l'ère des crises. Un plan robuste pour l'économie française",
+      "ed": "Odile Jacob",
+      "d": "2026-10-14",
+      "src": [
+        "Odile Jacob",
+        "https://www.odilejacob.fr/catalogue/sciences-humaines/economie-et-finance/reussir-a-l-ere-des-crises_9782415016722.php"
+      ]
+    },
+    "chapitres": [
+      {
+        "n": 4,
+        "t": "Sécuriser la transition",
+        "p": 49,
+        "pa": 2,
+        "pat": "Les chantiers incontournables pour réussir à l'ère des crises",
+        "th": null
+      },
+      {
+        "n": 5,
+        "t": "L'énergie",
+        "p": 59,
+        "pa": 2,
+        "pat": "Les chantiers incontournables pour réussir à l'ère des crises",
+        "th": 6
+      },
+      {
+        "n": 6,
+        "t": "Le cuivre",
+        "p": 71,
+        "pa": 2,
+        "pat": "Les chantiers incontournables pour réussir à l'ère des crises",
+        "th": 12
+      },
+      {
+        "n": 7,
+        "t": "Les puits naturels, agricoles et forestiers",
+        "p": 83,
+        "pa": 2,
+        "pat": "Les chantiers incontournables pour réussir à l'ère des crises",
+        "th": 7
+      },
+      {
+        "n": 8,
+        "t": "L'agriculture et la pêche",
+        "p": 97,
+        "pa": 2,
+        "pat": "Les chantiers incontournables pour réussir à l'ère des crises",
+        "th": 7
+      },
+      {
+        "n": 9,
+        "t": "L'industrie",
+        "p": 113,
+        "pa": 2,
+        "pat": "Les chantiers incontournables pour réussir à l'ère des crises",
+        "th": 12
+      },
+      {
+        "n": 10,
+        "t": "Les transports",
+        "p": 129,
+        "pa": 2,
+        "pat": "Les chantiers incontournables pour réussir à l'ère des crises",
+        "th": 13
+      },
+      {
+        "n": 11,
+        "t": "Le logement",
+        "p": 147,
+        "pa": 2,
+        "pat": "Les chantiers incontournables pour réussir à l'ère des crises",
+        "th": 1
+      },
+      {
+        "n": 12,
+        "t": "L'emploi",
+        "p": 159,
+        "pa": 2,
+        "pat": "Les chantiers incontournables pour réussir à l'ère des crises",
+        "th": 3
+      },
+      {
+        "n": 13,
+        "t": "La santé",
+        "p": 173,
+        "pa": 3,
+        "pat": "Des transformations à mener dans l'ensemble de la société",
+        "th": 4
+      },
+      {
+        "n": 14,
+        "t": "L'enseignement et la formation",
+        "p": 185,
+        "pa": 3,
+        "pat": "Des transformations à mener dans l'ensemble de la société",
+        "th": 5
+      },
+      {
+        "n": 15,
+        "t": "La défense",
+        "p": 197,
+        "pa": 3,
+        "pat": "Des transformations à mener dans l'ensemble de la société",
+        "th": 10
+      },
+      {
+        "n": 16,
+        "t": "Le numérique",
+        "p": 207,
+        "pa": 3,
+        "pat": "Des transformations à mener dans l'ensemble de la société",
+        "th": 14
+      },
+      {
+        "n": 17,
+        "t": "Le sport",
+        "p": 219,
+        "pa": 3,
+        "pat": "Des transformations à mener dans l'ensemble de la société",
+        "th": null
+      },
+      {
+        "n": 18,
+        "t": "Les territoires",
+        "p": 231,
+        "pa": 3,
+        "pat": "Des transformations à mener dans l'ensemble de la société",
+        "th": null
+      },
+      {
+        "n": 19,
+        "t": "La culture",
+        "p": 249,
+        "pa": 3,
+        "pat": "Des transformations à mener dans l'ensemble de la société",
+        "th": 15
+      }
+    ],
     "chantiers": [
       {
         "id": "velo",
         "l": "Vélo",
         "dom": "Transports",
-        "th": 13
+        "th": 13,
+        "chap": 10
       },
       {
         "id": "tc",
         "l": "Transports en commun",
         "dom": "Transports",
-        "th": 13
+        "th": 13,
+        "chap": 10
       },
       {
         "id": "ve",
         "l": "Voiture électrique sobre",
         "dom": "Transports",
-        "th": 13
+        "th": 13,
+        "chap": 10
       },
       {
         "id": "train",
         "l": "Train",
         "dom": "Transports",
-        "th": 13
+        "th": 13,
+        "chap": 10
       },
       {
         "id": "aerien",
         "l": "Aérien décarboné",
         "dom": "Transports",
-        "th": 13
+        "th": 13,
+        "chap": 10
       },
       {
         "id": "fret",
         "l": "Fret ferroviaire",
         "dom": "Transports",
-        "th": 13
+        "th": 13,
+        "chap": 10
       },
       {
         "id": "camions",
         "l": "Camions électriques",
         "dom": "Transports",
-        "th": 13
+        "th": 13,
+        "chap": 10
       },
       {
         "id": "renov",
         "l": "Rénovation des logements",
         "dom": "Logement",
-        "th": 1
+        "th": 1,
+        "chap": 11
       },
       {
         "id": "pac",
         "l": "Pompes à chaleur",
         "dom": "Logement",
-        "th": 1
+        "th": 1,
+        "chap": 11
       },
       {
         "id": "datacenters",
         "l": "Maîtrise des centres de données",
         "dom": "Numérique",
-        "th": 14
+        "th": 14,
+        "chap": 16
       },
       {
         "id": "acier",
         "l": "Acier bas-carbone",
         "dom": "Industrie",
-        "th": 12
+        "th": 12,
+        "chap": 9
       },
       {
         "id": "h2",
         "l": "Hydrogène bas-carbone",
         "dom": "Industrie",
-        "th": 12
+        "th": 12,
+        "chap": 9
       },
       {
         "id": "ccs",
         "l": "Captage et stockage du carbone",
         "dom": "Industrie",
-        "th": 12
+        "th": 12,
+        "chap": 9
       },
       {
         "id": "elevage",
         "l": "Transformation de l'élevage bovin",
         "dom": "Agriculture",
-        "th": 7
+        "th": 7,
+        "chap": 8
       },
       {
         "id": "azote",
         "l": "Gestion de l'azote (légumineuses)",
         "dom": "Agriculture",
-        "th": 7
+        "th": 7,
+        "chap": 8
       },
       {
         "id": "puits",
         "l": "Puits de carbone naturels et forestiers",
         "dom": "Agriculture",
-        "th": 7
+        "th": 7,
+        "chap": 7
       },
       {
         "id": "nucleaire",
         "l": "Nucléaire historique et EPR2",
         "dom": "Énergie",
-        "th": 6
+        "th": 6,
+        "chap": 5
       },
       {
         "id": "enr",
         "l": "Solaire et éolien",
         "dom": "Énergie",
-        "th": 6
+        "th": 6,
+        "chap": 5
       },
       {
         "id": "bio",
         "l": "Bioénergies",
         "dom": "Énergie",
-        "th": 6
+        "th": 6,
+        "chap": 5
       }
     ],
     "etats": {

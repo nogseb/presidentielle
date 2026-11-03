@@ -27,10 +27,10 @@ MySQL est la source de vérité. Le site public ne lit jamais la base : il lit `
 | Table | Rôle | Points d'attention |
 | --- | --- | --- |
 | `digest` | une semaine de veille | `publie = 1` pour l'afficher ; seul le plus récent publié est exporté |
-| `evenement` | un fait daté | `type` : candidature, programme, sondage, institutions, décompte, société civile… ; 5 faits au plus par digest |
+| `evenement` | un fait daté | `type` : candidature, programme, sondage, institutions, décompte, société civile… ; 5 faits au plus par digest ; `axe` (1 à 8) et `portee` (`course`, `engagement`, `signal`) placent le fait sur le radar, NULL = règle par défaut selon le type |
 | `evenement_source`, `evenement_candidat` | liens d'un fait vers ses sources et candidats | un fait sans source n'est pas publié |
 | `sondage`, `sondage_resultat` | enquêtes d'intentions de vote | résultats en fourchette `valeur_min` / `valeur_max` ; mentions obligatoires (institut, commanditaire, échantillon, marge) |
-| `calendrier_etape` | jalons de la campagne | `statut` : `officiel`, `fait`, `annonce`, `calcule` ; `societe_civile = 1` pour les étapes hors institutions |
+| `calendrier_etape` | jalons de la campagne | `statut` : `officiel`, `fait`, `annonce`, `calcule` ; `societe_civile = 1` pour les étapes hors institutions ; `axe` et `portee` pour le radar (NULL = axe 2 et `course`, ou axe 8 et `signal` pour la société civile) |
 
 ### Débats
 
@@ -46,7 +46,8 @@ MySQL est la source de vérité. Le site public ne lit jamais la base : il lit `
 | --- | --- | --- |
 | `organisation` | organisation suivie | `grille_dediee = 1` ouvre la section dédiée (The Shift Project) |
 | `organisation_dispositif`, `dispositif_source` | actions de plaidoyer (propositions, consultation des Shifters, communiqués) | chaque dispositif est sourcé |
-| `chantier` | les 19 chantiers de la grille | `slug` court (`train`, `nucleaire`, `datacenters`…) |
+| `chantier` | les 19 chantiers de la grille | `slug` court (`train`, `nucleaire`, `datacenters`…) ; `chapitre_id` : chapitre du livre qui le traite (rattachement choisi par le site) |
+| `livre_chapitre` | chapitres du livre de l'organisation (migration 004) | `numero`, `titre`, `page`, `partie` et `partie_titre`, `theme_id` (thème du comparateur le plus proche, ou NULL), `source_id` (le livre) |
 | `correspondance` | position d'un candidat sur un chantier | `etat_chantier` : `repris`, `en_partie`, `oppose`, `non_aborde` ; source obligatoire pour être publiée |
 
 ### Traçabilité
@@ -64,16 +65,16 @@ MySQL est la source de vérité. Le site public ne lit jamais la base : il lit `
 | Clé | Contenu |
 | --- | --- |
 | `meta` | `version`, `genere_le`, `maj`, dates des tours, `liste_officielle`, `phase`, `demo`, `chiffre_note`, `empreinte_min`, `empreinte` (SHA-256 des données) |
-| `semaine` | `periode` et `faits[]` : `d` date, `tag`, `t` texte, `src` liste de couples [libellé, URL] |
+| `semaine` | `periode` et `faits[]` : `d` date, `ty` type, `tag` libellé du type, `axe` (1 à 8) et `por` portée (`course`, `engagement`, `signal`) pour le radar, `t` texte, `src` liste de couples [libellé, URL] |
 | `phases` | les 3 phases : `n` nom, `from`, `to`, `d` description |
-| `calendrier` | `d` date, `l` libellé de date, `t` intitulé, `s` statut, `src` |
+| `calendrier` | `d` date, `l` libellé de date, `lc` libellé court, `t` intitulé, `court` intitulé court, `s` statut, `soc` société civile, `axe` et `por` pour le radar, `src` |
 | `candidats` | `id`, `p` prénom, `n` nom, `parti`, `st` statut (`declare`, `a_confirmer`, `officiel`…), `d` date de déclaration, `dp` précision, `dk` type de désignation, `b` badges, `f` points d'attention, `note`, `prog` programme, `nb` nombre de propositions, `cmp` présent au comparateur, `src`, `nai` date de naissance, `bio`, `bioSrc` source de la biographie |
 | `comparateur` | `candidats[]` : `id`, `nom`, `court` |
 | `themes` | `id`, `slug`, `n` nom, `c` nom court, `une`, `pivots`, `vars[]` (`slug`, `q` question, `type` num ou cat, `v` valeurs par candidat, `src`, `shift`, et `unit`/`min`/`max`/`ticks` ou `mods`), `r` scores radar et `mesures` lorsqu'il y a des données |
 | `empreinte` | répartition des propositions par thème, publiée à partir de `empreinte_min` propositions |
 | `sondage` | `rows`, `mentions`, `lecture`, `url`, `notice` |
 | `debats` | `echelle` (5 crans, libellés) et `liste[]` : `id`, `th` thème, `q` mesure, `c` nom court, `ctx`, `ctxSrc`, `chiffre` (`v`, `l`, `src`), `var`, `shift`, `pour[]` et `contre[]` (`t`, `qui`, `src`), `pos` par candidat (`e` cran, `cit`, `src`, ou `na`) |
-| `shift` | `nom`, `qui`, `demande`, `finance`, `financeSrc`, `hatvp`, `dispositifs`, `chantiers`, `etats`, `src` |
+| `shift` | `nom`, `qui`, `demande`, `finance`, `financeSrc`, `hatvp`, `dispositifs`, `livre` (`t`, `ed`, `d`, `src`), `chapitres[]` (`n` numéro, `t` titre, `p` page, `pa` partie, `pat` titre de la partie, `th` thème), `chantiers[]` (`id`, `l`, `dom` domaine, `th` thème, `chap` numéro de chapitre), `etats`, `src` |
 
 ## Contrat JSON du quiz (`data/quiz-2022.json`, version 1)
 
@@ -100,3 +101,19 @@ Toute évolution incompatible du contrat incrémente `meta.version` ; `public/as
 - Plus de trois mesures phares par candidat et par thème, ou plus de cinq faits dans le digest : alerte.
 - Vérification de plus de 30 jours sur une position : alerte.
 - `site.json` n'est réécrit que si l'empreinte des données change ; l'écriture est atomique (fichier temporaire puis renommage).
+
+## Radar de la semaine
+
+| Axe | Domaine | Types de faits rangés par défaut |
+| --- | --- | --- |
+| 1 | Candidatures | candidature, retrait, ralliement (portée `course`) ; primaire, décompte, autre (`signal`) |
+| 2 | Règles et calendrier | institutions, calendrier (`signal`) ; échéances du calendrier (`course`) |
+| 3 | Programmes | programme (`engagement`) |
+| 4 | Opinion | sondage (`signal`) |
+| 5 | Débats de fond | debat (`engagement`) |
+| 6 | Justice et financement | justice (`signal`) |
+| 7 | Médias et numérique | aucun type par défaut : saisir `axe = 7` |
+| 8 | Société civile | societe_civile (`signal`) ; échéances `societe_civile = 1` (`signal`) |
+
+Portée : `course` = modifie le champ des candidatures ou les règles du scrutin (centre) ; `engagement` = engagement pris par un candidat (milieu) ; `signal` = à suivre (bord). Une valeur saisie dans `axe` ou `portee` prime sur la règle par défaut, par exemple une primaire dont le résultat désigne un candidat (`axe = 1`, `portee = 'course'`). Le radar place les faits du dernier digest publié (points pleins) et les cinq prochaines échéances du calendrier (points creux).
+

@@ -101,8 +101,9 @@ VALUES ((SELECT id FROM candidat WHERE slug = 'slug-du-candidat'),
 ```sql
 INSERT INTO digest (debut, fin, publie) VALUES ('2026-10-18', '2026-10-24', 0);
 
-INSERT INTO evenement (date_evenement, type, titre, digest_id, etat)
-VALUES ('2026-10-20', 'candidature', 'Une phrase factuelle, sans adjectif.',
+-- axe et portee : facultatifs (NULL = règle par défaut selon le type, voir docs/modele-de-donnees.md)
+INSERT INTO evenement (date_evenement, type, axe, portee, titre, digest_id, etat)
+VALUES ('2026-10-20', 'candidature', 1, 'course', 'Une phrase factuelle, sans adjectif.',
         (SELECT id FROM digest WHERE debut = '2026-10-18'), 'a_valider');
 
 INSERT INTO evenement_source (evenement_id, source_id)

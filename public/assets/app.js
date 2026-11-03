@@ -69,19 +69,57 @@
       $("#maj").textContent = "Données mises à jour le " + d.toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" }) + " à " + d.toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" }) + (META.demo ? " · démonstration" : "") + ".";
     }
 
-    /* ---------------------------------------------------------------- La semaine */
+    /* ---------------------------------------------------------------- La semaine
+     * Radar : huit axes (domaines), trois anneaux (portée). Points pleins = faits du digest,
+     * points creux = cinq prochaines échéances du calendrier. Règle publiée dans « Méthode ». */
+    const RAD_AXES = [
+      { l: "Candidatures", d: "Déclarations, retraits, ralliements, primaires" },
+      { l: "Règles et calendrier", d: "Scrutin, parrainages, Conseil constitutionnel" },
+      { l: "Programmes", d: "Mesures annoncées et chiffrées" },
+      { l: "Opinion", d: "Enquêtes d'intentions de vote" },
+      { l: "Débats de fond", d: "Les quinze thèmes du comparateur" },
+      { l: "Justice et financement", d: "Procédures, comptes de campagne" },
+      { l: "Médias et numérique", d: "Temps de parole, désinformation, IA" },
+      { l: "Société civile", d: "Think tanks, ONG, syndicats" },
+    ];
+    const RAD_POR = { course: "Change la course", engagement: "Engage un candidat", signal: "À suivre" };
+    const RAD_RING = { course: 0, engagement: 1, signal: 2 };
+    const RAD_BANDS = [[24, 66], [76, 112], [124, 156]];
+    // Repli si data/site.json ne porte pas encore l'axe (ancien export) : même règle que app/lib/export.php
+    const RAD_TYPE = { candidature: [1, "course"], retrait: [1, "course"], ralliement: [1, "course"], primaire: [1, "signal"], decompte: [1, "signal"], institutions: [2, "signal"], calendrier: [2, "signal"], programme: [3, "engagement"], sondage: [4, "signal"], debat: [5, "engagement"], justice: [6, "signal"], societe_civile: [8, "signal"] };
+    const NOMBRES = ["Aucun", "Un", "Deux", "Trois", "Quatre", "Cinq", "Six", "Sept", "Huit", "Neuf", "Dix", "Onze", "Douze"];
+    const axeNum = a => String(a).padStart(2, "0");
+    const axeNom = a => `${axeNum(a)} · ${RAD_AXES[a - 1].l}`;
+    const radOf = (x, defaut) => {
+      const ok = x.axe >= 1 && x.axe <= 8;
+      return [ok ? x.axe : defaut[0], RAD_POR[x.por] ? x.por : defaut[1]];
+    };
+    const FAITS = (DATA.semaine && DATA.semaine.faits) || [];
+    const NEXT = DATA.calendrier.filter(c => c.d >= TODAY).slice(0, 5);
+    const SIG = FAITS.map((f, i) => {
+      const [axe, por] = radOf(f, RAD_TYPE[f.ty] || [1, "signal"]);
+      return { k: "f", id: "fait-" + i, axe, por, date: fmt(f.d, { day: "numeric", month: "short" }), t: f.t };
+    }).concat(NEXT.map((c, i) => {
+      const [axe, por] = radOf(c, c.soc ? [8, "signal"] : [2, "course"]);
+      return { k: "e", id: "eche-" + i, axe, por, date: c.lc || fmt(c.d, { day: "numeric", month: "short" }), t: c.court || c.t };
+    }));
+    let radAxe = null;
+
     function renderSemaine() {
       const S = DATA.semaine;
       if (S && S.faits.length) {
         $("#periode").textContent = S.periode;
-        $("#facts").innerHTML = S.faits.map(f => `
-          <li class="fact">
+        $("#facts").innerHTML = S.faits.map((f, i) => {
+          const s = SIG[i];
+          return `
+          <li class="fact" id="${s.id}" data-axe="${s.axe}" tabindex="-1">
             <time datetime="${f.d}">${esc(fmt(f.d, { day: "numeric", month: "short" }))}</time>
             <div class="txt">
               <p>${esc(f.t)}</p>
-              <div class="meta"><span class="tag">${esc(f.tag)}</span><span>Source : ${f.src.map(link).join(", ")}</span></div>
+              <div class="meta"><span class="tag">${esc(axeNom(s.axe))}</span><span class="por por-${s.por}">${RAD_POR[s.por]}</span><span>Source : ${f.src.map(link).join(", ")}</span></div>
             </div>
-          </li>`).join("");
+          </li>`;
+        }).join("") + `<li class="empty" id="facts-vide" hidden></li>`;
       } else {
         $("#periode").textContent = "Premier digest à paraître";
         $("#facts").innerHTML = `<li class="empty">Le premier digest sera publié un lundi, avec cinq faits sourcés.</li>`;
@@ -97,9 +135,9 @@
         $("#cand-lede").textContent = "Liste publiée par le Conseil constitutionnel, dans l'ordre du tirage au sort.";
         $("#sort").closest(".field").hidden = true;
       }
-      const next = DATA.calendrier.filter(c => c.d >= TODAY && !c.soc).slice(0, 3);
-      $("#next").innerHTML = next.map(c => `<li class="next"><time datetime="${c.d}">${esc(c.lc || fmt(c.d, { day: "numeric", month: "short" }))}</time><span>${esc(c.court || c.t)}</span></li>`).join("")
+      $("#next").innerHTML = NEXT.map((c, i) => { const s = SIG[FAITS.length + i]; return `<li class="next" id="${s.id}" data-axe="${s.axe}" tabindex="-1"><time datetime="${c.d}">${esc(s.date)}</time><span>${esc(c.court || c.t)}${c.soc ? '<span class="soc">Société civile</span>' : ""}</span></li>`; }).join("")
         + `<li><a href="#calendrier">Tout le calendrier</a></li>`;
+      renderRadar();
       $("#phases").innerHTML = DATA.phases.map(p => {
         const on = TODAY >= p.from && TODAY < p.to;
         const past = TODAY >= p.to;
@@ -117,6 +155,110 @@
         </a>`;
       }).join("");
     }
+
+    function renderRadar() {
+      if (!SIG.length) { $("#radar").hidden = true; return; }
+      $("#radar").hidden = false;
+      const n = SIG.length;
+      $("#rad-n").textContent = (NOMBRES[n] || n) + (n > 1 ? " signaux." : " signal.");
+      const pt = (r, deg) => { const a = deg * Math.PI / 180; return [r * Math.sin(a), -r * Math.cos(a)]; };
+      const f2 = v => v.toFixed(2);
+      // Position : secteur de l'axe, bande de l'anneau. Plusieurs points d'une même case partent
+      // en diagonale, puis s'écartent les uns des autres sans sortir de leur case.
+      const P = [];
+      for (let a = 1; a <= 8; a++) {
+        [0, 1, 2].forEach(r => {
+          const items = SIG.filter(s => s.axe === a && RAD_RING[s.por] === r);
+          items.forEach((s, j) => {
+            const t = items.length === 1 ? 0.5 : j / (items.length - 1);
+            const [r0, r1] = RAD_BANDS[r], d0 = (a - 1) * 45;
+            P.push({ id: s.id, r0, r1, d0, ra: r0 + (r1 - r0) * t, de: d0 + 9 + 27 * t });
+          });
+        });
+      }
+      const ECART = 26;
+      for (let it = 0; it < 120; it++) {
+        P.forEach(p => { [p.x, p.y] = pt(p.ra, p.de); });
+        for (let i = 0; i < P.length; i++) for (let j = i + 1; j < P.length; j++) {
+          const p = P[i], q = P[j];
+          let dx = q.x - p.x, dy = q.y - p.y, dd = Math.hypot(dx, dy);
+          if (dd >= ECART) continue;
+          if (dd < 0.01) { dx = 1; dy = 0; dd = 1; }
+          const k = (ECART - dd) / 2 / dd;
+          p.x -= dx * k; p.y -= dy * k; q.x += dx * k; q.y += dy * k;
+        }
+        P.forEach(p => {
+          p.ra = Math.min(p.r1, Math.max(p.r0, Math.hypot(p.x, p.y)));
+          let rel = ((Math.atan2(p.x, -p.y) * 180 / Math.PI - p.d0) % 360 + 360) % 360;
+          if (rel > 202.5) rel -= 360;
+          p.de = p.d0 + Math.min(40, Math.max(5, rel));
+        });
+      }
+      const pos = {};
+      P.forEach(p => { const [x, y] = pt(p.ra, p.de); pos[p.id] = [(x + 200) / 4, (y + 200) / 4]; });
+      let svg = `<svg class="rad-svg" viewBox="-200 -200 400 400" aria-hidden="true"><path class="rad-sect" id="rad-sect" d=""/>`
+        + `<circle class="rad-core" r="70"/>` + [70, 118].map(r => `<circle class="rad-ring" r="${r}"/>`).join("") + `<circle class="rad-ring rad-out" r="162"/>`;
+      for (let k = 0; k < 8; k++) {
+        const [x, y] = pt(162, k * 45), [lx, ly] = pt(176, k * 45 + 22.5);
+        svg += `<line class="rad-ring" x1="0" y1="0" x2="${f2(x)}" y2="${f2(y)}"/><text class="rad-lab" data-axe="${k + 1}" x="${f2(lx)}" y="${f2(ly)}" text-anchor="middle" dominant-baseline="central">${axeNum(k + 1)}</text>`;
+      }
+      svg += `</svg><div class="rad-sweep" aria-hidden="true"></div><span class="rad-c" aria-hidden="true"></span>`;
+      svg += SIG.map(s => `<button type="button" class="rad-dot ${s.k}" data-cible="${s.id}" data-axe="${s.axe}" style="left:${f2(pos[s.id][0])}%;top:${f2(pos[s.id][1])}%" aria-label="${esc((s.k === "f" ? "Fait du " : "Échéance : ") + s.date + " · " + axeNom(s.axe) + " · " + RAD_POR[s.por] + " · " + s.t)}" data-tip="${esc(s.date + " · " + s.t)}"></button>`).join("");
+      $("#rad-box").innerHTML = svg;
+      $("#rad-axes").innerHTML = RAD_AXES.map((x, i) => {
+        const c = SIG.filter(s => s.axe === i + 1).length;
+        return `<button type="button" class="ax" data-axe="${i + 1}" aria-pressed="false"${c ? "" : " disabled"}><span class="ax-n">${axeNum(i + 1)}</span><span class="ax-l"><b>${esc(x.l)}</b><span class="ax-d">${esc(x.d)}</span></span><span class="ax-c">${c}<span class="vh"> ${c > 1 ? "signaux" : "signal"}</span></span></button>`;
+      }).join("");
+      radarFiltre();
+    }
+
+    function radarFiltre() {
+      const on = s => radAxe === null || Number(s) === radAxe;
+      document.querySelectorAll("#rad-box .rad-dot").forEach(b => b.classList.toggle("off", !on(b.dataset.axe)));
+      document.querySelectorAll("#rad-box .rad-lab").forEach(t => t.classList.toggle("on", radAxe !== null && on(t.dataset.axe)));
+      document.querySelectorAll("#rad-axes .ax").forEach(b => b.setAttribute("aria-pressed", String(radAxe !== null && on(b.dataset.axe))));
+      const sect = $("#rad-sect");
+      if (sect) {
+        if (radAxe === null) sect.setAttribute("d", "");
+        else {
+          const a0 = (radAxe - 1) * 45 * Math.PI / 180, a1 = radAxe * 45 * Math.PI / 180;
+          sect.setAttribute("d", `M0 0L${(162 * Math.sin(a0)).toFixed(2)} ${(-162 * Math.cos(a0)).toFixed(2)}A162 162 0 0 1 ${(162 * Math.sin(a1)).toFixed(2)} ${(-162 * Math.cos(a1)).toFixed(2)}Z`);
+        }
+      }
+      let vis = 0;
+      document.querySelectorAll("#facts .fact").forEach(li => { li.hidden = !on(li.dataset.axe); if (!li.hidden) vis++; });
+      document.querySelectorAll("#next .next").forEach(li => li.classList.toggle("off", !on(li.dataset.axe)));
+      const total = FAITS.length;
+      const vide = $("#facts-vide");
+      if (vide) {
+        vide.hidden = vis > 0;
+        if (!vis) vide.textContent = `Aucun fait de la semaine sur l'axe ${axeNom(radAxe)}. Ses échéances restent signalées dans « Prochaines étapes ».`;
+      }
+      $("#facts-n").textContent = !total ? "" : radAxe === null
+        ? `${total} fait${total > 1 ? "s" : ""}, du plus récent au plus ancien`
+        : `${vis} fait${vis > 1 ? "s" : ""} sur ${total} · axe ${axeNom(radAxe)}`;
+      $("#rad-tous").hidden = radAxe === null;
+    }
+
+    $("#rad-axes").addEventListener("click", e => {
+      const b = e.target.closest("button[data-axe]");
+      if (!b || b.disabled) return;
+      const a = Number(b.dataset.axe);
+      radAxe = radAxe === a ? null : a;
+      radarFiltre();
+    });
+    $("#rad-tous").addEventListener("click", () => { radAxe = null; radarFiltre(); $("#rad-axes .ax:not(:disabled)").focus(); });
+    $("#rad-box").addEventListener("click", e => {
+      const b = e.target.closest("button[data-cible]");
+      if (!b) return;
+      const el = document.getElementById(b.dataset.cible);
+      if (!el) return;
+      if (el.hidden || el.classList.contains("off")) { radAxe = null; radarFiltre(); }
+      const calme = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+      el.scrollIntoView({ block: "center", behavior: calme ? "auto" : "smooth" });
+      el.focus({ preventScroll: true });
+      el.classList.remove("flash"); void el.offsetWidth; el.classList.add("flash");
+    });
 
     /* ---------------------------------------------------------------- Candidats */
     const OFFICIELS = !!(META.phase && META.phase !== "declares");
@@ -545,20 +687,49 @@
         const txt = ST_ORDER.map((s, k) => counts[k] ? `${counts[k]} ${ST[s].toLowerCase()}` : "").filter(Boolean).join(" · ");
         return `<div class="unit-row"><span class="unit-name">${esc(shortOf(id))}</span><span class="unit-g" role="img" aria-label="${esc(txt)}">${glyphs}</span><span class="unit-n">${esc(txt)}</span></div>`;
       }).join("");
-      const doms = SH.chantiers.map(c => c.dom).filter((d, i, a) => a.indexOf(d) === i);
+      // Groupes : chapitres du livre si la base les fournit (migration 004), sinon domaines
+      const CHAPS = SH.chapitres && SH.chapitres.length ? SH.chapitres : null;
+      let groupes;
+      if (CHAPS) {
+        groupes = CHAPS.filter(ch => SH.chantiers.some(c => c.chap === ch.n)).map(ch => ({
+          titre: `Chapitre ${ch.n} · ${ch.t}`, court: `Ch. ${ch.n}`, page: ch.p, th: ch.th, list: SH.chantiers.filter(c => c.chap === ch.n),
+        }));
+        const sans = SH.chantiers.filter(c => !CHAPS.some(ch => ch.n === c.chap));
+        if (sans.length) groupes.push({ titre: "Autres chantiers", court: "", page: null, th: null, list: sans });
+      } else {
+        groupes = SH.chantiers.map(c => c.dom).filter((d, i, a) => a.indexOf(d) === i).map(d => {
+          const list = SH.chantiers.filter(c => c.dom === d);
+          return { titre: d, court: d, page: null, th: list[0].th, list };
+        });
+      }
+      if (CHAPS && SH.livre) {
+        const L = SH.livre;
+        const annee = L.d ? fmt(L.d, { month: "long", year: "numeric" }) : "";
+        $("#sh-lede").innerHTML = `The Shift Project, think tank présidé par Jean-Marc Jancovici, détaille son Plan robuste pour l'économie française dans un livre paru ${annee ? "en " + esc(annee) : "récemment"}, ${L.src ? `<a href="${esc(L.src[1])}" target="_blank" rel="noopener">«&nbsp;${esc(L.t.split(". ")[0])}&nbsp;»</a>` : `«&nbsp;${esc(L.t.split(". ")[0])}&nbsp;»`} (${esc(L.ed)}). Pour chacun des <span id="sh-count"></span> chantiers retenus ici, regroupés selon les chapitres du livre, la grille indique si le candidat le reprend, en partie, s'y oppose ou ne l'aborde pas.`;
+        $("#sh-count").textContent = SH.chantiers.length;
+      }
+      $("#sh-mx-titre").textContent = CHAPS ? "Chantier par chantier, chapitre par chapitre" : "Chantier par chantier";
+      $("#sh-mx-note").hidden = !CHAPS;
+      if (CHAPS) $("#sh-mx-note").textContent = `${groupes.filter(g => g.court).length} chapitres du livre sur ${CHAPS.length} portent un chantier de la grille. Le rattachement d'un chantier à un chapitre est un choix du site.`;
       const cols = IDS.length ? IDS : [];
       const tpl = cols.length ? `grid-template-columns:minmax(9rem,1fr) repeat(${cols.length},30px);min-width:calc(9rem + ${cols.length * 34}px)` : "grid-template-columns:1fr";
       let mx = cols.length ? `<div class="mx-row mx-head" style="${tpl}" aria-hidden="true"><span></span>${cols.map(id => `<span title="${esc(nameOf(id))}">${esc(shortOf(id))}</span>`).join("")}</div>` : "";
-      doms.forEach(d => {
-        const list = SH.chantiers.filter(c => c.dom === d);
-        const th = themeById(list[0].th);
-        mx += `<div class="mx-dom" style="min-width:calc(9rem + ${cols.length * 34}px)"><b>${esc(d)}</b>${th ? `<a class="small" href="#themes" data-theme="${th.id}">Thème ${esc(th.c)}</a>` : ""}</div>`;
-        list.forEach(c => {
+      groupes.forEach(g => {
+        const th = g.th ? themeById(g.th) : null;
+        const infos = [g.page ? `p. ${g.page}` : "", th ? `<a href="#themes" data-theme="${th.id}">${CHAPS ? esc(th.n) : "Thème " + esc(th.c)}</a>` : ""].filter(Boolean).join(" · ");
+        mx += `<div class="mx-dom" style="min-width:calc(9rem + ${cols.length * 34}px)"><b>${esc(g.titre)}</b>${infos ? `<span class="small">${infos}</span>` : ""}</div>`;
+        g.list.forEach(c => {
           mx += `<div class="mx-row" style="${tpl}"><span class="mx-l">${esc(c.l)}</span>${cols.map(id => { const s = stateOf(id, c.id); const src = shiftSrc(id, c.id); return `<span class="mx-c">${sg(s, nameOf(id) + " · " + c.l + " : " + ST[s].toLowerCase() + (src ? " · source : " + src[0] : ""))}</span>`; }).join("")}</div>`;
         });
       });
       $("#sh-matrix").innerHTML = mx;
-      $("#sh-table").innerHTML = cols.length ? `<table><thead><tr><th>Chantier</th>${cols.map(id => `<th>${esc(shortOf(id))}</th>`).join("")}</tr></thead><tbody>${SH.chantiers.map(c => `<tr><td>${esc(c.l)}</td>${cols.map(id => { const src = shiftSrc(id, c.id); return `<td>${ST[stateOf(id, c.id)]}${src ? ` (${link(src)})` : ""}</td>`; }).join("")}</tr>`).join("")}</tbody></table>` : "";
+      $("#sh-table").innerHTML = cols.length ? `<table><thead><tr><th>${CHAPS ? "Chapitre" : "Domaine"}</th><th>Chantier</th>${cols.map(id => `<th>${esc(shortOf(id))}</th>`).join("")}</tr></thead><tbody>${groupes.map(g => g.list.map(c => `<tr><td>${esc(g.court)}</td><td>${esc(c.l)}</td>${cols.map(id => { const src = shiftSrc(id, c.id); return `<td>${ST[stateOf(id, c.id)]}${src ? ` (${link(src)})` : ""}</td>`; }).join("")}</tr>`).join("")).join("")}</tbody></table>` : "";
+      const autres = CHAPS ? CHAPS.filter(ch => !SH.chantiers.some(c => c.chap === ch.n)) : [];
+      $("#sh-chap-autres").hidden = !autres.length;
+      if (autres.length) {
+        $("#sh-chap-autres").innerHTML = `<h3>Les ${autres.length} autres chapitres du livre</h3><p class="small">Ils ne portent pas de chantier dans cette grille. Le thème indiqué renvoie au comparateur.</p>`
+          + `<ul class="chap-list">${autres.map(ch => { const th = ch.th ? themeById(ch.th) : null; return `<li><span class="chap-n">${ch.n}</span><span class="chap-t"><span>${esc(ch.t)}${ch.p ? ` <span class="small">p.&nbsp;${ch.p}</span>` : ""}</span><span class="small">${th ? `Thème : <a href="#themes" data-theme="${th.id}">${esc(th.n)}</a>` : "Sans thème correspondant dans le comparateur"}</span></span></li>`; }).join("")}</ul>`;
+      }
       $("#sh-org").innerHTML = `<dl class="facts-org">
           <dt>Qui</dt><dd>${esc(SH.qui)}</dd>
           <dt>Demande</dt><dd>${esc(SH.demande)}</dd>

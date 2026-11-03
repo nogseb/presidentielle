@@ -77,7 +77,7 @@ Règles :
 ### 7.1 `rapport.md`
 
 1. **Synthèse** de la semaine en cinq lignes.
-2. **Faits retenus pour le digest** : tableau date, type, fait, candidats concernés, sources.
+2. **Faits retenus pour le digest** : tableau date, type, axe et portée sur le radar (avec une justification courte si le classement s'écarte de la règle par défaut), fait, candidats concernés, sources.
 3. **Autres mises à jour proposées** (candidatures, calendrier, sondage, programmes, positions dans les débats, The Shift Project, biographies) : tableau situation en ligne / proposition / source.
 4. **Faits écartés** et raison.
 5. **Points à vérifier** : informations non confirmées, sources contradictoires, doutes de classement sur l'échelle. Rien de ce qui figure ici n'entre dans le SQL.
@@ -104,8 +104,13 @@ DELETE FROM evenement WHERE digest_id = @dg AND etat <> 'valide';
 -- Un INSERT par fait, pour récupérer son identifiant
 -- type : candidature, retrait, ralliement, primaire, programme, debat, sondage, justice,
 --        institutions, calendrier, decompte, societe_civile, autre
-INSERT INTO evenement (date_evenement, type, titre, digest_id, etat)
-VALUES ('2026-11-04', 'institutions', 'Une phrase factuelle et datée.', @dg, 'a_valider');
+-- Radar : axe 1 Candidatures · 2 Règles et calendrier · 3 Programmes · 4 Opinion ·
+--         5 Débats de fond · 6 Justice et financement · 7 Médias et numérique · 8 Société civile
+--         portee : course (change le champ des candidatures ou les règles), engagement
+--         (engage un candidat), signal (à suivre). Toujours renseignés, justifiés dans le rapport.
+--         Règle par défaut : docs/modele-de-donnees.md, section « Radar de la semaine ».
+INSERT INTO evenement (date_evenement, type, axe, portee, titre, digest_id, etat)
+VALUES ('2026-11-04', 'institutions', 2, 'signal', 'Une phrase factuelle et datée.', @dg, 'a_valider');
 SET @e1 := LAST_INSERT_ID();
 INSERT INTO evenement_source (evenement_id, source_id, ordre)
 SELECT @e1, id, 1 FROM source WHERE cle = 'lemonde-2026-11-04-parrainages';
@@ -145,6 +150,11 @@ VALUES ('nouveau-slug', 'Prénom', 'Nom', 'Parti', 'declare', 'declaration', '20
 -- Rapport 3.2 : retrait
 UPDATE candidat SET statut = 'retire', date_sortie = '2026-11-05' WHERE slug = 'slug-existant';
 
+-- Rapport 3.4 : nouvelle échéance du calendrier, avec son axe et sa portée sur le radar
+INSERT INTO calendrier_etape (date_cle, libelle_date, libelle_court, intitule, intitule_court, statut, societe_civile, axe, portee, source_id)
+VALUES ('2026-12-06', '6 décembre 2026', '6 déc.', 'Intitulé complet, neutre.', 'Intitulé court', 'annonce', 0, 1, 'course',
+        (SELECT id FROM source WHERE cle = 'cle-de-la-source'));
+
 -- Rapport 3.3 : position dans un débat
 UPDATE debat_position SET etat = 'valide', verifie_le = CURDATE(), verifie_par = 'SN'
 WHERE debat_id = (SELECT id FROM debat WHERE slug = 'thermiques-2035')
@@ -175,6 +185,7 @@ Biographie : deux phrases (fonction actuelle, puis un ou deux jalons), sans appr
 ## 9. Liste de contrôle avant remise
 
 - [ ] Période du dimanche au samedi, cinq faits au plus, chacun sourcé et daté.
+- [ ] Axe (1 à 8) et portée renseignés pour chaque fait et chaque nouvelle échéance ; écart à la règle par défaut justifié dans le rapport.
 - [ ] Aucun doublon avec `site.json`.
 - [ ] Chaque source : titre exact, URL vérifiée, niveau, date de publication et de consultation.
 - [ ] Formulations neutres, accents et guillemets corrects.

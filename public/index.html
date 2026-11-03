@@ -50,9 +50,36 @@
     <div>
       <p class="eyebrow" id="periode"></p>
       <h1 id="t-semaine">La semaine en <span class="hl">60 secondes</span></h1>
-      <p class="lede">Cinq faits datés et sourcés, du plus récent au plus ancien. Aucun commentaire, aucun pronostic.</p>
+      <p class="lede">Cinq faits datés et sourcés, et les échéances qui arrivent. Aucun commentaire, aucun pronostic.</p>
     </div>
-    <ol class="facts rule" id="facts"></ol>
+    <section class="block rad-bloc" id="radar" aria-labelledby="t-radar" hidden>
+      <div class="head-row rad-head">
+        <div>
+          <p class="eyebrow" style="margin:0 0 6px">Le radar de la semaine</p>
+          <h2 class="rad-h" id="t-radar">Huit axes. <span class="hl" id="rad-n"></span></h2>
+        </div>
+        <p class="rad-intro">Chaque point est un fait de la semaine ou une échéance à venir, placé sur l'axe de son domaine et sur l'anneau de sa portée. Choisissez un axe pour filtrer.</p>
+      </div>
+      <div class="rad-grid">
+        <figure class="panel rad-fig">
+          <div class="rad-box" id="rad-box"></div>
+          <figcaption class="rad-cap">
+            <span class="rad-keys"><span><i class="rd" aria-hidden="true"></i>Fait de la semaine</span><span><i class="rd rd-e" aria-hidden="true"></i>Échéance à venir</span></span>
+            <span>Centre : change la course · milieu : engage un candidat · bord : à suivre</span>
+          </figcaption>
+        </figure>
+        <div class="panel rad-panel">
+          <p class="eyebrow" style="margin:0">Filtrer par axe</p>
+          <div class="rad-axes" id="rad-axes" role="group" aria-label="Axes du radar"></div>
+          <p class="small">Un axe vide signale qu'aucun fait sourcé de la semaine ni aucune échéance proche ne relève de ce domaine, pas une absence d'actualité. <a href="#methode">Règle de classement</a></p>
+          <button type="button" class="btn sec" id="rad-tous" hidden>Afficher tous les axes</button>
+        </div>
+      </div>
+    </section>
+    <div class="block" style="gap:0">
+      <div class="head-row facts-head"><h2>Les faits de la semaine</h2><span class="small" id="facts-n" aria-live="polite"></span></div>
+      <ol class="facts" id="facts"></ol>
+    </div>
     <div class="duo">
       <div class="panel">
         <p class="eyebrow" style="margin:0">Le chiffre</p>
@@ -214,7 +241,7 @@
     <div>
       <p class="eyebrow">Grille de lecture</p>
       <h1 id="t-shift">Les candidats au prisme du <span class="hl">Shift Project</span></h1>
-      <p class="lede">The Shift Project, think tank présidé par Jean-Marc Jancovici, a publié un Plan robuste pour l'économie française. Pour chacun de ses <span id="sh-count"></span> chantiers détaillés, la grille indique si le candidat le reprend, en partie, s'y oppose ou ne l'aborde pas.</p>
+      <p class="lede" id="sh-lede">The Shift Project, think tank présidé par Jean-Marc Jancovici, a publié un Plan robuste pour l'économie française. Pour chacun de ses <span id="sh-count"></span> chantiers détaillés, la grille indique si le candidat le reprend, en partie, s'y oppose ou ne l'aborde pas.</p>
     </div>
     <blockquote><b>Choix éditorial assumé.</b> Cette grille est celle d'une organisation, pas celle du site. Les correspondances sont factuelles et sourcées, appliquées à tous les candidats de la même façon, sans note ni classement.</blockquote>
     <p class="demo" data-demo hidden><b>Démonstration</b> Correspondances fictives pour les candidats A à F, en attendant la publication des programmes.</p>
@@ -226,9 +253,13 @@
       <p class="small">Un carré par chantier. Candidats dans l'ordre de la charte, jamais triés selon le nombre de chantiers repris.</p>
     </div>
     <div class="block">
-      <h2>Chantier par chantier</h2>
+      <div>
+        <h2 id="sh-mx-titre">Chantier par chantier</h2>
+        <p class="small" id="sh-mx-note" style="margin-top:6px" hidden></p>
+      </div>
       <div class="mx" id="sh-matrix"></div>
       <details class="data" id="sh-table-wrap"><summary>Voir le tableau</summary><div class="tbl" id="sh-table"></div></details>
+      <div class="chap-autres" id="sh-chap-autres" hidden></div>
     </div>
     <div class="block">
       <h2>L'organisation</h2>
@@ -287,7 +318,8 @@
         <li><b>Débats pour et contre</b> : chaque débat porte sur une mesure précise. Il présente autant d'arguments pour que contre, de longueur comparable, chacun attribué à l'institution ou à l'organisation qui l'avance et renvoyant à sa source. Les candidats sont placés sur une échelle commune en cinq crans, d'après une citation sourcée.</li>
         <li><b>Quiz</b> : chaque affirmation reprend une mesure débattue, formulée à l'infinitif. Votre réponse et la position de chaque candidat sont placées sur la même échelle en cinq crans ; l'accord vaut 100 % à cran égal et baisse de 25 points par cran d'écart, pondéré par l'importance choisie (×0,5, ×1 ou ×2). Le pourcentage ne porte que sur les affirmations où la position du candidat est documentée ; un candidat n'est classé qu'à partir de cinq affirmations comparables et d'un tiers de vos réponses. Le classement mesure la proximité avec vos réponses, pas la valeur des candidats. La première édition porte sur les douze candidats de 2022, d'après des comparatifs de presse et de think tanks ; l'édition 2027 suivra la publication des programmes.</li>
         <li><b>Portraits et biographies</b> : la photo est celle de l'article Wikipédia du candidat, sous licence libre sur Wikimedia Commons, créditée sur chaque fiche. La biographie tient en deux phrases au même gabarit pour tous (fonction actuelle, puis un ou deux jalons), sans appréciation, rédigée d'après une source citée et relue.</li>
-        <li><b>Une grille de lecture The Shift Project</b> : une section dédiée et une pastille « S » sur les sujets qui recoupent son Plan robuste. Les correspondances restent factuelles, sourcées et identiques pour tous les candidats.</li>
+        <li id="regle-radar"><b>Radar de la semaine</b> : chaque fait de la semaine (point plein) et chacune des cinq prochaines échéances du calendrier (point creux) sont placés sur l'un des huit axes selon leur domaine (candidatures ; règles et calendrier ; programmes ; opinion ; débats de fond ; justice et financement ; médias et numérique ; société civile), puis sur l'un des trois anneaux selon leur portée : au centre, ce qui modifie le champ des candidatures ou les règles du scrutin ; au milieu, un engagement pris par un candidat ; au bord, un signal à suivre. Le classement suit une règle fixe par type de fait, ajustée et relue à la saisie. Le radar ne hiérarchise ni les candidats ni l'importance politique des faits.</li>
+        <li><b>Une grille de lecture The Shift Project</b> : une section dédiée et une pastille « S » sur les sujets qui recoupent son Plan robuste. Les chantiers sont regroupés selon les chapitres de son livre « Réussir à l'ère des crises » (Odile Jacob, octobre 2026) ; le rattachement d'un chantier à un chapitre est un choix du site. Les correspondances restent factuelles, sourcées et identiques pour tous les candidats.</li>
       </ul>
     </div>
     <div class="block">

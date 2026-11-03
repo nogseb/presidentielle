@@ -72,8 +72,13 @@ jobs:
             ok(d.calendrier.length > 0 && d.phases.length === 3, "calendrier et phases");
             ok(d.shift && d.shift.chantiers.length >= 19, "chantiers du Shift Project");
             ok(!d.semaine || d.semaine.faits.length <= 5, "cinq faits au plus");
+            const POR = ["course", "engagement", "signal"];
+            ok(!d.semaine || d.semaine.faits.every(f => f.axe >= 1 && f.axe <= 8 && POR.includes(f.por)), "axe et portée de chaque fait (radar)");
+            ok(d.calendrier.every(c => c.axe >= 1 && c.axe <= 8 && POR.includes(c.por)), "axe et portée de chaque échéance (radar)");
+            ok(d.shift.chapitres.length === 16 && d.shift.livre && d.shift.livre.src, "chapitres du livre The Shift Project");
+            ok(d.shift.chantiers.every(c => d.shift.chapitres.some(ch => ch.n === c.chap)), "chaque chantier rattaché à un chapitre");
             ok(d.debats && d.debats.liste.length >= 1, "au moins un débat");
             ok(d.debats.liste.every(x => x.pour.length === x.contre.length && x.pour.length > 0), "autant d’arguments pour que contre");
             ok(d.debats.liste.every(x => x.ctxSrc && [...x.pour, ...x.contre].every(a => a.src && a.qui)), "chaque argument a un porteur et une source");
-            console.log("site.json conforme :", d.candidats.length, "candidatures,", d.themes.length, "thèmes,", d.debats.liste.length, "débats");
+            console.log("site.json conforme :", d.candidats.length, "candidatures,", d.themes.length, "thèmes,", d.debats.liste.length, "débats,", d.shift.chapitres.length, "chapitres");
           '
