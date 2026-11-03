@@ -1,0 +1,1 @@
+Diagnostic SSH du 3 novembre 2026 : SFTP opérationnel ; commandes SSH sans effet (shell non activé pour cet utilisateur). Détail retiré.
