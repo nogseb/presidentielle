@@ -33,6 +33,19 @@ jobs:
       - name: Installer sshpass
         run: sudo apt-get update -qq && sudo apt-get install -y -qq sshpass
 
+      # Diagnostic : messages d'erreur conservés, nom d'hôte et identifiant masqués.
+      - name: 0 · Diagnostic SFTP et SSH
+        if: always()
+        continue-on-error: true
+        run: |
+          masque() { sed -e "s/$SSH_HOST/[hôte]/g" -e "s/$SSH_USER/[utilisateur]/g" | grep -v -i 'password' | tail -n 6; }
+          echo "sftp -> pwd :" > diag.out
+          echo pwd | sshpass -e sftp -o StrictHostKeyChecking=accept-new -o ConnectTimeout=20 -b - "$SSH_USER@$SSH_HOST" 2>&1 | masque >> diag.out; echo "code ${PIPESTATUS[1]}" >> diag.out
+          echo "ssh -> echo :" >> diag.out
+          sshpass -e ssh -o StrictHostKeyChecking=accept-new -o ConnectTimeout=20 "$SSH_USER@$SSH_HOST" 'echo connexion-ok' 2>&1 | masque >> diag.out; echo "code ${PIPESTATUS[0]}" >> diag.out
+          echo "port 22 :" >> diag.out
+          (timeout 10 bash -c "</dev/tcp/$SSH_HOST/22" && echo ouvert || echo ferme) >> diag.out
+
       - name: 1 · Connexion SSH
         id: ssh
         continue-on-error: true
@@ -76,6 +89,7 @@ jobs:
             echo "2 client mysql             : ${{ steps.client.outcome }}"
             echo "3 lecture de la base       : ${{ steps.base.outcome }}"
             echo
+            [ -s diag.out ] && { echo "Diagnostic :"; cat diag.out; echo; }
             [ -s client.out ] && { echo "Client :"; head -1 client.out; echo; }
             [ -s base.out ] && { echo "Base de production :"; cat base.out; }
           } > rapport.txt
