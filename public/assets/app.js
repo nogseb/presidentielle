@@ -160,6 +160,8 @@
     const RAD_LARGE = window.matchMedia ? matchMedia("(min-width: 640px)") : { matches: false };
     const radPt = (r, deg) => { const a = deg * Math.PI / 180; return [r * Math.sin(a), -r * Math.cos(a)]; };
     let radXY = null;
+    const RAD_TOUR = 2.2;                                   // durée d'un tour de faisceau (voir @keyframes rad-sonar)
+    let radFige = false;
 
     function renderRadar() {
       if (!SIG.length) { $("#radar").hidden = true; return; }
@@ -227,8 +229,12 @@
       });
       const [sl] = pc(-162, 0);
       h += `<div class="rad-sweep" aria-hidden="true" style="left:${sl}%;width:${f2(324 / W * 100)}%;top:9.5%;height:81%"></div><span class="rad-c" aria-hidden="true"></span>`;
-      h += SIG.map(s => { const [l, t] = pc(radXY[s.id][0], radXY[s.id][1]); return `<button type="button" class="rad-dot ${s.k}" data-cible="${s.id}" data-axe="${s.axe}" style="left:${l}%;top:${t}%" aria-label="${esc((s.k === "f" ? "Fait du " : "Échéance : ") + s.date + " · " + axeNom(s.axe) + " · " + RAD_POR[s.por] + " · " + s.t)}" data-tip="${esc(s.date + " · " + s.t)}"></button>`; }).join("");
+      // Sonar : le faisceau fait un tour en RAD_TOUR secondes, toutes les 5 secondes ; chaque point
+      // s'allume au passage du faisceau (délai proportionnel à son angle depuis midi).
+      const angle = id => ((Math.atan2(radXY[id][0], -radXY[id][1]) * 180 / Math.PI) + 360) % 360;
+      h += SIG.map(s => { const [l, t] = pc(radXY[s.id][0], radXY[s.id][1]); return `<button type="button" class="rad-dot ${s.k}" data-cible="${s.id}" data-axe="${s.axe}" style="left:${l}%;top:${t}%;--ping:${(angle(s.id) / 360 * RAD_TOUR).toFixed(2)}s" aria-label="${esc((s.k === "f" ? "Fait du " : "Échéance : ") + s.date + " · " + axeNom(s.axe) + " · " + RAD_POR[s.por] + " · " + s.t)}" data-tip="${esc(s.date + " · " + s.t)}"></button>`; }).join("");
       box.innerHTML = h;
+      box.classList.toggle("fige", radFige);
       radarFiltre();
     }
 
@@ -285,6 +291,15 @@
     });
     $("#rad-tous").addEventListener("click", () => { radAxe = null; radarFiltre(); radMenuOuvrir(false, true); });
     $("#rad-actif").addEventListener("click", e => { if (e.target.closest("#rad-retirer")) { radAxe = null; radarFiltre(); radBurger.focus(); } });
+    /* Animation sonar : bouton pause (critère WCAG 2.2.2), absente si l'utilisateur limite les animations */
+    $("#rad-pause").addEventListener("click", () => {
+      radFige = !radFige;
+      $("#rad-box").classList.toggle("fige", radFige);
+      const b = $("#rad-pause"), txt = radFige ? "Relancer l'animation" : "Mettre l'animation en pause";
+      b.classList.toggle("fige", radFige);
+      b.setAttribute("aria-label", txt); b.setAttribute("data-tip", txt);
+      if (!tip.hidden) tip.textContent = txt;
+    });
     if (RAD_LARGE.addEventListener) RAD_LARGE.addEventListener("change", dessinerRadar);
     else if (RAD_LARGE.addListener) RAD_LARGE.addListener(dessinerRadar);
     $("#rad-box").addEventListener("click", e => {

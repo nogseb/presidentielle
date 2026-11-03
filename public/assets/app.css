@@ -115,12 +115,24 @@ ol.facts{list-style:none;margin:0;padding:0}
 .rad-lab.on{color:var(--ink);font-weight:700}
 .rad-lab.on b{background:var(--mark);color:var(--on-mark)}
 .rad-c{position:absolute;left:50%;top:50%;width:9px;height:9px;margin:-4.5px 0 0 -4.5px;border-radius:50%;background:#151922}
-.rad-sweep{position:absolute;border-radius:50%;pointer-events:none;opacity:0;background:conic-gradient(from 0deg,transparent 0deg,rgba(255,255,255,.6) 38deg,transparent 38.5deg)}
+/* Sonar : un tour de faisceau (2,2 s, soit 44 % du cycle) toutes les 5 secondes ; chaque point
+   émet une onde au passage du faisceau (--ping, calculé dans app.js). Arrêt : bouton pause. */
+.rad-sweep{position:absolute;border-radius:50%;pointer-events:none;opacity:0;background:conic-gradient(from -40deg,transparent 0deg,rgba(255,255,255,.68) 40deg,transparent 40.5deg)}
+.rad-dot::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid #151922;opacity:0;pointer-events:none}
 @media (prefers-reduced-motion:no-preference){
-  .rad-sweep{animation:rad-sweep 1.8s ease-in-out .2s 1 both}
-  @keyframes rad-sweep{0%{opacity:1;transform:rotate(0)}80%{opacity:1}100%{opacity:0;transform:rotate(360deg)}}
+  .rad-sweep{animation:rad-sonar 5s linear infinite}
+  @keyframes rad-sonar{0%{opacity:1;transform:rotate(0)}44%{opacity:1;transform:rotate(360deg)}50%,100%{opacity:0;transform:rotate(360deg)}}
+  .rad-dot::after{animation:rad-ping 5s ease-out infinite;animation-delay:var(--ping,0s)}
+  @keyframes rad-ping{0%{opacity:0;transform:scale(.55)}1%{opacity:.8;transform:scale(.6)}15%{opacity:0;transform:scale(2)}100%{opacity:0;transform:scale(2)}}
+  .rad-dot.off::after,.rad-box.fige .rad-dot::after{animation:none}
+  .rad-box.fige .rad-sweep{animation:none;opacity:0}
   .rad-dot{transition:opacity .2s,transform .2s}
 }
+.rad-pause{font:inherit;width:44px;height:44px;display:grid;place-items:center;border:1px solid var(--line-strong);border-radius:6px;background:var(--surface);color:var(--ink);cursor:pointer}
+.rad-pause:hover{border-color:var(--ink)}
+.rad-pause .ic-play,.rad-pause.fige .ic-pause{display:none}
+.rad-pause.fige .ic-play{display:inline}
+@media (prefers-reduced-motion:reduce){.rad-pause{display:none}}
 .rad-dot{position:absolute;width:26px;height:26px;margin:-13px 0 0 -13px;padding:0;border:0;border-radius:50%;background:none;display:grid;place-items:center;cursor:pointer;color:#151922}
 .rad-dot::before{content:"";width:16px;height:16px;box-sizing:border-box;border-radius:50%;border:2.5px solid #151922;background:#151922}
 .rad-dot.e::before{background:#FFFFFF}
