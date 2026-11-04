@@ -255,6 +255,30 @@ img.mono{display:block;object-fit:cover;object-position:50% 30%}
 .echiquier{display:grid;grid-template-columns:minmax(0,1fr);gap:16px}
 /* Proportions par padding-bottom plutôt qu'aspect-ratio : Safari élargissait la colonne au-delà de l'écran */
 .hc{position:relative;width:100%;min-width:0;height:0;background:var(--surface);border:1px solid var(--line);border-radius:8px}
+/* Plein écran en paysage (mobile) : picto en haut à droite de l'hémicycle, croix pour revenir */
+.hc-cadre,.hc-scene{position:relative}
+.hc-ouvrir,.hc-fermer{display:none;place-items:center;padding:0;cursor:pointer;color:var(--ink);background:var(--surface);border:1px solid var(--line-strong)}
+.hc-ouvrir svg,.hc-fermer svg{fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.hc-ouvrir{position:absolute;top:8px;right:8px;z-index:3;width:40px;height:40px;border-radius:6px}
+.hc-ouvrir svg{width:20px;height:20px}
+.hc-fermer{position:absolute;top:12px;right:12px;z-index:3;width:42px;height:42px;border-radius:999px}
+.hc-fermer svg{width:22px;height:22px}
+.hc-aide{display:none}
+@media (hover:none) and (pointer:coarse){.hc-ouvrir{display:grid}}
+html.hc-plein-ouvert,html.hc-plein-ouvert body{overflow:hidden}
+.hc-cadre.plein{position:fixed;inset:0;z-index:100;background:var(--surface);overscroll-behavior:contain;--pw:100vw;--ph:100vh}
+.hc-cadre.plein .hc-ouvrir{display:none}
+.hc-cadre.plein .hc-scene{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.hc-cadre.plein .hc{flex:none;width:min(calc(var(--pw) - 40px),calc((var(--ph) - 56px) * var(--hc-r)));height:min(calc((var(--pw) - 40px) / var(--hc-r)),calc(var(--ph) - 56px));padding-bottom:0!important;border:0}
+.hc-cadre.plein .hc-fermer{display:grid}
+.hc-cadre.plein .hc-aide{display:block;position:absolute;top:14px;left:16px;max-width:min(36%,15rem);margin:0;font-size:.78rem;line-height:1.35;color:var(--muted)}
+@supports (height:100dvh){.hc-cadre.plein{--pw:100dvw;--ph:100dvh}}
+/* Écran tenu en portrait : la scène pivote d'un quart de tour (le pivot porte sur la scène, pas sur l'élément en plein écran) */
+@media (orientation:portrait) and (pointer:coarse){
+  .hc-cadre.plein{--pw:100vh;--ph:100vw}
+  .hc-cadre.plein .hc-scene{inset:auto;top:50%;left:50%;width:var(--pw);height:var(--ph);transform:translate(-50%,-50%) rotate(90deg)}
+  @supports (height:100dvh){.hc-cadre.plein{--pw:100dvh;--ph:100dvw}}
+}
 .hc-svg{position:absolute;inset:0;width:100%;height:100%}
 .hc-sect{fill:var(--bg);stroke:var(--surface);stroke-width:.6;transition:fill .15s}
 .hc-sect.alt{fill:var(--chip)}

@@ -533,11 +533,54 @@
         + `<span class="hc-bout" style="left:${gl}%;top:${gt}%">Gauche</span><span class="hc-bout" style="left:${dl}%;top:${gt}%">Droite</span>`;
       const chip = c => `<button type="button" class="who-chip${vus.has(c.id) ? "" : " off"}" data-cand="${esc(c.id)}" data-tip="${esc(tipCand(c))}">${esc(fullName(c))}</button>`;
       box.innerHTML = `<p class="small">De gauche à droite, chaque candidature est placée selon la nuance politique de son parti, dans l'ordre de la <a href="${NU_SOURCE}" target="_blank" rel="noopener">grille des nuances du ministère de l'Intérieur</a> (municipales 2026) ; ordre alphabétique au sein d'une nuance. Ce placement ne mesure ni la radicalité ni la proximité des programmes. Un nom ou un portrait ouvre la fiche.</p>
-        <div class="hc" style="padding-bottom:${(H / W * 100).toFixed(3)}%" aria-hidden="true">${h}</div>
+        <div class="hc-cadre${hcPlein ? " plein" : ""}" id="hc-cadre" style="--hc-r:${(W / H).toFixed(4)}">
+          <button type="button" class="hc-ouvrir" id="hc-ouvrir" aria-label="Afficher l'hémicycle en plein écran, en paysage" title="Plein écran, en paysage"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"/></svg></button>
+          <div class="hc-scene">
+            <div class="hc" style="padding-bottom:${(H / W * 100).toFixed(3)}%" aria-hidden="true">${h}</div>
+            <p class="hc-aide">Touchez un secteur pour lire la nuance, un portrait pour ouvrir la fiche.</p>
+            <button type="button" class="hc-fermer" id="hc-fermer" aria-label="Fermer le plein écran"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+          </div>
+        </div>
         <ol class="hc-leg">${groupes.map((g, k) => `<li data-nu="${g.nu}"><span class="hc-n" aria-hidden="true">${k + 1}</span><div><p class="hc-l"><b>${esc(NU_LIB[g.nu])}</b> <span class="small">· ${g.c.length}</span></p><div class="hc-noms">${g.c.map(chip).join("")}</div></div></li>`).join("")}</ol>
         ${hors.length ? `<div class="hc-hors"><p class="hc-l"><b>Hors de l'axe gauche-droite</b> <span class="small">· ${hors.length}</span></p><p class="small">Divers ou sans étiquette : parti hors de la grille sans rattachement établi, ou candidature sans parti indiqué.</p><div class="hc-noms">${hors.map(chip).join("")}</div></div>` : ""}`;
     }
     let echiquierCentre = () => "";
+
+    // Plein écran de l'hémicycle (mobile). Android : vrai plein écran puis verrouillage en paysage.
+    // Ailleurs (iPhone notamment), l'hémicycle pivote d'un quart de tour en CSS tant que l'écran est en portrait.
+    let hcPlein = false;
+    function hcOuvrir() {
+      const cadre = $("#hc-cadre");
+      if (!cadre || hcPlein) return;
+      hcPlein = true;
+      cadre.classList.add("plein");
+      document.documentElement.classList.add("hc-plein-ouvert");
+      tip.hidden = true;
+      $("#hc-fermer").focus({ preventScroll: true });
+      const fs = cadre.requestFullscreen || cadre.webkitRequestFullscreen;
+      if (!fs) return;
+      try {
+        Promise.resolve(fs.call(cadre))
+          .then(() => (screen.orientation && screen.orientation.lock ? screen.orientation.lock("landscape") : null))
+          .catch(() => {});
+      } catch (e) { /* plein écran refusé : la vue CSS suffit */ }
+    }
+    function hcFermer(rendreFocus) {
+      if (!hcPlein) return;
+      hcPlein = false;
+      const cadre = $("#hc-cadre");
+      if (cadre) cadre.classList.remove("plein");
+      document.documentElement.classList.remove("hc-plein-ouvert");
+      try { if (screen.orientation && screen.orientation.unlock) screen.orientation.unlock(); } catch (e) { /* rien à déverrouiller */ }
+      if (document.fullscreenElement || document.webkitFullscreenElement) {
+        try { const r = (document.exitFullscreen || document.webkitExitFullscreen).call(document); if (r && r.catch) r.catch(() => {}); } catch (e) { /* déjà sorti */ }
+      }
+      if (rendreFocus && $("#hc-ouvrir")) $("#hc-ouvrir").focus({ preventScroll: true });
+    }
+    ["fullscreenchange", "webkitfullscreenchange"].forEach(ev => document.addEventListener(ev, () => {
+      if (hcPlein && !(document.fullscreenElement || document.webkitFullscreenElement)) hcFermer(true);
+    }));
+    document.addEventListener("keydown", e => { if (e.key === "Escape" && hcPlein) hcFermer(true); });
     function echiquierSurligner(nu) {
       const c = $("#hc-centre");
       if (c) c.innerHTML = echiquierCentre(nu);
@@ -1163,6 +1206,7 @@
     function route() {
       const h = (location.hash || "").replace("#", "");
       const v = VIEWS.indexOf(h) >= 0 ? h : "semaine";
+      hcFermer(false);
       VIEWS.forEach(id => { $("#v-" + id).hidden = id !== v; });
       if (v === "quiz") quizCharger();
       document.querySelectorAll("nav.tabs a").forEach(a => {
@@ -1210,13 +1254,23 @@
     $("#vue-echiquier").addEventListener("click", () => setVue("echiquier"));
     // Vue par défaut : l'échiquier dès que les nuances sont publiées, sinon les fiches
     setVue(AVEC_NUANCES ? "echiquier" : "fiches");
-    $("#echiquier").addEventListener("mouseover", e => { const el = e.target.closest("[data-nu]"); echiquierSurligner(el ? el.dataset.nu : null); });
-    $("#echiquier").addEventListener("mouseleave", () => echiquierSurligner(null));
-    $("#echiquier").addEventListener("focusin", e => { const li = e.target.closest("li[data-nu]"); echiquierSurligner(li ? li.dataset.nu : null); });
-    $("#echiquier").addEventListener("focusout", () => echiquierSurligner(null));
+    // Souris : surlignage au survol. Doigt : surlignage au toucher (un secteur, une pastille ou une ligne de la légende),
+    // qui reste affiché jusqu'au toucher suivant.
+    let pointeur = "mouse";
+    $("#echiquier").addEventListener("pointerover", e => { pointeur = e.pointerType || "mouse"; }, true);
+    $("#echiquier").addEventListener("mouseover", e => { if (pointeur === "touch") return; const el = e.target.closest("[data-nu]"); echiquierSurligner(el ? el.dataset.nu : null); });
+    $("#echiquier").addEventListener("mouseleave", () => { if (pointeur !== "touch") echiquierSurligner(null); });
+    $("#echiquier").addEventListener("focusin", e => { const li = e.target.closest("li[data-nu]"); if (li) echiquierSurligner(li.dataset.nu); });
+    $("#echiquier").addEventListener("focusout", e => { if (e.target.closest("li[data-nu]")) echiquierSurligner(null); });
+    $("#echiquier").addEventListener("click", e => {
+      if (e.target.closest("#hc-ouvrir")) hcOuvrir();
+      else if (e.target.closest("#hc-fermer")) hcFermer(true);
+      else if (pointeur === "touch" && !e.target.closest("[data-cand]")) { const el = e.target.closest("[data-nu]"); echiquierSurligner(el ? el.dataset.nu : null); }
+    });
     ["#chrono", "#echiquier"].forEach(sel => $(sel).addEventListener("click", e => {
       const b = e.target.closest("[data-cand]");
       if (!b) return;
+      hcFermer(false);
       setVue("fiches");
       const el = document.getElementById("cand-" + b.dataset.cand);
       if (el) { el.open = true; el.scrollIntoView({ block: "center" }); el.querySelector("summary").focus({ preventScroll: true }); }
