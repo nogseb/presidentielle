@@ -1190,6 +1190,8 @@
     $("#vue-chrono").addEventListener("click", () => setVue("chrono"));
     $("#vue-echiquier").hidden = !AVEC_NUANCES;
     $("#vue-echiquier").addEventListener("click", () => setVue("echiquier"));
+    // Vue par défaut : l'échiquier dès que les nuances sont publiées, sinon les fiches
+    setVue(AVEC_NUANCES ? "echiquier" : "fiches");
     $("#echiquier").addEventListener("mouseover", e => { const el = e.target.closest("[data-nu]"); echiquierSurligner(el ? el.dataset.nu : null); });
     $("#echiquier").addEventListener("mouseleave", () => echiquierSurligner(null));
     $("#echiquier").addEventListener("focusin", e => { const li = e.target.closest("li[data-nu]"); echiquierSurligner(li ? li.dataset.nu : null); });
