@@ -14,3 +14,6 @@ __pycache__/
 # Fichiers de veille déposés et journal des imports (serveur uniquement)
 app/veille/
 app/journal/
+
+# Captures de contrôle à la racine (les visuels du site vivent dans public/)
+/*.png

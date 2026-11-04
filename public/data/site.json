@@ -285,7 +285,9 @@
             "bioSrc": [
                 "Wikipédia",
                 "https://fr.wikipedia.org/wiki/Nathalie_Arthaud"
-            ]
+            ],
+            "nu": "EXG",
+            "nuM": "Lutte ouvrière : extrême gauche"
         },
         {
             "id": "asselineau",
@@ -311,7 +313,9 @@
             "bioSrc": [
                 "Wikipédia",
                 "https://fr.wikipedia.org/wiki/Fran%C3%A7ois_Asselineau"
-            ]
+            ],
+            "nu": "DSV",
+            "nuM": "Union populaire républicaine, parti souverainiste : droite souverainiste"
         },
         {
             "id": "attal",
@@ -337,7 +341,9 @@
             "bioSrc": [
                 "Wikipédia",
                 "https://fr.wikipedia.org/wiki/Gabriel_Attal"
-            ]
+            ],
+            "nu": "REN",
+            "nuM": "Renaissance : nuance propre dans la grille"
         },
         {
             "id": "batho",
@@ -363,7 +369,9 @@
             "bioSrc": [
                 "Wikipédia",
                 "https://fr.wikipedia.org/wiki/Delphine_Batho"
-            ]
+            ],
+            "nu": "ECO",
+            "nuM": "Génération écologie : écologiste, hors Les Écologistes"
         },
         {
             "id": "becht",
@@ -389,7 +397,9 @@
             "bioSrc": [
                 "Wikipédia",
                 "https://fr.wikipedia.org/wiki/Olivier_Becht"
-            ]
+            ],
+            "nu": "DVC",
+            "nuM": "Sans parti, ancien ministre des gouvernements Borne et Attal : divers centre"
         },
         {
             "id": "bertrand",
@@ -415,7 +425,9 @@
             "bioSrc": [
                 "Wikipédia",
                 "https://fr.wikipedia.org/wiki/Xavier_Bertrand"
-            ]
+            ],
+            "nu": "LR",
+            "nuM": "Les Républicains : nuance propre dans la grille"
         },
         {
             "id": "bouamrane",
@@ -443,7 +455,9 @@
             "bioSrc": [
                 "Wikipédia",
                 "https://fr.wikipedia.org/wiki/Karim_Bouamrane"
-            ]
+            ],
+            "nu": "SOC",
+            "nuM": "Parti socialiste : nuance propre dans la grille"
         },
         {
             "id": "branco",
@@ -469,7 +483,9 @@
             "bioSrc": [
                 "Wikipédia",
                 "https://fr.wikipedia.org/wiki/Juan_Branco"
-            ]
+            ],
+            "nu": "DIV",
+            "nuM": "Les Ruches : hors grille, sans rattachement établi"
         },
         {
             "id": "cazeneuve",
@@ -497,7 +513,9 @@
             "bioSrc": [
                 "Wikipédia",
                 "https://fr.wikipedia.org/wiki/Bernard_Cazeneuve"
-            ]
+            ],
+            "nu": "DVG",
+            "nuM": "La Convention, mouvement de gauche hors grille : divers gauche"
         },
         {
             "id": "dupont-aignan",
@@ -523,7 +541,9 @@
             "bioSrc": [
                 "Wikipédia",
                 "https://fr.wikipedia.org/wiki/Nicolas_Dupont-Aignan"
-            ]
+            ],
+            "nu": "DSV",
+            "nuM": "Debout la France : droite souverainiste"
         },
         {
             "id": "egger",
@@ -549,7 +569,9 @@
             "bioSrc": [
                 "Wikipédia",
                 "https://fr.wikipedia.org/wiki/Clara_Egger"
-            ]
+            ],
+            "nu": "DIV",
+            "nuM": "Solution démocratique : hors grille, sans rattachement établi"
         },
         {
             "id": "glucksmann",
@@ -577,7 +599,9 @@
             "bioSrc": [
                 "Wikipédia",
                 "https://fr.wikipedia.org/wiki/Rapha%C3%ABl_Glucksmann"
-            ]
+            ],
+            "nu": "UG",
+            "nuM": "Candidat commun du PS, de Place publique et de la GRS (primaire du 11 octobre 2026) : union à gauche"
         },
         {
             "id": "kazib",
@@ -603,7 +627,9 @@
             "bioSrc": [
                 "Wikipédia",
                 "https://fr.wikipedia.org/wiki/Anasse_Kazib"
-            ]
+            ],
+            "nu": "EXG",
+            "nuM": "Révolution permanente, parti trotskiste : extrême gauche"
         },
         {
             "id": "labib",
@@ -626,7 +652,9 @@
             ],
             "nai": null,
             "bio": null,
-            "bioSrc": null
+            "bioSrc": null,
+            "nu": "EXG",
+            "nuM": "NPA-Révolutionnaires : extrême gauche"
         },
         {
             "id": "lalanne",
@@ -652,7 +680,9 @@
             "bioSrc": [
                 "Wikipédia",
                 "https://fr.wikipedia.org/wiki/Francis_Lalanne"
-            ]
+            ],
+            "nu": "DIV",
+            "nuM": "Sans parti indiqué"
         },
         {
             "id": "le-pen",
@@ -680,7 +710,9 @@
             "bioSrc": [
                 "Wikipédia",
                 "https://fr.wikipedia.org/wiki/Marine_Le_Pen"
-            ]
+            ],
+            "nu": "RN",
+            "nuM": "Rassemblement national : nuance propre dans la grille"
         },
         {
             "id": "lisnard",
@@ -706,7 +738,9 @@
             "bioSrc": [
                 "Wikipédia",
                 "https://fr.wikipedia.org/wiki/David_Lisnard"
-            ]
+            ],
+            "nu": "DVD",
+            "nuM": "Nouvelle Énergie, parti de droite hors grille : divers droite"
         },
         {
             "id": "markovic",
@@ -729,7 +763,9 @@
             ],
             "nai": null,
             "bio": null,
-            "bioSrc": null
+            "bioSrc": null,
+            "nu": "DIV",
+            "nuM": "Parti animaliste : hors grille, sans rattachement à une famille"
         },
         {
             "id": "massard",
@@ -755,7 +791,9 @@
             "bioSrc": [
                 "Wikipédia",
                 "https://fr.wikipedia.org/wiki/Lydie_Massard"
-            ]
+            ],
+            "nu": "REG",
+            "nuM": "Union démocratique bretonne : régionaliste"
         },
         {
             "id": "mathieu",
@@ -781,7 +819,9 @@
             "bioSrc": [
                 "Sud Radio",
                 "https://www.sudradio.fr/sud-radio/presidentielle-2027-un-professeur-sillonne-la-france-a-velo-en-quete-des-500-parrainages"
-            ]
+            ],
+            "nu": "DIV",
+            "nuM": "Sans parti indiqué"
         },
         {
             "id": "melenchon",
@@ -807,7 +847,9 @@
             "bioSrc": [
                 "Wikipédia",
                 "https://fr.wikipedia.org/wiki/Jean-Luc_M%C3%A9lenchon"
-            ]
+            ],
+            "nu": "FI",
+            "nuM": "La France insoumise : nuance propre dans la grille"
         },
         {
             "id": "mikolajczak",
@@ -830,7 +872,9 @@
             ],
             "nai": null,
             "bio": null,
-            "bioSrc": null
+            "bioSrc": null,
+            "nu": "DIV",
+            "nuM": "Équinoxe : hors grille, sans rattachement établi"
         },
         {
             "id": "philippe",
@@ -856,7 +900,9 @@
             "bioSrc": [
                 "Wikipédia",
                 "https://fr.wikipedia.org/wiki/%C3%89douard_Philippe"
-            ]
+            ],
+            "nu": "HOR",
+            "nuM": "Horizons : nuance propre dans la grille"
         },
         {
             "id": "philippot",
@@ -882,7 +928,9 @@
             "bioSrc": [
                 "Wikipédia",
                 "https://fr.wikipedia.org/wiki/Florian_Philippot"
-            ]
+            ],
+            "nu": "DSV",
+            "nuM": "Les Patriotes : droite souverainiste"
         },
         {
             "id": "polony",
@@ -908,7 +956,9 @@
             "bioSrc": [
                 "Wikipédia",
                 "https://fr.wikipedia.org/wiki/Natacha_Polony"
-            ]
+            ],
+            "nu": "DIV",
+            "nuM": "Sans parti indiqué"
         },
         {
             "id": "retailleau",
@@ -936,7 +986,9 @@
             "bioSrc": [
                 "Wikipédia",
                 "https://fr.wikipedia.org/wiki/Bruno_Retailleau"
-            ]
+            ],
+            "nu": "LR",
+            "nuM": "Les Républicains : nuance propre dans la grille"
         },
         {
             "id": "roussel",
@@ -964,7 +1016,9 @@
             "bioSrc": [
                 "Wikipédia",
                 "https://fr.wikipedia.org/wiki/Fabien_Roussel"
-            ]
+            ],
+            "nu": "COM",
+            "nuM": "Parti communiste français : nuance propre dans la grille"
         },
         {
             "id": "ruffin",
@@ -990,7 +1044,9 @@
             "bioSrc": [
                 "Wikipédia",
                 "https://fr.wikipedia.org/wiki/Fran%C3%A7ois_Ruffin"
-            ]
+            ],
+            "nu": "DVG",
+            "nuM": "Debout !, mouvement de gauche hors grille : divers gauche"
         },
         {
             "id": "tondelier",
@@ -1018,7 +1074,9 @@
             "bioSrc": [
                 "Wikipédia",
                 "https://fr.wikipedia.org/wiki/Marine_Tondelier"
-            ]
+            ],
+            "nu": "VEC",
+            "nuM": "Les Écologistes : nuance propre dans la grille"
         },
         {
             "id": "zemmour",
@@ -1046,7 +1104,9 @@
             "bioSrc": [
                 "Wikipédia",
                 "https://fr.wikipedia.org/wiki/%C3%89ric_Zemmour"
-            ]
+            ],
+            "nu": "REC",
+            "nuM": "Reconquête ! : nuance propre dans la grille"
         }
     ],
     "comparateur": {
