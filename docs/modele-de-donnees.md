@@ -68,7 +68,7 @@ MySQL est la source de vérité. Le site public ne lit jamais la base : il lit `
 | `semaine` | `periode` et `faits[]` : `d` date, `ty` type, `tag` libellé du type, `axe` (1 à 8) et `por` portée (`course`, `engagement`, `signal`) pour le radar, `t` texte, `src` liste de couples [libellé, URL] |
 | `phases` | les 3 phases : `n` nom, `from`, `to`, `d` description |
 | `calendrier` | `d` date, `l` libellé de date, `lc` libellé court, `t` intitulé, `court` intitulé court, `s` statut, `soc` société civile, `axe` et `por` pour le radar, `src` |
-| `candidats` | `id`, `p` prénom, `n` nom, `parti`, `st` statut (`declare`, `a_confirmer`, `officiel`…), `d` date de déclaration, `dp` précision, `dk` type de désignation, `b` badges, `f` points d'attention, `note`, `prog` programme, `nb` nombre de propositions, `cmp` présent au comparateur, `src`, `nai` date de naissance, `bio`, `bioSrc` source de la biographie |
+| `candidats` | `id`, `p` prénom, `n` nom, `parti`, `nu` nuance et `nuM` motif (échiquier), `st` statut (`declare`, `a_confirmer`, `officiel`…), `d` date de déclaration, `dp` précision, `dk` type de désignation, `b` badges, `f` points d'attention, `note`, `prog` programme, `nb` nombre de propositions, `cmp` présent au comparateur, `src`, `nai` date de naissance, `bio`, `bioSrc` source de la biographie |
 | `comparateur` | `candidats[]` : `id`, `nom`, `court` |
 | `themes` | `id`, `slug`, `n` nom, `c` nom court, `une`, `pivots`, `vars[]` (`slug`, `q` question, `type` num ou cat, `v` valeurs par candidat, `src`, `shift`, et `unit`/`min`/`max`/`ticks` ou `mods`), `r` scores radar et `mesures` lorsqu'il y a des données |
 | `empreinte` | répartition des propositions par thème, publiée à partir de `empreinte_min` propositions |
@@ -116,4 +116,8 @@ Toute évolution incompatible du contrat incrémente `meta.version` ; `public/as
 | 8 | Société civile | societe_civile (`signal`) ; échéances `societe_civile = 1` (`signal`) |
 
 Portée : `course` = modifie le champ des candidatures ou les règles du scrutin (centre) ; `engagement` = engagement pris par un candidat (milieu) ; `signal` = à suivre (bord). Une valeur saisie dans `axe` ou `portee` prime sur la règle par défaut, par exemple une primaire dont le résultat désigne un candidat (`axe = 1`, `portee = 'course'`). Le radar place les faits du dernier digest publié (points pleins) et les cinq prochaines échéances du calendrier (points creux).
+
+## Échiquier politique
+
+La colonne `candidat.nuance` (migration 005) reprend les codes de la grille des nuances du ministère de l'Intérieur (municipales 2026), dans leur ordre, de l'extrême gauche à l'extrême droite : `EXG`, `FI`, `COM`, `SOC`, `VEC`, `UG`, `DVG`, `ECO`, `REG`, `DIV`, `REN`, `MDM`, `HOR`, `UDI`, `UC`, `DVC`, `LR`, `UD`, `DVD`, `DSV`, `UDR`, `RN`, `REC`, `UXD`, `EXD`. L'ordre de l'ENUM est l'ordre d'affichage. `nuance_motif` dit pourquoi : parti doté d'une nuance propre, ou règle appliquée à un parti hors grille. `DIV` et `NULL` sont affichés hors de l'axe ; une candidature sans nuance déclenche une alerte à l'export.
 

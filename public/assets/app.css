@@ -241,6 +241,34 @@ img.mono{display:block;object-fit:cover;object-position:50% 30%}
 .kv .kv-n{color:var(--muted)}
 .kv .todo{color:var(--muted);font-style:italic}
 .chrono{display:grid;gap:12px}
+/* Échiquier : hémicycle des candidatures (ordre de la grille des nuances du ministère de l'Intérieur) */
+.echiquier{display:grid;gap:16px}
+.hc{position:relative;width:100%;background:var(--surface);border:1px solid var(--line);border-radius:8px}
+.hc-svg{position:absolute;inset:0;width:100%;height:100%}
+.hc-sect{fill:var(--bg);stroke:var(--surface);stroke-width:.6;transition:fill .15s}
+.hc-sect.alt{fill:var(--chip)}
+.hc-sect.on{fill:var(--mark)}
+.hc-num{position:absolute;transform:translate(-50%,-50%);min-width:1.35rem;height:1.35rem;padding:0 4px;border-radius:999px;display:grid;place-items:center;font-family:var(--f-display);font-weight:800;font-size:.72rem;color:var(--ink-2);background:var(--surface);border:1px solid var(--line-strong);font-variant-numeric:tabular-nums}
+.hc-num.on{background:var(--mark);border-color:var(--ink);color:var(--on-mark)}
+.seat{position:absolute;aspect-ratio:1;transform:translate(-50%,-50%);padding:0;border-radius:50%;border:2px solid var(--surface);box-shadow:0 0 0 1px var(--line-strong);background:var(--chip);overflow:hidden;cursor:pointer;display:grid;place-items:center;color:var(--ink-2);font:800 clamp(.5rem,1.5vw,.82rem)/1 var(--f-display)}
+.seat img{width:100%;height:100%;object-fit:cover;object-position:50% 22%;display:block}
+.seat:hover,.seat.on{box-shadow:0 0 0 2.5px var(--ink);z-index:2}
+.seat.dim,.seat.off{opacity:.28}
+@media (prefers-reduced-motion:no-preference){.seat{transition:opacity .15s,box-shadow .15s}}
+.hc-centre{position:absolute;transform:translate(-50%,-100%);text-align:center;display:grid;justify-items:center;line-height:1.15;pointer-events:none}
+.hc-centre b{font-family:var(--f-display);font-stretch:112%;font-weight:800;font-size:clamp(1.6rem,6vw,3rem);line-height:1}
+.hc-centre span{font-size:clamp(.62rem,1.6vw,.84rem);color:var(--ink-2)}
+.hc-bout{position:absolute;transform:translate(-50%,-50%);font-size:.72rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+.hc-leg{list-style:none;margin:0;padding:0;display:grid;gap:0;border-top:2px solid var(--ink)}
+@media (min-width:640px){.hc-leg{grid-template-columns:1fr 1fr;column-gap:24px}}
+.hc-leg li{display:grid;grid-template-columns:1.6rem minmax(0,1fr);gap:8px;padding:10px 4px;border-bottom:1px solid var(--line);border-radius:4px}
+.hc-leg li.on{background:var(--mark-bg)}
+.hc-n{width:1.35rem;height:1.35rem;border-radius:999px;display:grid;place-items:center;font-family:var(--f-display);font-weight:800;font-size:.72rem;border:1px solid var(--line-strong);background:var(--surface);margin-top:1px}
+.hc-leg li.on .hc-n{background:var(--mark);border-color:var(--ink);color:var(--on-mark)}
+.hc-l{margin:0 0 6px}
+.hc-noms{display:flex;flex-wrap:wrap;gap:6px}
+.hc-noms .who-chip.off{opacity:.4}
+.hc-hors{padding:12px 14px;border:1px dashed var(--line-strong);border-radius:8px;display:grid;gap:4px}
 .cm{border-top:2px solid var(--ink)}
 .cm-row{display:grid;grid-template-columns:5.6rem 1.6rem 1fr;gap:10px;align-items:start;padding:9px 0;border-bottom:1px solid var(--line)}
 .cm-l{font-weight:700;font-size:.9rem;padding-top:3px;white-space:nowrap;font-variant-numeric:tabular-nums}

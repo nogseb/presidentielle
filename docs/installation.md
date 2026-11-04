@@ -31,7 +31,8 @@ Depuis l'onglet Bases de données, ouvrir phpMyAdmin pour la nouvelle base, puis
 4. `database/migrations/002_biographies.sql` puis `database/seed/030_biographies_2026-10-17.sql` : âge et biographie des candidats ;
 5. `database/migrations/003_debats.sql` puis `database/seed/040_debats_2026-10-18.sql` `database/seed/050_culture_education_2026-10-18.sql` et `database/seed/060_debat_superieur_prive_2026-10-18.sql` : les débats pour et contre et le 15e thème, Culture et soutien aux artistes ;
 6. `database/migrations/004_radar_chapitres.sql` puis `database/seed/070_radar_chapitres_2026-11-04.sql` : axe et portée des faits et des échéances pour le radar de la semaine, chapitres du livre de The Shift Project ;
-7. facultatif : `database/optionnel/journal_triggers.sql`, le journal automatique des modifications. Si phpMyAdmin refuse ce fichier (droit `TRIGGER` absent), ce n'est pas bloquant.
+7. `database/migrations/005_nuances.sql` puis `database/seed/080_nuances_2026-11-04.sql` : nuance politique des candidatures, pour l'échiquier de l'onglet Candidats ;
+8. facultatif : `database/optionnel/journal_triggers.sql`, le journal automatique des modifications. Si phpMyAdmin refuse ce fichier (droit `TRIGGER` absent), ce n'est pas bloquant.
 
 Contrôle rapide dans l'onglet SQL :
 

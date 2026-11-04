@@ -77,6 +77,7 @@ jobs:
             ok(d.calendrier.every(c => c.axe >= 1 && c.axe <= 8 && POR.includes(c.por)), "axe et portée de chaque échéance (radar)");
             ok(d.shift.chapitres.length === 16 && d.shift.livre && d.shift.livre.src, "chapitres du livre The Shift Project");
             ok(d.shift.chantiers.every(c => d.shift.chapitres.some(ch => ch.n === c.chap)), "chaque chantier rattaché à un chapitre");
+            ok(d.candidats.every(c => c.nu && c.nuM), "nuance et motif de chaque candidature (échiquier)");
             ok(d.debats && d.debats.liste.length >= 1, "au moins un débat");
             ok(d.debats.liste.every(x => x.pour.length === x.contre.length && x.pour.length > 0), "autant d’arguments pour que contre");
             ok(d.debats.liste.every(x => x.ctxSrc && [...x.pour, ...x.contre].every(a => a.src && a.qui)), "chaque argument a un porteur et une source");

@@ -433,6 +433,104 @@
         ${sans.length ? `<details class="cm-todo"><summary>${sans.length} ${pl(sans.length, "date", "dates")} de déclaration à sourcer</summary><div class="cm-c">${sans.map(c => `<button type="button" class="who-chip" data-cand="${esc(c.id)}">${esc(fullName(c))}</button>`).join("")}</div></details>` : ""}`;
     }
 
+    /* Échiquier : hémicycle des candidatures, de gauche à droite selon l'ordre de la grille des nuances
+     * du ministère de l'Intérieur (municipales 2026) ; ordre alphabétique au sein d'une nuance.
+     * Divers et sans étiquette (DIV) restent hors de l'axe. L'hémicycle double la légende, seule
+     * partie lue par les lecteurs d'écran et parcourue au clavier. */
+    const NUANCES = [["EXG", "Extrême gauche"], ["FI", "La France insoumise"], ["COM", "Parti communiste français"], ["SOC", "Parti socialiste"],
+      ["VEC", "Les Écologistes"], ["UG", "Union à gauche"], ["DVG", "Divers gauche"], ["ECO", "Écologiste"], ["REG", "Régionaliste"], ["DIV", "Divers"],
+      ["REN", "Renaissance"], ["MDM", "Mouvement démocrate"], ["HOR", "Horizons"], ["UDI", "Union des démocrates et indépendants"], ["UC", "Union au centre"],
+      ["DVC", "Divers centre"], ["LR", "Les Républicains"], ["UD", "Union à droite"], ["DVD", "Divers droite"], ["DSV", "Droite souverainiste"],
+      ["UDR", "Union des droites pour la République"], ["RN", "Rassemblement national"], ["REC", "Reconquête !"], ["UXD", "Union à l'extrême droite"], ["EXD", "Extrême droite"]];
+    const NU_ORDRE = {}, NU_LIB = {};
+    NUANCES.forEach(([k, l], i) => { NU_ORDRE[k] = i; NU_LIB[k] = l; });
+    const NU_SOURCE = "https://www.resultats-elections.interieur.gouv.fr/municipales2026/referentiel.html";
+    const AVEC_NUANCES = DATA.candidats.some(c => c.nu);
+    const placeOf = c => c.nu && c.nu !== "DIV" && NU_ORDRE[c.nu] !== undefined;
+    const tipCand = c => fullName(c) + " · " + (c.parti || "sans parti indiqué") + (c.nu ? " · " + NU_LIB[c.nu] : "") + (c.nuM ? " (" + c.nuM + ")" : "");
+
+    function renderEchiquier(list) {
+      const box = $("#echiquier");
+      if (!AVEC_NUANCES) { box.innerHTML = ""; return; }
+      const vus = new Set(list.map(c => c.id));
+      const places = DATA.candidats.filter(placeOf).sort((a, b) => NU_ORDRE[a.nu] - NU_ORDRE[b.nu] || a.n.localeCompare(b.n, "fr"));
+      const hors = DATA.candidats.filter(c => !placeOf(c)).sort((a, b) => a.n.localeCompare(b.n, "fr"));
+      const N = places.length;
+      const groupes = [];
+      places.forEach((c, i) => { let g = groupes[groupes.length - 1]; if (!g || g.nu !== c.nu) groupes.push(g = { nu: c.nu, c: [], i: [] }); g.c.push(c); g.i.push(i); });
+
+      // Sièges : rangs concentriques, nombre de sièges proportionnel au rayon, puis tri par angle (gauche → droite)
+      const nr = N <= 10 ? 2 : N <= 40 ? 3 : 4, R0 = 0.5, R1 = 0.92;
+      const rayons = Array.from({ length: nr }, (_, i) => R0 + (R1 - R0) * i / (nr - 1));
+      const somme = rayons.reduce((a, b) => a + b, 0);
+      const parRang = rayons.map(r => Math.max(1, Math.round(N * r / somme)));
+      for (let ecart = N - parRang.reduce((a, b) => a + b, 0), i = nr - 1; ecart !== 0; i = (i + nr - 1) % nr) {
+        if (ecart > 0) { parRang[i]++; ecart--; } else if (parRang[i] > 1) { parRang[i]--; ecart++; }
+      }
+      const sieges = [];
+      // Chaque siège au centre d'un créneau régulier de son rang : pas d'égalité d'angle entre rangs,
+      // donc un ordre de lecture net de gauche à droite (à égalité, le plus à gauche d'abord).
+      rayons.forEach((r, i) => { const n = parRang[i]; for (let j = 0; j < n; j++) sieges.push({ r, a: Math.PI - (j + 0.5) * Math.PI / n }); });
+      sieges.sort((p, q) => q.a - p.a || p.r * Math.cos(p.a) - q.r * Math.cos(q.a));
+      const pas = Math.min((R1 - R0) / (nr - 1), ...rayons.map((r, i) => r * Math.PI / parRang[i]));
+      const D = pas * 0.9;                                   // diamètre d'un siège
+      const RIN = R0 - D / 2 - 0.035, ROUT = R1 + D / 2 + 0.035;
+      const XMIN = -(ROUT + 0.14), W = 2 * (ROUT + 0.14), YMIN = -(ROUT + 0.12), H = ROUT + 0.12 + 0.13;
+      const pc = (x, y) => [((x - XMIN) / W * 100).toFixed(2), ((y - YMIN) / H * 100).toFixed(2)];
+      const xy = (r, a) => [r * Math.cos(a), -r * Math.sin(a)];
+      const u = v => (v * 100).toFixed(2);                    // unités du viewBox (×100)
+
+      // Secteurs des nuances : limite à mi-angle entre deux nuances voisines
+      groupes.forEach((g, k) => {
+        g.a0 = k === 0 ? Math.PI : (Math.min(...groupes[k - 1].i.map(i => sieges[i].a)) + Math.max(...g.i.map(i => sieges[i].a))) / 2;
+      });
+      groupes.forEach((g, k) => { g.a1 = k === groupes.length - 1 ? 0 : groupes[k + 1].a0; });
+      const secteur = g => {
+        const [ox0, oy0] = xy(ROUT, g.a0), [ox1, oy1] = xy(ROUT, g.a1), [ix1, iy1] = xy(RIN, g.a1), [ix0, iy0] = xy(RIN, g.a0);
+        return `M${u(ox0)} ${u(oy0)}A${u(ROUT)} ${u(ROUT)} 0 0 1 ${u(ox1)} ${u(oy1)}L${u(ix1)} ${u(iy1)}A${u(RIN)} ${u(RIN)} 0 0 0 ${u(ix0)} ${u(iy0)}Z`;
+      };
+      let h = `<svg class="hc-svg" viewBox="${u(XMIN)} ${u(YMIN)} ${u(W)} ${u(H)}" aria-hidden="true">`
+        + groupes.map((g, k) => `<path class="hc-sect${k % 2 ? " alt" : ""}" data-nu="${g.nu}" d="${secteur(g)}"/>`).join("") + `</svg>`;
+      // Pastilles numérotées sur le bord, au milieu de chaque secteur, écartées d'au moins ECART_NUM
+      const ECART_NUM = Math.min(8.5 * Math.PI / 180, (Math.PI - 0.1) / Math.max(1, groupes.length));
+      const mil = groupes.map(g => (g.a0 + g.a1) / 2);
+      for (let it = 0; it < 80; it++) {
+        for (let k = 0; k < mil.length - 1; k++) {
+          const manque = ECART_NUM - (mil[k] - mil[k + 1]);
+          if (manque > 0) { mil[k] += manque / 2; mil[k + 1] -= manque / 2; }
+        }
+        for (let k = 0; k < mil.length; k++) mil[k] = Math.min(Math.PI - 0.05, Math.max(0.05, mil[k]));
+      }
+      groupes.forEach((g, k) => {
+        const [x, y] = xy(ROUT + 0.065, mil[k]), [l, t] = pc(x, y);
+        h += `<span class="hc-num" data-nu="${g.nu}" style="left:${l}%;top:${t}%">${k + 1}</span>`;
+      });
+      places.forEach((c, i) => {
+        const [x, y] = xy(sieges[i].r, sieges[i].a), [l, t] = pc(x, y);
+        h += `<button type="button" class="seat${vus.has(c.id) ? "" : " off"}" tabindex="-1" data-cand="${esc(c.id)}" data-nu="${c.nu}" style="left:${l}%;top:${t}%;width:${(D / W * 100).toFixed(2)}%" data-tip="${esc(tipCand(c))}">${PHOTOS[c.id] ? `<img src="${esc(PHOTOS[c.id].fichier)}" alt="" loading="lazy" decoding="async">` : `<span>${esc(initials(c))}</span>`}</button>`;
+      });
+      const [cl, ct] = pc(0, -0.04), [gl, gt] = pc(-(R0 + R1) / 2, 0.065), [dl] = pc((R0 + R1) / 2, 0);
+      const centre = `<b>${N}</b><span>${pl(N, "candidature placée", "candidatures placées")}<br>sur ${DATA.candidats.length}</span>`;
+      echiquierCentre = nu => { const g = groupes.find(x => x.nu === nu); return g ? `<b>${g.c.length}</b><span>${esc(NU_LIB[nu])}</span>` : centre; };
+      h += `<div class="hc-centre" id="hc-centre" style="left:${cl}%;top:${ct}%">${centre}</div>`
+        + `<span class="hc-bout" style="left:${gl}%;top:${gt}%">Gauche</span><span class="hc-bout" style="left:${dl}%;top:${gt}%">Droite</span>`;
+      const chip = c => `<button type="button" class="who-chip${vus.has(c.id) ? "" : " off"}" data-cand="${esc(c.id)}" data-tip="${esc(tipCand(c))}">${esc(fullName(c))}</button>`;
+      box.innerHTML = `<p class="small">De gauche à droite, chaque candidature est placée selon la nuance politique de son parti, dans l'ordre de la <a href="${NU_SOURCE}" target="_blank" rel="noopener">grille des nuances du ministère de l'Intérieur</a> (municipales 2026) ; ordre alphabétique au sein d'une nuance. Ce placement ne mesure ni la radicalité ni la proximité des programmes. Un nom ou un portrait ouvre la fiche.</p>
+        <div class="hc" style="aspect-ratio:${u(W)} / ${u(H)}" aria-hidden="true">${h}</div>
+        <ol class="hc-leg">${groupes.map((g, k) => `<li data-nu="${g.nu}"><span class="hc-n" aria-hidden="true">${k + 1}</span><div><p class="hc-l"><b>${esc(NU_LIB[g.nu])}</b> <span class="small">· ${g.c.length}</span></p><div class="hc-noms">${g.c.map(chip).join("")}</div></div></li>`).join("")}</ol>
+        ${hors.length ? `<div class="hc-hors"><p class="hc-l"><b>Hors de l'axe gauche-droite</b> <span class="small">· ${hors.length}</span></p><p class="small">Divers ou sans étiquette : parti hors de la grille sans rattachement établi, ou candidature sans parti indiqué.</p><div class="hc-noms">${hors.map(chip).join("")}</div></div>` : ""}`;
+    }
+    let echiquierCentre = () => "";
+    function echiquierSurligner(nu) {
+      const c = $("#hc-centre");
+      if (c) c.innerHTML = echiquierCentre(nu);
+      document.querySelectorAll("#echiquier [data-nu]").forEach(el => {
+        const on = nu && el.dataset.nu === nu;
+        el.classList.toggle("on", !!on);
+        if (el.classList.contains("seat")) el.classList.toggle("dim", !!nu && !on);
+      });
+    }
+
     function renderCands() {
       const list = candList();
       const total = DATA.candidats.length;
@@ -441,14 +539,17 @@
       $("#cands").innerHTML = list.length ? list.map(card).join("")
         : `<p class="empty">Aucune candidature ne correspond${$("#q").value.trim() ? ` à « ${esc($("#q").value.trim())} »` : " à ce filtre"}.</p>`;
       renderChrono(list);
+      renderEchiquier(list);
     }
 
     function setVue(v) {
       vue = v;
       $("#vue-fiches").setAttribute("aria-pressed", v === "fiches");
       $("#vue-chrono").setAttribute("aria-pressed", v === "chrono");
+      $("#vue-echiquier").setAttribute("aria-pressed", v === "echiquier");
       $("#cands").hidden = v !== "fiches";
       $("#chrono").hidden = v !== "chrono";
+      $("#echiquier").hidden = v !== "echiquier";
       $("#cands-note").hidden = v !== "fiches";
       if (!OFFICIELS) $("#sort").closest(".field").hidden = v !== "fiches";
     }
@@ -1087,13 +1188,19 @@
     });
     $("#vue-fiches").addEventListener("click", () => setVue("fiches"));
     $("#vue-chrono").addEventListener("click", () => setVue("chrono"));
-    $("#chrono").addEventListener("click", e => {
+    $("#vue-echiquier").hidden = !AVEC_NUANCES;
+    $("#vue-echiquier").addEventListener("click", () => setVue("echiquier"));
+    $("#echiquier").addEventListener("mouseover", e => { const el = e.target.closest("[data-nu]"); echiquierSurligner(el ? el.dataset.nu : null); });
+    $("#echiquier").addEventListener("mouseleave", () => echiquierSurligner(null));
+    $("#echiquier").addEventListener("focusin", e => { const li = e.target.closest("li[data-nu]"); echiquierSurligner(li ? li.dataset.nu : null); });
+    $("#echiquier").addEventListener("focusout", () => echiquierSurligner(null));
+    ["#chrono", "#echiquier"].forEach(sel => $(sel).addEventListener("click", e => {
       const b = e.target.closest("[data-cand]");
       if (!b) return;
       setVue("fiches");
       const el = document.getElementById("cand-" + b.dataset.cand);
       if (el) { el.open = true; el.scrollIntoView({ block: "center" }); el.querySelector("summary").focus({ preventScroll: true }); }
-    });
+    }));
     $("#ca").addEventListener("change", renderCompare);
     if (DEB) {
       $("#deb-chips").addEventListener("click", e => {

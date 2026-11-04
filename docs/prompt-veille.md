@@ -143,8 +143,10 @@ WHERE digest_id = @dg AND etat = 'a_valider';
 UPDATE digest SET publie = 1 WHERE id = @dg;
 
 -- Rapport 3.1 : nouvelle candidature
-INSERT IGNORE INTO candidat (slug, prenom, nom, parti, statut, designation, date_declaration, precision_date, source_id)
-VALUES ('nouveau-slug', 'Prénom', 'Nom', 'Parti', 'declare', 'declaration', '2026-11-03', 'jour',
+-- nuance : grille du ministère de l'Intérieur (voir docs/modele-de-donnees.md, « Échiquier politique »),
+-- avec son motif ; DIV si aucun rattachement n'est établi. Signaler au rapport tout cas discutable.
+INSERT IGNORE INTO candidat (slug, prenom, nom, parti, nuance, nuance_motif, statut, designation, date_declaration, precision_date, source_id)
+VALUES ('nouveau-slug', 'Prénom', 'Nom', 'Parti', 'DVG', 'Parti de gauche hors grille : divers gauche', 'declare', 'declaration', '2026-11-03', 'jour',
         (SELECT id FROM source WHERE cle = 'cle-de-la-source'));
 
 -- Rapport 3.2 : retrait

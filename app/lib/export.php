@@ -188,7 +188,7 @@ final class ExportSite
                 $bio = null;
             }
 
-            $candidats[] = [
+            $candidat = [
                 'id'    => $c['slug'],
                 'p'     => $c['prenom'],
                 'n'     => $c['nom'],
@@ -208,6 +208,14 @@ final class ExportSite
                 'bio'   => $bio,
                 'bioSrc' => $bio ? $bioSrc : null,
             ];
+            // Nuance politique (migration 005) : vue « Échiquier » de l'onglet Candidats
+            if (!empty($c['nuance'])) {
+                $candidat['nu'] = $c['nuance'];
+                $candidat['nuM'] = $c['nuance_motif'] ?? null;
+            } elseif (array_key_exists('nuance', $c)) {
+                $this->alerte("Candidature {$c['prenom']} {$c['nom']} sans nuance : affichée hors de l'axe de l'échiquier.");
+            }
+            $candidats[] = $candidat;
             if ($dansComparateur) {
                 $comparateur[] = [
                     'id'    => $c['slug'],

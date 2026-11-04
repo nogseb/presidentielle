@@ -123,6 +123,7 @@
         <div class="seg" role="group" aria-label="Affichage">
           <button type="button" id="vue-fiches" aria-pressed="true">Fiches</button>
           <button type="button" id="vue-chrono" aria-pressed="false">Chronologie</button>
+          <button type="button" id="vue-echiquier" aria-pressed="false" hidden>Échiquier</button>
         </div>
         <div class="field f-search"><label for="q" class="vh">Rechercher un nom ou un parti</label><input type="search" id="q" placeholder="Rechercher un nom ou un parti" autocomplete="off"></div>
         <div class="field f-sort"><label for="sort" class="vh">Trier les fiches</label><select id="sort"><option value="nom">Tri : nom</option><option value="date">Tri : date récente</option><option value="parti">Tri : parti</option></select></div>
@@ -131,6 +132,7 @@
     </div>
     <div class="cards" id="cands"></div>
     <div class="chrono" id="chrono" hidden></div>
+    <div class="echiquier" id="echiquier" hidden></div>
     <p class="small" id="cands-note">Chaque fiche renvoie à la source de la candidature. Une date absente n'est pas encore sourcée.</p>
   </section>
 
@@ -320,6 +322,7 @@
         <li><b>Débats pour et contre</b> : chaque débat porte sur une mesure précise. Il présente autant d'arguments pour que contre, de longueur comparable, chacun attribué à l'institution ou à l'organisation qui l'avance et renvoyant à sa source. Les candidats sont placés sur une échelle commune en cinq crans, d'après une citation sourcée.</li>
         <li><b>Quiz</b> : chaque affirmation reprend une mesure débattue, formulée à l'infinitif. Votre réponse et la position de chaque candidat sont placées sur la même échelle en cinq crans ; l'accord vaut 100 % à cran égal et baisse de 25 points par cran d'écart, pondéré par l'importance choisie (×0,5, ×1 ou ×2). Le pourcentage ne porte que sur les affirmations où la position du candidat est documentée ; un candidat n'est classé qu'à partir de cinq affirmations comparables et d'un tiers de vos réponses. Le classement mesure la proximité avec vos réponses, pas la valeur des candidats. La première édition porte sur les douze candidats de 2022, d'après des comparatifs de presse et de think tanks ; l'édition 2027 suivra la publication des programmes.</li>
         <li><b>Portraits et biographies</b> : la photo est celle de l'article Wikipédia du candidat, sous licence libre sur Wikimedia Commons, créditée sur chaque fiche. La biographie tient en deux phrases au même gabarit pour tous (fonction actuelle, puis un ou deux jalons), sans appréciation, rédigée d'après une source citée et relue.</li>
+        <li id="regle-echiquier"><b>Échiquier politique</b> : l'onglet Candidats place chaque candidature selon la nuance politique de son parti, dans l'ordre de la <a href="https://www.resultats-elections.interieur.gouv.fr/municipales2026/referentiel.html" target="_blank" rel="noopener">grille des nuances du ministère de l'Intérieur</a> (municipales 2026), de l'extrême gauche à l'extrême droite. Un parti doté d'une nuance propre la reçoit ; un parti hors grille reçoit la nuance de sa famille (divers gauche, divers centre, divers droite, écologiste, régionaliste, droite souverainiste, extrême gauche) ; une candidature sans parti ni rattachement établi est affichée hors de l'axe. Le motif de chaque rattachement est indiqué au survol. L'ordre au sein d'une nuance est alphabétique : le placement ne mesure ni la radicalité ni la proximité des programmes.</li>
         <li id="regle-radar"><b>Radar de la semaine</b> : chaque fait de la semaine (point plein) et chacune des cinq prochaines échéances du calendrier (point creux) sont placés sur l'un des huit axes selon leur domaine (candidatures ; règles et calendrier ; programmes ; opinion ; débats de fond ; justice et financement ; médias et numérique ; société civile), puis sur l'un des trois anneaux selon leur portée : au centre, ce qui modifie le champ des candidatures ou les règles du scrutin ; au milieu, un engagement pris par un candidat ; au bord, un signal à suivre. Le classement suit une règle fixe par type de fait, ajustée et relue à la saisie. Le radar ne hiérarchise ni les candidats ni l'importance politique des faits.</li>
         <li><b>Une grille de lecture The Shift Project</b> : une section dédiée et une pastille « S » sur les sujets qui recoupent son Plan robuste. Les chantiers sont regroupés selon les chapitres de son livre « Réussir à l'ère des crises » (Odile Jacob, octobre 2026) ; le rattachement d'un chantier à un chapitre est un choix du site. Les correspondances restent factuelles, sourcées et identiques pour tous les candidats.</li>
       </ul>
