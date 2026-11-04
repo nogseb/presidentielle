@@ -17,15 +17,20 @@
   const parisToday = () => { try { return new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Paris" }).format(new Date()); } catch (e) { return new Date().toISOString().slice(0, 10); } };
   const TODAY = parisToday();
 
-  // Menu des rubriques plus large que l'écran : chevron « › » tant qu'il reste des rubriques à droite
-  const NAV = $("nav.tabs"), PLUS = $("#tabs-plus");
-  const majPlus = () => { PLUS.hidden = NAV.scrollLeft + NAV.clientWidth >= NAV.scrollWidth - 4; };
+  // Menu des rubriques plus large que l'écran : chevron « ‹ » ou « › » tant qu'il reste des rubriques hors cadre de ce côté
+  const NAV = $("nav.tabs"), PLUS = $("#tabs-plus"), MOINS = $("#tabs-moins");
+  const majPlus = () => {
+    PLUS.hidden = NAV.scrollLeft + NAV.clientWidth >= NAV.scrollWidth - 4;
+    MOINS.hidden = NAV.scrollLeft <= 4;
+  };
+  const defiler = sens => {
+    const doux = !(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches);
+    NAV.scrollBy({ left: sens * Math.round(NAV.clientWidth * 0.6), behavior: doux ? "smooth" : "auto" });
+  };
   NAV.addEventListener("scroll", majPlus, { passive: true });
   window.addEventListener("resize", majPlus);
-  PLUS.addEventListener("click", () => {
-    const doux = !(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches);
-    NAV.scrollBy({ left: Math.round(NAV.clientWidth * 0.6), behavior: doux ? "smooth" : "auto" });
-  });
+  PLUS.addEventListener("click", () => defiler(1));
+  MOINS.addEventListener("click", () => defiler(-1));
   majPlus();
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(majPlus);
 

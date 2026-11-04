@@ -64,13 +64,15 @@ nav.tabs::-webkit-scrollbar{display:none}
 nav.tabs a{flex:none;padding:8px 8px 9px;text-decoration:none;color:var(--ink-2);font-weight:700;font-size:.92rem;border-bottom:3px solid transparent}
 nav.tabs a:hover{color:var(--ink)}
 nav.tabs a[aria-current="page"]{color:var(--ink);border-bottom-color:var(--ink)}
-/* Menu plus large que l'écran : chevron jaune à droite, masqué en fin de défilement */
+/* Menu plus large que l'écran : chevrons jaunes « ‹ » et « › » tant qu'il reste des rubriques hors cadre de ce côté */
 .tabs-box{position:relative}
-nav.tabs{scroll-padding-inline:0 46px}
-.tabs-plus{position:absolute;top:0;bottom:3px;right:-6px;width:56px;display:flex;align-items:center;justify-content:flex-end;padding:0;border:0;cursor:pointer;background:linear-gradient(90deg,transparent,var(--surface) 50%)}
-.tabs-plus svg{width:30px;height:30px;fill:none;stroke-linecap:round;stroke-linejoin:round}
-.tabs-plus .o{stroke:var(--on-mark);stroke-width:6.2}
-.tabs-plus .c{stroke:var(--mark);stroke-width:3.6}
+nav.tabs{scroll-padding-inline:36px}
+.tabs-fl{position:absolute;top:0;bottom:3px;width:40px;display:flex;align-items:center;padding:0;border:0;cursor:pointer}
+.tabs-plus{right:-6px;justify-content:flex-end;background:linear-gradient(90deg,transparent,var(--surface) 50%)}
+.tabs-moins{left:-6px;justify-content:flex-start;background:linear-gradient(270deg,transparent,var(--surface) 50%)}
+.tabs-fl svg{width:20px;height:20px;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.tabs-fl .o{stroke:var(--on-mark);stroke-width:7}
+.tabs-fl .c{stroke:var(--mark);stroke-width:4}
 
 /* Typographie */
 main{padding-block:28px 56px}
