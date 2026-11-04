@@ -64,10 +64,17 @@ nav.tabs::-webkit-scrollbar{display:none}
 nav.tabs a{flex:none;padding:8px 8px 9px;text-decoration:none;color:var(--ink-2);font-weight:700;font-size:.92rem;border-bottom:3px solid transparent}
 nav.tabs a:hover{color:var(--ink)}
 nav.tabs a[aria-current="page"]{color:var(--ink);border-bottom-color:var(--ink)}
+/* Menu plus large que l'écran : chevron jaune à droite, masqué en fin de défilement */
+.tabs-box{position:relative}
+nav.tabs{scroll-padding-inline:0 46px}
+.tabs-plus{position:absolute;top:0;bottom:3px;right:-6px;width:56px;display:flex;align-items:center;justify-content:flex-end;padding:0;border:0;cursor:pointer;background:linear-gradient(90deg,transparent,var(--surface) 50%)}
+.tabs-plus svg{width:30px;height:30px;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.tabs-plus .o{stroke:var(--on-mark);stroke-width:6.2}
+.tabs-plus .c{stroke:var(--mark);stroke-width:3.6}
 
 /* Typographie */
 main{padding-block:28px 56px}
-.view{display:grid;gap:32px}
+.view{display:grid;grid-template-columns:minmax(0,1fr);gap:32px}
 h1{font-family:var(--f-display);font-stretch:112%;font-weight:800;font-size:clamp(1.75rem,6.2vw,2.5rem);line-height:1.06;letter-spacing:-.018em;margin:0;text-wrap:balance}
 h2{font-family:var(--f-display);font-stretch:106%;font-weight:700;font-size:1.22rem;line-height:1.2;margin:0;text-wrap:balance}
 h3{font-size:1rem;font-weight:700;margin:0;text-wrap:balance}
@@ -243,8 +250,9 @@ img.mono{display:block;object-fit:cover;object-position:50% 30%}
 .kv .todo{color:var(--muted);font-style:italic}
 .chrono{display:grid;gap:12px}
 /* Échiquier : hémicycle des candidatures (ordre de la grille des nuances du ministère de l'Intérieur) */
-.echiquier{display:grid;gap:16px}
-.hc{position:relative;width:100%;background:var(--surface);border:1px solid var(--line);border-radius:8px}
+.echiquier{display:grid;grid-template-columns:minmax(0,1fr);gap:16px}
+/* Proportions par padding-bottom plutôt qu'aspect-ratio : Safari élargissait la colonne au-delà de l'écran */
+.hc{position:relative;width:100%;min-width:0;height:0;background:var(--surface);border:1px solid var(--line);border-radius:8px}
 .hc-svg{position:absolute;inset:0;width:100%;height:100%}
 .hc-sect{fill:var(--bg);stroke:var(--surface);stroke-width:.6;transition:fill .15s}
 .hc-sect.alt{fill:var(--chip)}

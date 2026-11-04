@@ -17,6 +17,18 @@
   const parisToday = () => { try { return new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Paris" }).format(new Date()); } catch (e) { return new Date().toISOString().slice(0, 10); } };
   const TODAY = parisToday();
 
+  // Menu des rubriques plus large que l'écran : chevron « › » tant qu'il reste des rubriques à droite
+  const NAV = $("nav.tabs"), PLUS = $("#tabs-plus");
+  const majPlus = () => { PLUS.hidden = NAV.scrollLeft + NAV.clientWidth >= NAV.scrollWidth - 4; };
+  NAV.addEventListener("scroll", majPlus, { passive: true });
+  window.addEventListener("resize", majPlus);
+  PLUS.addEventListener("click", () => {
+    const doux = !(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches);
+    NAV.scrollBy({ left: Math.round(NAV.clientWidth * 0.6), behavior: doux ? "smooth" : "auto" });
+  });
+  majPlus();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(majPlus);
+
   const DEMO = new URLSearchParams(location.search).has("demo");
   if (DEMO) {
     const m = document.createElement("meta"); m.name = "robots"; m.content = "noindex"; document.head.appendChild(m);
@@ -516,7 +528,7 @@
         + `<span class="hc-bout" style="left:${gl}%;top:${gt}%">Gauche</span><span class="hc-bout" style="left:${dl}%;top:${gt}%">Droite</span>`;
       const chip = c => `<button type="button" class="who-chip${vus.has(c.id) ? "" : " off"}" data-cand="${esc(c.id)}" data-tip="${esc(tipCand(c))}">${esc(fullName(c))}</button>`;
       box.innerHTML = `<p class="small">De gauche à droite, chaque candidature est placée selon la nuance politique de son parti, dans l'ordre de la <a href="${NU_SOURCE}" target="_blank" rel="noopener">grille des nuances du ministère de l'Intérieur</a> (municipales 2026) ; ordre alphabétique au sein d'une nuance. Ce placement ne mesure ni la radicalité ni la proximité des programmes. Un nom ou un portrait ouvre la fiche.</p>
-        <div class="hc" style="aspect-ratio:${u(W)} / ${u(H)}" aria-hidden="true">${h}</div>
+        <div class="hc" style="padding-bottom:${(H / W * 100).toFixed(3)}%" aria-hidden="true">${h}</div>
         <ol class="hc-leg">${groupes.map((g, k) => `<li data-nu="${g.nu}"><span class="hc-n" aria-hidden="true">${k + 1}</span><div><p class="hc-l"><b>${esc(NU_LIB[g.nu])}</b> <span class="small">· ${g.c.length}</span></p><div class="hc-noms">${g.c.map(chip).join("")}</div></div></li>`).join("")}</ol>
         ${hors.length ? `<div class="hc-hors"><p class="hc-l"><b>Hors de l'axe gauche-droite</b> <span class="small">· ${hors.length}</span></p><p class="small">Divers ou sans étiquette : parti hors de la grille sans rattachement établi, ou candidature sans parti indiqué.</p><div class="hc-noms">${hors.map(chip).join("")}</div></div>` : ""}`;
     }
@@ -1152,6 +1164,7 @@
         if (a.getAttribute("href") === "#" + v) { a.setAttribute("aria-current", "page"); a.scrollIntoView({ block: "nearest", inline: "nearest" }); }
         else a.removeAttribute("aria-current");
       });
+      majPlus();
     }
     window.addEventListener("hashchange", () => { route(); window.scrollTo(0, 0); });
 
