@@ -285,7 +285,8 @@ img.mono{display:block;object-fit:cover;object-position:50% 30%}
 .dp-grid{position:absolute;top:4px;bottom:4px;border-left:1px solid var(--line)}
 .dp-dot{position:absolute;top:50%;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:var(--ink);box-shadow:0 0 0 2px var(--surface);cursor:default}
 .dp-dot::after{content:"";position:absolute;inset:-8px}
-.dp-bar{position:absolute;top:50%;height:10px;margin-top:-5px;border-radius:5px;background:var(--ink);min-width:10px}
+/* Fourchette d'un sondage : jaune du site, contour encre pour le contraste des éléments graphiques (WCAG 1.4.11) */
+.dp-bar{position:absolute;top:50%;height:12px;margin-top:-6px;box-sizing:border-box;border-radius:6px;background:var(--mark);border:1.5px solid #151922;min-width:12px}
 .dp-bar::after{content:"";position:absolute;inset:-9px -4px}
 .dp-axis{display:grid;grid-template-columns:6.4rem 1fr 5.2rem;gap:10px}
 .dp-ticks{position:relative;height:20px;font-size:.76rem;color:var(--muted);font-variant-numeric:tabular-nums}
