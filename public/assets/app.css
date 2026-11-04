@@ -6,7 +6,8 @@
 @font-face{font-family:"Atkinson Hyperlegible";font-style:normal;font-display:swap;font-weight:700;src:url(fonts/atkinson-hyperlegible-latin-700-normal.woff2) format("woff2")}
 @font-face{font-family:"Atkinson Hyperlegible";font-style:italic;font-display:swap;font-weight:400;src:url(fonts/atkinson-hyperlegible-latin-400-italic.woff2) format("woff2")}
 
-/* Mise en page : une colonne de lecture (46rem max), en-tête collant avec compte à rebours,
+/* Mise en page : une colonne de 52rem (800 px utiles) pour l'en-tête, le radar, les tableaux et les
+   grilles ; texte courant limité à la mesure de lecture (--mesure, environ 75 caractères) ; en-tête collant avec compte à rebours,
    une vue par onglet ; graphiques en HTML et SVG générés depuis data/site.json. */
 :root{
   --bg:#F2F3F5;
@@ -23,7 +24,10 @@
   --on-mark:#151922;
   --f-display:"Archivo","Arial Narrow",system-ui,-apple-system,"Segoe UI",sans-serif;
   --f-body:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",sans-serif;
-  --w:46rem;
+  --w:52rem;
+  /* Mesure de lecture : 52ch ≈ 75 caractères moyens en Atkinson Hyperlegible (le « ch » vaut la
+     largeur du chiffre 0, plus large qu'un caractère moyen). S'adapte à la taille du texte. */
+  --mesure:52ch;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
@@ -69,7 +73,11 @@ h2{font-family:var(--f-display);font-stretch:106%;font-weight:700;font-size:1.22
 h3{font-size:1rem;font-weight:700;margin:0;text-wrap:balance}
 p{margin:0}
 .eyebrow{font-size:.76rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:8px}
-.lede{color:var(--ink-2);margin-top:10px;max-width:62ch}
+.lede{color:var(--ink-2);margin-top:10px;max-width:var(--mesure)}
+.mesure{max-width:var(--mesure)}
+/* Tout texte courant reste dans la mesure de lecture ; :where() garde une spécificité nulle,
+   pour que les règles propres à un composant (radar, tableaux, grilles) priment. */
+:where(main p, main dd, main blockquote, .notice > span, .levels span, .cal .what){max-width:var(--mesure)}
 .hl{background:linear-gradient(transparent 56%,var(--mark-soft) 56%);padding-inline:1px}
 .small{font-size:.84rem;color:var(--muted)}
 .block{display:grid;gap:14px;min-width:0}
@@ -81,6 +89,7 @@ ol.facts{list-style:none;margin:0;padding:0}
 .fact{display:grid;grid-template-columns:4.4rem 1fr;gap:6px 14px;padding-block:14px;border-bottom:1px solid var(--line)}
 .fact time{font-family:var(--f-display);font-stretch:108%;font-weight:700;font-size:.98rem;font-variant-numeric:tabular-nums;padding-top:1px}
 .fact .txt{min-width:0;display:grid;gap:6px}
+.fact .txt p{max-width:var(--mesure)}
 .meta{font-size:.82rem;color:var(--muted);display:flex;gap:6px 10px;flex-wrap:wrap;align-items:center}
 .tag{font-size:.72rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-2);border:1px solid var(--line-strong);border-radius:3px;padding:1px 6px}
 /* Radar de la semaine : 8 axes, 3 anneaux ; points pleins = faits, creux = échéances.
@@ -410,7 +419,7 @@ ol.cal{list-style:none;margin:0;padding:0;border-top:2px solid var(--ink)}
 .keys{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:.84rem;color:var(--ink-2);align-items:center}
 
 /* Méthode */
-.rules{margin:0;padding-left:1.2rem;display:grid;gap:8px;max-width:64ch}
+.rules{margin:0;padding-left:1.2rem;display:grid;gap:8px;max-width:calc(var(--mesure) + 1.2rem)}
 .levels{display:grid;gap:0;border-top:2px solid var(--ink)}
 .levels div{display:grid;grid-template-columns:2rem 1fr;gap:10px;padding:10px 2px;border-bottom:1px solid var(--line)}
 .levels b{font-family:var(--f-display);font-weight:800}
@@ -528,3 +537,7 @@ noscript p{padding:16px;border:1px solid var(--line);border-radius:6px;backgroun
 @media (min-width:640px){.qz-home{grid-template-columns:1fr auto;align-items:center}}
 .r-label.vide{fill:var(--muted);opacity:.7}
 #qz-resultats>*,#qz-resultats .block>*,.qz-det>*,#qz-question>*{min-width:0}
+
+/* Placée en fin de feuille pour primer sur le padding propre à chaque encadré.
+   La boîte garde la largeur de la colonne, le texte reste dans la mesure de lecture. */
+.banner,.demo,blockquote{max-width:none;padding-right:max(14px,calc(100% - var(--mesure) - 14px))}
