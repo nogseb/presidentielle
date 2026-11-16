@@ -35,11 +35,11 @@
   },
   "becht": {
    "fichier": "photos/becht.webp",
-   "auteur": "Dominique Giannelli",
-   "licence": "CC BY 4.0",
-   "licence_url": "https://creativecommons.org/licenses/by/4.0",
-   "source": "https://commons.wikimedia.org/wiki/File:Olivier_Becht_en_2026_(cropped).png",
-   "date": "2026-08-27"
+   "auteur": "Palácio do Planalto from Brasilia, Brasil",
+   "licence": "CC BY 2.0",
+   "licence_url": "https://creativecommons.org/licenses/by/2.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Olivier_Becht_2023_(cropped).jpg",
+   "date": "2023-01-04"
   },
   "bertrand": {
    "fichier": "photos/bertrand.webp",
@@ -177,6 +177,14 @@
    "source": "https://commons.wikimedia.org/wiki/File:Bruno_Retailleau_-_Ministre_de_l%27Int%C3%A9rieur_fran%C3%A7ais_(cropped).jpg",
    "date": "2025-06-05"
   },
+  "riner": {
+   "fichier": "photos/riner.webp",
+   "auteur": "Georges Biard",
+   "licence": "CC BY-SA 3.0",
+   "licence_url": "https://creativecommons.org/licenses/by-sa/3.0",
+   "source": "https://commons.wikimedia.org/wiki/File:Teddy_Riner_Cannes_2016.jpg",
+   "date": "2016-05-21"
+  },
   "roussel": {
    "fichier": "photos/roussel.webp",
    "auteur": "Zouhair NAKARA",
@@ -210,5 +218,5 @@
    "date": "2022-04-25"
   }
  },
- "mis_a_jour_le": "2026-10-17"
+ "mis_a_jour_le": "2026-11-16"
 }
